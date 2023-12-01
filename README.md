@@ -134,3 +134,7 @@ If you really want to stand out, here are some suggestions
 - power some sort of business logic frontend based on the analytical results
 - post your dataset on Kaggle as a Kaggle data set! Maybe you can earn some medals and recongitiont here
 - scrape your own dataset
+
+## Top Submissions
+
+The **top 3** submissions (this will be determined based on how heavily the standout criteria are developed and group size) will be featured on the Dataengineer.io blog!
