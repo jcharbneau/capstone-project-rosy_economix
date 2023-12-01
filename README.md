@@ -6,6 +6,8 @@ The purpose of the capstone project is to give students a chance to apply what t
 
 In this project, we will give you some ideas for problems to solve and data sets to use, but it is **heavily** encouraged for students to try and find their own data sets (perhaps create their own datasets), or come up with their own analysis. We would like to push students to not use datasets that are already well-understood, and have many articles/public projects written about them (looking at you, iris/titanic/yellow cab taxi datasets).
 
+You may work in groups of **up to** 3.
+
 ## Steps
 
 To help structure the projects, students are encouraged to think of solving a series of steps:
@@ -43,18 +45,34 @@ To help structure the projects, students are encouraged to think of solving a se
 
 What we want to end up with is a well-written, Medium article-like, `README.md` on a Git repo that you can proudly pin under your GitHub profile.
 
+Below, we've shared a few examples of websites with static data sets (i.e. Kaggle).
+The meat/bulk of your project/pipeline has to be an ETL pipeline that's integrated against a live API or data feed. You may use the static data sets as dimensions for enrichment, but your project should be centered around a live data feed.
+
+There has to be a recurring pipeline job that fires off to run your transformations and validations.
+
+### Project Spec
+
+The project spec is a more terse description of all the schemas and technical information used in your project.
+Include:
+
+- schemas
+- screenshots (as described in `Steps` section)
+- diagrams (for your DAG, and of the data model)
+- metrics
+- data quality checks
+
+The write is a more verbose, expository high level description of your project.
+
 ### Write Up
 
 In the project write up (the `README.md` for defining the scope), you should include:
 
 - an explanation of the expected outputs of the project
 - a human-readable description of the queries you're trying to run, and how their results will be used
+- justify why you chose the data sets you chose
 - why did you choose the technologies you chose
 - why did you choose the data model you chose (were there any gotchas or learning moments?)
 - an explanation of the steps you followed according to the above `Steps` section
-- diagrams of the DAG in your ETL process
-- diagrams of the data model
-- the screenshots as described in the `Steps` section
 - discuss some alternatives considered, and why you ultimately went the way you went
 - discuss some ways to expand your buildout or analysis:
   - what if the batch size of the data was increased by 100x
@@ -80,8 +98,15 @@ You should post this write up, in a public GitHub repo under your GitHub account
 
 In addition, please consider actually posting your writeup and Git repo to a medium article!! Often, you'll make connections, find new opportunities, or learn new things just from posting something. The best time to post an imperfect project will always be today.
 
-## Example Data Sources
+## Example Dynamic Data Sets
 
+- Consider RSS feeds (see [this article](https://medium.com/cloudera-inc/consuming-rss-feeds-from-flink-sql-eaf33c1a5a23) for examples on connecting Flink to an RSS feed)
+- [Awesome Public Real Time Datasets GitHub Repo](https://github.com/bytewax/awesome-public-real-time-datasets)
+
+## Example Static Data Sources
+
+- [Awesome Public Data GitHub Repo](https://github.com/awesomedata/awesome-public-datasets)
+- [Live Stock Market Data](https://polygon.io/)
 - [Google Dataset Search](https://datasetsearch.research.google.com/)
 - [Kaggle Datasets](https://www.kaggle.com/datasets)
 - [GitHub: Awesome Public Datasets](https://github.com/awesomedata/awesome-public-datasets)
@@ -98,7 +123,8 @@ In addition, please consider actually posting your writeup and Git repo to a med
 
 If you really want to stand out, here are some suggestions
 
-- use truly large data (multiple-many GB; just don't run up a huge cloud bill!!)
+- use truly large data (multiple/many GB; just don't run up a huge cloud bill!!)
+- use a streaming/real time data set/use case
 - spend a good amount of time on your data model and DAG diagram so that it doesn't just become a bell and whistle readers pass over
   - make sure its accurate and complete (not outdated)
   - make sure they're easy to read and understand
@@ -107,3 +133,4 @@ If you really want to stand out, here are some suggestions
 - make your frontend interactive
 - power some sort of business logic frontend based on the analytical results
 - post your dataset on Kaggle as a Kaggle data set! Maybe you can earn some medals and recongitiont here
+- scrape your own dataset
