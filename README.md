@@ -1,116 +1,85 @@
-# 📊 Economic Indicators Analysis Tool
+# Project Proposal: Integrated Economic and Financial Data Analysis System
 
-## Table of Contents
-- [📖 Introduction](#introduction)
-- [📋 Project Proposal](#project-proposal)
-  - [📈 Objectives](#objectives)
-  - [📊 Data Sources](#data-sources)
-  - [🛠️ Technologies Used](#technologies-used)
-  - [🔍 Use Cases](#use-cases)
-- [🚀 Implementation Steps](#implementation-steps)
-  - [1. Problem Identification](#1-problem-identification)
-  - [2. Data Collection](#2-data-collection)
-  - [3. Data Exploration and Assessment](#3-data-exploration-and-assessment)
-  - [4. Data Modeling](#4-data-modeling)
-  - [5. ETL Pipeline Development](#5-etl-pipeline-development)
-  - [6. Data Quality Checks](#6-data-quality-checks)
-  - [7. Analysis and Visualization](#7-analysis-and-visualization)
-- [📊 Project Rubric](#project-rubric)
-- [📤 Submission Instructions](#submission-instructions)
-- [🌟 Additional Features](#additional-features)
+## Project Overview
 
-## 📖 Introduction
+**Project Name:** Economic and Financial Data Analysis System
 
-The goal of this project is to create a tool that assesses the validity of financial reports by analyzing economic indicator data. The tool will help determine if a "rosy picture" presented by financial bodies is accurate or misleading. This project will focus on three verticals: MacroEconomic Indicators (GDP, Employment, CPI), Financial Markets (Total Market Cap, Interest Rates, Exchange Rates), and Housing and Real Estate (Home Prices, Starts and Permits, Mortgage Rates). The data will be retrieved from Alpha Vantage and other sources.
+**Objective:** To develop an integrated system that retrieves, stores, and analyzes economic and financial data from multiple sources to identify and correlate cause-and-effect relationships between various economic indicators and financial market trends. The system will also overlay significant government interventions, such as changes in interest rates, tax breaks, and currency policies, to provide a comprehensive view of market dynamics.
 
-## 📋 Project Proposal
+**Key Features:**
+1. **Data Retrieval:** Automate the retrieval of historical and daily economic data from the Federal Reserve Economic Data (FRED) and financial data from Alpha Vantage.
+2. **Data Storage:** Store the retrieved data in Trino tables backed by S3 Iceberg tables for efficient and scalable storage.
+3. **Data Analysis:** Perform advanced data analysis to uncover insights and correlations using statistical methods.
+4. **Overlay Government Interventions:** Integrate significant government events and policies to overlay them on economic and financial data visualizations.
+5. **Credit Card Volume and Delinquency Analysis:** Incorporate strategies to analyze credit card volume and delinquency using data from FRED or Alpha Vantage.
+6. **Future Integration:** Incorporate Apache Spark, Flink, and Kafka for real-time data processing, streaming, and enhanced analytical capabilities.
 
-### 📈 Objectives
-1. **Data Collection**: Retrieve and store economic indicator data from Alpha Vantage and other relevant sources.
-2. **Data Analysis**: Analyze the collected data to identify trends and correlations.
-3. **Validation Tool**: Develop a tool that assesses the accuracy of financial reports by comparing reported data against historical trends and other indicators.
-4. **Visualization**: Create visualizations to aid in understanding and presenting the analysis results.
+## Background and Motivation
 
-### 📊 Data Sources
-- **Alpha Vantage**: For MacroEconomic Indicators, Financial Markets data, and Housing and Real Estate data.
-- **Federal Reserve Economic Data (FRED)**: For supplementary economic indicators.
-- **Other APIs**: As needed to enrich the dataset.
+Understanding the interplay between economic indicators and financial markets is crucial for making informed decisions in finance, economics, and policy-making. Traditional methods of data analysis often lack the ability to dynamically update and process large volumes of data in real-time. Additionally, government interventions can significantly impact market dynamics. This project aims to bridge these gaps by leveraging modern data processing technologies to create a robust, scalable, and real-time capable system.
 
-### 🛠️ Technologies Used
-- **Python 3.12**: For data collection, processing, and analysis.
-- **Pandas**: For data manipulation and analysis.
-- **Alpha Vantage API**: For data retrieval.
-- **Jupyter Notebook**: For development and testing.
-- **Matplotlib/Seaborn**: For data visualization.
-- **SQL**: For data storage and retrieval.
-- **Airflow**: For orchestrating the ETL pipelines.
-- **dbt (Data Build Tool)**: For data transformations.
-- **Docker**: For containerizing the application and dependencies.
+## Project Components
 
-### 🔍 Use Cases
-1. **Report Validation**: Assess the accuracy of financial reports by comparing reported data against historical trends and other indicators.
-2. **Trend Analysis**: Identify trends in economic indicators and correlate them with financial market data.
-3. **Decision Support**: Provide insights to support financial decision-making based on data analysis.
+1. **Data Retrieval**
+    - **FRED API:** Fetch historical and daily updates for macroeconomic indicators such as GDP, inflation rates, employment rates, etc.
+    - **Alpha Vantage API:** Retrieve historical and daily updates for financial market data such as stock prices (e.g., S&P 500), interest rates, and exchange rates.
+    - **Credit Card Data:** Retrieve data on credit card volume and delinquency rates from FRED or Alpha Vantage.
 
-## 🚀 Implementation Steps
+2. **Data Storage**
+    - **Trino and S3 Iceberg Tables:** Utilize Trino for querying large datasets and S3 Iceberg tables for efficient, scalable storage.
+    - **Apache Airflow:** Automate the data retrieval and storage processes using Airflow DAGs to ensure data is updated daily.
 
-### 1. Problem Identification
-Identify the key problem to be solved: validating the accuracy of financial reports by analyzing economic indicator data.
+3. **Data Analysis**
+    - **Correlation Analysis:** Use statistical methods to identify relationships between economic indicators and financial market performance.
+    - **Visualization:** Create visualizations to depict these relationships and make insights easily understandable.
+    - **Overlay Government Interventions:** Integrate data on government policies and significant events, such as interest rate changes, tax breaks, and currency policies, and overlay them on visualizations to provide context to the data.
+    - **Credit Card Analysis:** Analyze credit card volume and delinquency trends and correlate them with other economic indicators.
 
-### 2. Data Collection
-- Use the Alpha Vantage API to collect data on MacroEconomic Indicators, Financial Markets, and Housing and Real Estate.
-- Collect additional data from FRED and other sources to enrich the dataset.
-- Store the data in a structured format (e.g., CSV, JSON, SQL database).
+4. **Future Integration and Enhancements**
+    - **Apache Spark:** Incorporate Spark for large-scale data processing and advanced analytics.
+    - **Apache Flink:** Utilize Flink for real-time data streaming and processing, enabling near real-time analytics and insights.
+    - **Apache Kafka:** Integrate Kafka for reliable and scalable data streaming, ensuring seamless data flow between various components of the system.
 
-### 3. Data Exploration and Assessment
-- Perform Exploratory Data Analysis (EDA) to understand the data structure, identify missing values, and assess data quality.
-- Document the data cleaning and preprocessing steps required.
+## Implementation Plan
 
-### 4. Data Modeling
-- Create a data model to define how the data will be stored and accessed.
-- Use diagramming software to visualize the data model.
+1. **Phase 1: Initial Setup and Data Retrieval**
+    - Set up Apache Airflow and configure DAGs for data retrieval from FRED and Alpha Vantage.
+    - Establish Trino and S3 Iceberg table infrastructure for data storage.
+    - Develop and test Python scripts for fetching and storing data.
 
-### 5. ETL Pipeline Development
-- Develop ETL pipelines using **Airflow** for orchestration and **dbt** for data transformations.
-- Use **Python 3.12** and relevant libraries to build the pipelines.
-- Containerize the ETL process using Docker to ensure consistent environments and easy deployment.
+2. **Phase 2: Data Analysis and Visualization**
+    - Implement preprocessing and alignment of data from different sources.
+    - Perform correlation analysis to identify significant relationships.
+    - Create visualizations to represent the findings.
+    - Integrate and overlay government interventions on the visualizations.
+    - Implement strategies to analyze credit card volume and delinquency data.
 
-### 6. Data Quality Checks
-- Implement data quality checks to ensure the accuracy and reliability of the data.
-- Include checks for referential integrity, data consistency, and completeness.
+3. **Phase 3: Future Integration with Spark, Flink, and Kafka**
+    - Set up Apache Spark for batch processing and advanced analytics.
+    - Integrate Apache Flink for real-time data processing and analytics.
+    - Utilize Apache Kafka for reliable data streaming between components.
 
-### 7. Analysis and Visualization
-- Develop analytical methods to validate financial reports against historical trends and other indicators.
-- Create visualizations to present the analysis results clearly and effectively.
+4. **Phase 4: Testing and Deployment**
+    - Conduct thorough testing of all components and ensure seamless integration.
+    - Deploy the system in a production environment.
+    - Monitor and maintain the system, ensuring it runs smoothly and efficiently.
 
-## 📊 Project Rubric
+## Potential Use Cases
 
-### Criteria 1: Project Spec
-- Detailed description of schemas, technical information, and metrics.
-- Include screenshots of ETL runs, data quality checks, and visualizations.
+1. **Real-Time Economic Monitoring:** Continuously monitor and analyze the economic indicators and financial markets to provide real-time insights for economists, policymakers, and financial analysts.
+2. **Predictive Analytics:** Use historical data to develop predictive models that forecast future economic and financial trends.
+3. **Risk Management:** Help financial institutions and businesses manage risk by understanding the impact of economic changes on financial markets.
+4. **Investment Strategies:** Inform investment strategies by identifying correlations between macroeconomic indicators and market performance.
+5. **Policy Impact Analysis:** Evaluate the impact of government interventions on the economy and financial markets, providing valuable insights for policy-making.
+6. **Credit Card Risk Analysis:** Assess credit card volume and delinquency trends to inform risk management strategies for financial institutions.
 
-### Criteria 2: Write Up
-- Explanation of project outputs, queries, data sets, technologies, and data models.
-- Discuss project scope, steps followed, and alternatives considered.
+## Conclusion
 
-### Criteria 3: Data Quality Checks
-- Include at least 2 data quality checks per data source.
+The Economic and Financial Data Analysis System will provide a powerful tool for understanding and analyzing the complex relationships between economic indicators and financial markets. By leveraging modern data processing technologies such as Apache Spark, Flink, and Kafka, and integrating government intervention data and credit card analysis, the system will be capable of real-time data processing and advanced analytics, offering valuable insights for a wide range of stakeholders.
 
-### Criteria 4: ETL Code
-- Ensure modular, unit tested, and PEP8-compliant code.
+**Next Steps:**
+- Finalize the project plan and gather the necessary resources.
+- Initiate Phase 1 with the setup of Airflow, Trino, and S3 Iceberg tables.
+- Develop and test the initial data retrieval and storage scripts.
 
-### Criteria 5: Project Scoping
-- Address a real, non-trivial use case with end-to-end design and code.
-
-## 📤 Submission Instructions
-1. **Visit the Assignments Page**: Navigate to [dataexpert.io/assignments](https://dataexpert.io/assignments) and use the GitHub Classroom link for submission.
-2. **Select Your Team Members**: Use the link to create a repository with your team members.
-3. **Repository Permissions**: Ensure proper permissions for TA access and evaluation.
-
-## 🌟 Additional Features
-- Use large datasets and multiple data sources.
-- Create interactive visualizations and dashboards.
-- Post the dataset on Kaggle for wider recognition.
-
-### Publishing
-- Consider publishing the write-up and Git repo as a Medium article to gain visibility and feedback.
+We look forward to embarking on this project and unlocking new insights into the economic and financial landscape.
