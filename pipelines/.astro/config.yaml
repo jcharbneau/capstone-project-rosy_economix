@@ -1,0 +1,8 @@
+project:
+    name: capstone-airflow-dbt
+skip_parse: false
+verbosity: debug
+webserver:
+    port: "8181"
+postgres:
+    port: "5631"
