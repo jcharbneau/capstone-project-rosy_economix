@@ -55,8 +55,7 @@ File: FYFSD.csv -> Dataset Name: Federal Surplus or Deficit [-]
 File: RSXFS.csv -> Dataset Name: Advance Retail Sales: Retail Trade
 File: GDP.csv -> Dataset Name: Gross Domestic Product
 File: TOTALSL.csv -> Dataset Name: Total Consumer Credit Owned and Securitized
-jess@jess-mac-dev ~/Documents/development/learning/dataengineer.io/bootcamp4/rosy_economics_capstone/project_notes/sample_datasets => 
-
+jess@jess-mac-dev ~/Documents/development/learning/dataengineer.io/bootcamp4/rosy_economics_capstone/project_notes/sample_datasets =>
 </code>
 </pre>
 
