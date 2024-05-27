@@ -78,7 +78,7 @@ Understanding the interplay between economic indicators and financial markets is
 
 ## POC Idea Development
 
-Do isolate behavior, we first identified some areas of interest for this project using a conceptual data modeling exercise as discussed in the coursework.
+To isolate behavior, we first identified some areas of interest for this project using a conceptual data modeling exercise as discussed in the coursework.
 
 **Conceptual Data Model**
 
