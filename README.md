@@ -5,6 +5,11 @@
 
 **Project Name:** Economic and Financial Data Analysis System
 
+**Team**
+- Jesse (Jess) Charbneau - https://www.linkedin.com/in/jcharbneau
+- Aleem Rahil - https://www.linkedin.com/in/aleemrahil/
+- Anjana Shivangi - https://www.linkedin.com/in/anjana-shivangi
+
 **Objective:** To develop an integrated system that retrieves, stores, and analyzes economic and financial data from multiple sources to identify and correlate cause-and-effect relationships between various economic indicators and financial market trends. The system will also overlay significant government interventions, such as changes in interest rates, tax breaks, and currency policies, to provide a comprehensive view of market dynamics.
 
 **Key Features:**
