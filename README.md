@@ -76,6 +76,17 @@ Understanding the interplay between economic indicators and financial markets is
 5. **Policy Impact Analysis:** Evaluate the impact of government interventions on the economy and financial markets, providing valuable insights for policy-making.
 6. **Credit Card Risk Analysis:** Assess credit card volume and delinquency trends to inform risk management strategies for financial institutions.
 
+## POC Idea Development
+
+Do isolate behavior, we first identified some areas of interest for this project using a conceptual data modeling exercise as discussed in the coursework.
+**Conceptual Data Model**
+![POC Conceptual Data Model](project_notes/screenshots/poc_conceptual_data_model.png)
+
+**POC React+ChartJS with FastAPI+Matplotlib**
+
+![POC Screenshot 1](project_notes/screenshots/poc_screenshot1.png)
+![POC Screenshot 2](project_notes/screenshots/poc_screenshot2.png)
+
 ## Conclusion
 
 The Economic and Financial Data Analysis System will provide a powerful tool for understanding and analyzing the complex relationships between economic indicators and financial markets. By leveraging modern data processing technologies such as Apache Spark, Flink, and Kafka, and integrating government intervention data and credit card analysis, the system will be capable of real-time data processing and advanced analytics, offering valuable insights for a wide range of stakeholders.
