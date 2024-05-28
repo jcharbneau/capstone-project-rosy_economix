@@ -14,7 +14,7 @@
 
 **Key Features:**
 1. **Data Retrieval:** Automate the retrieval of historical and daily economic data from the Federal Reserve Economic Data (FRED) and financial data from Alpha Vantage.
-2. **Data Storage:** Store the retrieved data in Trino tables backed by S3 Iceberg tables for efficient and scalable storage.
+2. **Data Storage:** Store the retrieved data in PostgreSQL.
 3. **Data Analysis:** Perform advanced data analysis to uncover insights and correlations using statistical methods.
 4. **Overlay Government Interventions:** Integrate significant government events and policies to overlay them on economic and financial data visualizations.
 5. **Credit Card Volume and Delinquency Analysis:** Incorporate strategies to analyze credit card volume and delinquency using data from FRED or Alpha Vantage.
@@ -292,11 +292,9 @@ We look forward to embarking on this project and unlocking new insights into the
 The Economic and Financial Data Analysis System will provide a powerful tool for understanding and analyzing the complex relationships between economic indicators and financial markets. By leveraging modern data processing technologies such as Apache Spark, Flink, and Kafka, and integrating government intervention data and credit card analysis, the system will be capable of real-time data processing and advanced analytics, offering valuable insights for a wide range of stakeholders.
 
 **Next Steps:**
-- Finalize the project plan and gather the necessary resources.
-- Initiate Phase 1 with the setup of Airflow, Trino, and S3 Iceberg tables.
+- Finalize the project plan and identify datasets and begin finalizing the data model.
+- Complete the build out of the target Compose environment
 - Develop and test the initial data retrieval and storage scripts.
 
 We look forward to embarking on this project and unlocking new insights into the economic and financial landscape.
-
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/1lXY_Wlg)
 
