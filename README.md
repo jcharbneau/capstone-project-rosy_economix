@@ -66,145 +66,144 @@ The file is 30+mb gzipped, so we have opted to provide a facility to download it
 
 <pre><code>
 jess@jess-mac-dev ~/Documents/development/learning/dataengineer.io/bootcamp4/rosy_economics_capstone/project_notes/sample_datasets => python lookup_stock_company.py 
-Stock Ticker | Company Name
---------------------------------------------------
-AAPL         | Apple Inc.
-MSFT         | Microsoft Corporation
-IBM          | International Business Machines Corporation
-GE           | General Electric Company
-KO           | The Coca-Cola Company
-JNJ          | Johnson & Johnson
-XOM          | Exxon Mobil Corporation
-PG           | The Procter & Gamble Company
-MCD          | McDonald's Corporation
-WMT          | Walmart Inc.
-T            | AT&T Inc.
-MRK          | Merck & Co., Inc.
-PFE          | Pfizer Inc.
-CVX          | Chevron Corporation
-BA           | The Boeing Company
-PEP          | PepsiCo, Inc.
-VZ           | Verizon Communications Inc.
-V            | Visa Inc.
-CSCO         | Cisco Systems, Inc.
-INTC         | Intel Corporation
-WBA          | Walgreens Boots Alliance, Inc.
-NKE          | NIKE, Inc.
-DIS          | The Walt Disney Company
-MMM          | 3M Company
-HON          | Honeywell International Inc.
-AMGN         | Amgen Inc.
-CAT          | Caterpillar Inc.
-RTX          | RTX Corporation
-GS           | The Goldman Sachs Group, Inc.
-AXP          | American Express Company
-LMT          | Lockheed Martin Corporation
-MO           | Altria Group, Inc.
-CMCSA        | Comcast Corporation
-DHR          | Danaher Corporation
-ORCL         | Oracle Corporation
-MDT          | Medtronic plc
-GILD         | Gilead Sciences, Inc.
-BMY          | Bristol-Myers Squibb Company
-COST         | Costco Wholesale Corporation
-TGT          | Target Corporation
-LOW          | Lowe's Companies, Inc.
-HD           | The Home Depot, Inc.
-SBUX         | Starbucks Corporation
-FDX          | FedEx Corporation
-UPS          | United Parcel Service, Inc.
-GM           | General Motors Company
-F            | Ford Motor Company
-TSLA         | Tesla, Inc.
-NFLX         | Netflix, Inc.
-NVDA         | NVIDIA Corporation
-ADBE         | Adobe Inc.
-QCOM         | QUALCOMM Incorporated
-AVGO         | Broadcom Inc.
-TXN          | Texas Instruments Incorporated
-AMD          | Advanced Micro Devices, Inc.
-INTU         | Intuit Inc.
-AMAT         | Applied Materials, Inc.
-MU           | Micron Technology, Inc.
-LRCX         | Lam Research Corporation
-KLAC         | KLA Corporation
-HPQ          | HP Inc.
-DELL         | Dell Technologies Inc.
-CSX          | CSX Corporation
-UNP          | Union Pacific Corporation
-NSC          | Norfolk Southern Corporation
-KSU          | N/A
-UAL          | United Airlines Holdings, Inc.
-DAL          | Delta Air Lines, Inc.
-AAL          | American Airlines Group Inc.
-LUV          | Southwest Airlines Co.
-JBLU         | JetBlue Airways Corporation
-SWA          | N/A
-XEL          | Xcel Energy Inc.
-NEE          | NextEra Energy, Inc.
-DUK          | Duke Energy Corporation
-SO           | The Southern Company
-AEP          | American Electric Power Company, Inc.
-D            | Dominion Energy, Inc.
-EXC          | Exelon Corporation
-PEG          | Public Service Enterprise Group Incorporated
-PCG          | PG&E Corporation
-EIX          | Edison International
-PPL          | PPL Corporation
-FE           | FirstEnergy Corp.
-ED           | Consolidated Edison, Inc.
-NRG          | NRG Energy, Inc.
-AES          | The AES Corporation
-CMS          | CMS Energy Corporation
-DTE          | DTE Energy Company
-ETR          | Entergy Corporation
-AEE          | Ameren Corporation
-WEC          | WEC Energy Group, Inc.
-ES           | Eversource Energy
-ATO          | Atmos Energy Corporation
-NI           | NiSource Inc.
-CNP          | CenterPoint Energy, Inc.
-PNW          | Pinnacle West Capital Corporation
-OGE          | OGE Energy Corp.
-IDA          | IDACORP, Inc.
-ALB          | Albemarle Corporation
-PXD          | Pioneer Natural Resources Company
-EOG          | EOG Resources, Inc.
-HAL          | Halliburton Company
-SLB          | Schlumberger Limited
-BKR          | Baker Hughes Company
-DVN          | Devon Energy Corporation
-COP          | ConocoPhillips
-XEC          | N/A
-OXY          | Occidental Petroleum Corporation
-APA          | APA Corporation
-FANG         | Diamondback Energy, Inc.
-HES          | Hess Corporation
-MRO          | Marathon Oil Corporation
-CLR          | N/A
-CXO          | N/A
-MTDR         | Matador Resources Company
-PSX          | Phillips 66
-VLO          | Valero Energy Corporation
-MPC          | Marathon Petroleum Corporation
-HFC          | N/A
-DK           | Delek US Holdings, Inc.
-BP           | BP p.l.c.
-RDS.A        | N/A
-RDS.B        | N/A
-TOT          | N/A
-E            | Eni S.p.A.
-ENB          | Enbridge Inc.
-TRP          | TC Energy Corporation
-KMI          | Kinder Morgan, Inc.
-WMB          | The Williams Companies, Inc.
-OKE          | ONEOK, Inc.
-EPD          | Enterprise Products Partners L.P.
-ET           | Energy Transfer LP
-MPLX         | MPLX LP
-PAA          | Plains All American Pipeline, L.P.
+Stock Ticker | Company Name                           | Industry
+--------------------------------------------------------------------------------
+AAPL         | Apple Inc.                               | Consumer Electronics
+MSFT         | Microsoft Corporation                    | Software - Infrastructure
+IBM          | International Business Machines Corporation | Information Technology Services
+GE           | General Electric Company                 | Aerospace & Defense
+KO           | The Coca-Cola Company                    | Beverages - Non-Alcoholic
+JNJ          | Johnson & Johnson                        | Drug Manufacturers - General
+XOM          | Exxon Mobil Corporation                  | Oil & Gas Integrated
+PG           | The Procter & Gamble Company             | Household & Personal Products
+MCD          | McDonald's Corporation                   | Restaurants
+WMT          | Walmart Inc.                             | Discount Stores
+T            | AT&T Inc.                                | Telecom Services
+MRK          | Merck & Co., Inc.                        | Drug Manufacturers - General
+PFE          | Pfizer Inc.                              | Drug Manufacturers - General
+CVX          | Chevron Corporation                      | Oil & Gas Integrated
+BA           | The Boeing Company                       | Aerospace & Defense
+PEP          | PepsiCo, Inc.                            | Beverages - Non-Alcoholic
+VZ           | Verizon Communications Inc.              | Telecom Services
+V            | Visa Inc.                                | Credit Services
+CSCO         | Cisco Systems, Inc.                      | Communication Equipment
+INTC         | Intel Corporation                        | Semiconductors
+WBA          | Walgreens Boots Alliance, Inc.           | Pharmaceutical Retailers
+NKE          | NIKE, Inc.                               | Footwear & Accessories
+DIS          | The Walt Disney Company                  | Entertainment
+MMM          | 3M Company                               | Conglomerates
+HON          | Honeywell International Inc.             | Conglomerates
+AMGN         | Amgen Inc.                               | Drug Manufacturers - General
+CAT          | Caterpillar Inc.                         | Farm & Heavy Construction Machinery
+RTX          | RTX Corporation                          | Aerospace & Defense
+GS           | The Goldman Sachs Group, Inc.            | Capital Markets
+AXP          | American Express Company                 | Credit Services
+LMT          | Lockheed Martin Corporation              | Aerospace & Defense
+MO           | Altria Group, Inc.                       | Tobacco
+CMCSA        | Comcast Corporation                      | Telecom Services
+DHR          | Danaher Corporation                      | Diagnostics & Research
+ORCL         | Oracle Corporation                       | Software - Infrastructure
+MDT          | Medtronic plc                            | Medical Devices
+GILD         | Gilead Sciences, Inc.                    | Drug Manufacturers - General
+BMY          | Bristol-Myers Squibb Company             | Drug Manufacturers - General
+COST         | Costco Wholesale Corporation             | Discount Stores
+TGT          | Target Corporation                       | Discount Stores
+LOW          | Lowe's Companies, Inc.                   | Home Improvement Retail
+HD           | The Home Depot, Inc.                     | Home Improvement Retail
+SBUX         | Starbucks Corporation                    | Restaurants
+FDX          | FedEx Corporation                        | Integrated Freight & Logistics
+UPS          | United Parcel Service, Inc.              | Integrated Freight & Logistics
+GM           | General Motors Company                   | Auto Manufacturers
+F            | Ford Motor Company                       | Auto Manufacturers
+TSLA         | Tesla, Inc.                              | Auto Manufacturers
+NFLX         | Netflix, Inc.                            | Entertainment
+NVDA         | NVIDIA Corporation                       | Semiconductors
+ADBE         | Adobe Inc.                               | Software - Infrastructure
+QCOM         | QUALCOMM Incorporated                    | Semiconductors
+AVGO         | Broadcom Inc.                            | Semiconductors
+TXN          | Texas Instruments Incorporated           | Semiconductors
+AMD          | Advanced Micro Devices, Inc.             | Semiconductors
+INTU         | Intuit Inc.                              | Software - Application
+AMAT         | Applied Materials, Inc.                  | Semiconductor Equipment & Materials
+MU           | Micron Technology, Inc.                  | Semiconductors
+LRCX         | Lam Research Corporation                 | Semiconductor Equipment & Materials
+KLAC         | KLA Corporation                          | Semiconductor Equipment & Materials
+HPQ          | HP Inc.                                  | Computer Hardware
+DELL         | Dell Technologies Inc.                   | Computer Hardware
+CSX          | CSX Corporation                          | Railroads
+UNP          | Union Pacific Corporation                | Railroads
+NSC          | Norfolk Southern Corporation             | Railroads
+KSU          | N/A                                      | N/A
+UAL          | United Airlines Holdings, Inc.           | Airlines
+DAL          | Delta Air Lines, Inc.                    | Airlines
+AAL          | American Airlines Group Inc.             | Airlines
+LUV          | Southwest Airlines Co.                   | Airlines
+JBLU         | JetBlue Airways Corporation              | Airlines
+SWA          | N/A                                      | N/A
+XEL          | Xcel Energy Inc.                         | Utilities - Regulated Electric
+NEE          | NextEra Energy, Inc.                     | Utilities - Regulated Electric
+DUK          | Duke Energy Corporation                  | Utilities - Regulated Electric
+SO           | The Southern Company                     | Utilities - Regulated Electric
+AEP          | American Electric Power Company, Inc.    | Utilities - Regulated Electric
+D            | Dominion Energy, Inc.                    | Utilities - Regulated Electric
+EXC          | Exelon Corporation                       | Utilities - Regulated Electric
+PEG          | Public Service Enterprise Group Incorporated | Utilities - Regulated Electric
+PCG          | PG&E Corporation                         | Utilities - Regulated Electric
+EIX          | Edison International                     | Utilities - Regulated Electric
+PPL          | PPL Corporation                          | Utilities - Regulated Electric
+FE           | FirstEnergy Corp.                        | Utilities - Regulated Electric
+ED           | Consolidated Edison, Inc.                | Utilities - Regulated Electric
+NRG          | NRG Energy, Inc.                         | Utilities - Independent Power Producers
+AES          | The AES Corporation                      | Utilities - Diversified
+CMS          | CMS Energy Corporation                   | Utilities - Regulated Electric
+DTE          | DTE Energy Company                       | Utilities - Regulated Electric
+ETR          | Entergy Corporation                      | Utilities - Regulated Electric
+AEE          | Ameren Corporation                       | Utilities - Regulated Electric
+WEC          | WEC Energy Group, Inc.                   | Utilities - Regulated Electric
+ES           | Eversource Energy                        | Utilities - Regulated Electric
+ATO          | Atmos Energy Corporation                 | Utilities - Regulated Gas
+NI           | NiSource Inc.                            | Utilities - Regulated Gas
+CNP          | CenterPoint Energy, Inc.                 | Utilities - Regulated Electric
+PNW          | Pinnacle West Capital Corporation        | Utilities - Regulated Electric
+OGE          | OGE Energy Corp.                         | Utilities - Regulated Electric
+IDA          | IDACORP, Inc.                            | Utilities - Regulated Electric
+ALB          | Albemarle Corporation                    | Specialty Chemicals
+PXD          | Pioneer Natural Resources Company        | Oil & Gas E&P
+EOG          | EOG Resources, Inc.                      | Oil & Gas E&P
+HAL          | Halliburton Company                      | Oil & Gas Equipment & Services
+SLB          | Schlumberger Limited                     | Oil & Gas Equipment & Services
+BKR          | Baker Hughes Company                     | Oil & Gas Equipment & Services
+DVN          | Devon Energy Corporation                 | Oil & Gas E&P
+COP          | ConocoPhillips                           | Oil & Gas E&P
+XEC          | N/A                                      | N/A
+OXY          | Occidental Petroleum Corporation         | Oil & Gas E&P
+APA          | APA Corporation                          | Oil & Gas E&P
+FANG         | Diamondback Energy, Inc.                 | Oil & Gas E&P
+HES          | Hess Corporation                         | Oil & Gas E&P
+MRO          | Marathon Oil Corporation                 | Oil & Gas E&P
+CLR          | N/A                                      | N/A
+CXO          | N/A                                      | N/A
+MTDR         | Matador Resources Company                | Oil & Gas E&P
+PSX          | Phillips 66                              | Oil & Gas Refining & Marketing
+VLO          | Valero Energy Corporation                | Oil & Gas Refining & Marketing
+MPC          | Marathon Petroleum Corporation           | Oil & Gas Refining & Marketing
+HFC          | N/A                                      | N/A
+DK           | Delek US Holdings, Inc.                  | Oil & Gas Refining & Marketing
+BP           | BP p.l.c.                                | Oil & Gas Integrated
+RDS.A        | N/A                                      | N/A
+RDS.B        | N/A                                      | N/A
+TOT          | N/A                                      | N/A
+E            | Eni S.p.A.                               | Oil & Gas Integrated
+ENB          | Enbridge Inc.                            | Oil & Gas Midstream
+TRP          | TC Energy Corporation                    | Oil & Gas Midstream
+KMI          | Kinder Morgan, Inc.                      | Oil & Gas Midstream
+WMB          | The Williams Companies, Inc.             | Oil & Gas Midstream
+OKE          | ONEOK, Inc.                              | Oil & Gas Midstream
+EPD          | Enterprise Products Partners L.P.        | Oil & Gas Midstream
+ET           | Energy Transfer LP                       | Oil & Gas Midstream
+MPLX         | MPLX LP                                  | Oil & Gas Midstream
+PAA          | Plains All American Pipeline, L.P.       | Oil & Gas Midstream
 jess@jess-mac-dev ~/Documents/development/learning/dataengineer.io/bootcamp4/rosy_economics_capstone/project_notes/sample_datasets => 
-
 </code></pre>
 ## Project Components
 
