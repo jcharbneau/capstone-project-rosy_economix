@@ -14,43 +14,46 @@ tickers = [
     "DK", "BP", "RDS.A", "RDS.B", "TOT", "E", "ENB", "TRP", "KMI", "WMB", "OKE", "EPD", "ET", "MPLX", "PAA"
 ]
 
-def get_company_names(tickers):
+def get_company_info(tickers):
     """
-    Given a list of stock tickers, return a dictionary mapping tickers to company names.
+    Given a list of stock tickers, return a dictionary mapping tickers to company info including name and industry.
     """
-    company_names = {}
+    company_info = {}
     for ticker in tickers:
         stock = yf.Ticker(ticker)
-        company_info = stock.info
-        company_name = company_info.get('longName', 'N/A')
-        company_names[ticker] = company_name
-    return company_names
+        info = stock.info
+        name = info.get('longName', 'N/A')
+        industry = info.get('industry', 'N/A')
+        company_info[ticker] = {'name': name, 'industry': industry}
+    return company_info
 
-def format_company_names(company_names):
+def format_company_info(company_info):
     """
-    Format the company names similar to the FRED ID lookup output.
+    Format the company info similar to the FRED ID lookup output.
     """
-    formatted_lines = ["Stock Ticker | Company Name"]
-    formatted_lines.append("-" * 50)
-    for ticker, name in company_names.items():
-        formatted_lines.append(f"{ticker:<12} | {name}")
+    formatted_lines = ["Stock Ticker | Company Name                           | Industry"]
+    formatted_lines.append("-" * 80)
+    for ticker, info in company_info.items():
+        name = info['name']
+        industry = info['industry']
+        formatted_lines.append(f"{ticker:<12} | {name:<40} | {industry}")
     return "\n".join(formatted_lines)
 
-def save_company_names_to_file(formatted_data, filename='company_names.txt'):
+def save_company_info_to_file(formatted_data, filename='company_info.txt'):
     """
-    Save the formatted company names to a file.
+    Save the formatted company info to a file.
     """
     with open(filename, 'w') as f:
         f.write(formatted_data)
 
 def main():
     """
-    Main function to look up and print company names for a list of stock tickers.
+    Main function to look up and print company info for a list of stock tickers.
     """
-    company_names = get_company_names(tickers)
-    formatted_data = format_company_names(company_names)
+    company_info = get_company_info(tickers)
+    formatted_data = format_company_info(company_info)
     print(formatted_data)
-    # save_company_names_to_file(formatted_data)
+    # save_company_info_to_file(formatted_data)
 
 if __name__ == "__main__":
     main()
