@@ -25,7 +25,7 @@
 
 Understanding the interplay between economic indicators and financial markets is crucial for making informed decisions in finance, economics, and policy-making. Traditional methods of data analysis often lack the ability to dynamically update and process large volumes of data in real-time. Additionally, government interventions can significantly impact market dynamics. This project aims to bridge these gaps by leveraging modern data processing technologies to create a robust, scalable, and real-time capable system.
 
-As part of this effort, we anticipate making a decision about which datasets could be completed by end of capstone, the pipelines we intend to incorporate and what insights they can provide.
+As part of this effort, we anticipate making a decision about which datasets would be most useful by May 31st including identification of the pipelines we intend to incorporate and what insights they will provide in determining economic indicators and correlative impact.
 ### Explorative Datasets
 **Federal Reserve Datasets**
 <pre><code>
@@ -61,7 +61,7 @@ jess@jess-mac-dev ~/Documents/development/learning/dataengineer.io/bootcamp4/ros
 
 **Stock Data**
 
-In order to meet the objective of having at least one dataset that is over 1m rows, we are exploring options using Yahoo Finance to get the last 35 years of data on a large swath of companies, including those from the Technology, Energy, Retail and other industries.  Our test dataset is 1.3m rows, and includes the following stock ticket companies. 
+In order to meet the objective of having at least one dataset that is over 1m rows, we are exploring options using Yahoo Finance to get the last 35 years of data on a large swath of companies, including those from the Technology, Energy, Retail and other industries.  Our test dataset is 1.3m rows, and includes the following stock ticker -> companies. 
 The file is 30+mb gzipped, so we have opted to provide a facility to download it.  If unable to use this project, a downloaded copy has been placed at https://www.jessecharbneau.com/downloads/stock_data_last_35_years.csv.gz.  We are also considering options to identify which vertical or industry a company belongs to, in order to classify and then identify trends around the economic indicators and if there is correlative data to show which industries are more affected by interventions and/or large economic impacts.
 
 <pre><code>
@@ -210,12 +210,12 @@ jess@jess-mac-dev ~/Documents/development/learning/dataengineer.io/bootcamp4/ros
 
 1. **Data Retrieval**
     - **FRED API:** Fetch historical and daily updates for macroeconomic indicators such as GDP, inflation rates, employment rates, etc.
-    - **Alpha Vantage API:** Retrieve historical and daily updates for financial market data such as stock prices (e.g., S&P 500), interest rates, and exchange rates.
+    - **Yahoo Finance API:** Retrieve historical and daily updates for financial market data such as stock prices (e.g., S&P 500), interest rates, and exchange rates.
     - **Intraday Stock Prices:** Fetch minute-by-minute or hourly stock prices for major indices or stocks to ensure a large dataset.
     - **Credit Card Data:** Retrieve data on credit card volume and delinquency rates from FRED or Alpha Vantage.
 
 2. **Data Storage**
-    - **Trino and S3 Iceberg Tables:** Utilize Trino for querying large datasets and S3 Iceberg tables for efficient, scalable storage.
+    - **Postgres:** As this is not a huge amount of data, and in the interest of time; we have decided to use PostgreSQL + Docker.
     - **Apache Airflow:** Automate the data retrieval and storage processes using Airflow DAGs to ensure data is updated daily.
 
 3. **Data Analysis**
@@ -232,23 +232,24 @@ jess@jess-mac-dev ~/Documents/development/learning/dataengineer.io/bootcamp4/ros
 ## Implementation Plan
 
 1. **Phase 1: Initial Setup and Data Retrieval**
-    - Set up Apache Airflow and configure DAGs for data retrieval from FRED and Alpha Vantage.
-    - Establish Trino and S3 Iceberg table infrastructure for data storage.
-    - Develop and test Python scripts for fetching and storing data.
+    - ✅ Download Fred and Yahoo Finance datasets for Aleem and Anjana to begin review
+    - 🚧 Set up Apache Airflow, Postgres and Jupyter Docker containers (including compose)
+    - ⬜ Begin developing DAGs for data retrieval from FRED and Yahoo Finance
+      - Yahoo Datasets
+        - Daily
+        - Hourly: Note Yahoo Finance allows only the last 7 days for hour by hour data
+      - Download identified FRED datasets, on a daily basis
+      - Identify strategy to back-fill as much data as possible, going back at least 35 years
 
 2. **Phase 2: Data Analysis and Visualization**
-    - Implement preprocessing and alignment of data from different sources.
-    - Perform correlation analysis to identify significant relationships.
-    - Create visualizations to represent the findings.
-    - Integrate and overlay government interventions on the visualizations.
-    - Implement strategies to analyze credit card volume and delinquency data.
+    - ⬜ Implement preprocessing and alignment of data from different sources.
+    - ⬜ Perform correlation analysis to identify significant relationships.
+    - ⬜ Create visualizations to represent the findings.
+    - ⬜ Integrate and overlay government interventions on the visualizations.
+    - ⬜ Implement strategies to analyze credit card volume and delinquency data.
 
-3. **Phase 3: Future Integration with Spark, Flink, and Kafka**
-    - Set up Apache Spark for batch processing and advanced analytics.
-    - Integrate Apache Flink for real-time data processing and analytics.
-    - Utilize Apache Kafka for reliable data streaming between components.
 
-4. **Phase 4: Testing and Deployment**
+3. **Phase 3: Testing and Deployment**
     - Conduct thorough testing of all components and ensure seamless integration.
     - Deploy the system in a production environment.
     - Monitor and maintain the system, ensuring it runs smoothly and efficiently.
