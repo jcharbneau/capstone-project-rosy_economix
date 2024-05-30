@@ -1,8 +1,0 @@
-version: 2
-
-sources:
-  - name: week1
-    schema: bootcamp
-    description: week1 tables
-    tables:
-      - name: actor_films
