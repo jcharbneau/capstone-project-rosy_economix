@@ -1,13 +1,11 @@
-default:
+dbt_project:
   target: dev
   outputs:
     dev:
-      type: trino
-      method: ldap 
-      user: 'support@eczachly.com/student'
-      password: 'trin0-supp0rt!'
-      host: "dataengineer-eczachly.trino.galaxy.starburst.io"
-      database: "academy"
-      schema: "{{ env_var('DBT_SCHEMA')}}"
-      port: 8443
-      threads: 4
+      type: postgres
+      host: localhost
+      user: postgres
+      password: postgres
+      dbname: pipelines
+      schema: public
+      port: 5631
