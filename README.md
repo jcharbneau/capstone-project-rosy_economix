@@ -10,17 +10,42 @@
 - Aleem Rahil - https://www.linkedin.com/in/aleemrahil/
 - Anjana Shivangi - https://www.linkedin.com/in/anjana-shivangi
 
-**Objective:** To develop an integrated system that retrieves, stores, and analyzes economic and financial data from multiple sources to identify and correlate cause-and-effect relationships between various economic indicators and financial market trends. The system will also overlay significant government interventions, such as changes in interest rates, tax breaks, and currency policies, to provide a comprehensive view of market dynamics.
+### Objective
 
-**Key Features:**
-1. **Data Retrieval:** Automate the retrieval of historical and daily economic data from the Federal Reserve Economic Data (FRED) and financial data from Alpha Vantage.
-2. **Data Storage:** Store the retrieved data in PostgreSQL.
-3. **Data Analysis:** Perform advanced data analysis to uncover insights and correlations using statistical methods.
-4. **Overlay Government Interventions:** Integrate significant government events and policies to overlay them on economic and financial data visualizations.
-5. **Credit Card Volume and Delinquency Analysis:** Incorporate strategies to analyze credit card volume and delinquency using data from FRED or Alpha Vantage.
-6. **Large Dataset Integration:** Ensure at least one dataset has a large footprint (over a million rows) to meet final exam targets.
-7. **Future Integration:** Incorporate Apache Spark, Flink, and Kafka for real-time data processing, streaming, and enhanced analytical capabilities.
+To develop an integrated system that retrieves, stores, and analyzes economic and financial data from multiple sources, with the aim of identifying and correlating cause-and-effect relationships between various economic indicators and financial market trends. The system will also overlay significant government interventions, such as changes in interest rates, tax breaks, and currency policies, to provide a comprehensive view of market dynamics. The project will focus on analyzing the impact of federal policies on stock data, along with three main aspects: credit card volume and delinquency analysis, cumulative fact tables, and creating engaging metrics for everyday users/investors.
 
+### Key Features
+
+1. **Data Retrieval:**
+   - Automate the retrieval of historical and daily economic data from the Federal Reserve Economic Data (FRED).
+   - Retrieve financial data from sources like Yahoo Finance or Alpha Vantage.
+
+2. **Data Storage:**
+   - Store the retrieved data in PostgreSQL.
+   - Ensure efficient handling and storage of large datasets, with a particular focus on at least one dataset containing over a million rows.
+
+3. **Data Analysis:**
+   - Perform advanced data analysis to uncover insights and correlations using statistical methods.
+   - Develop cumulative fact tables from stock data and related datasets (stock ticker, company name, industry).
+
+4. **Overlay Government Interventions:**
+   - Integrate significant government events and policies to overlay them on economic and financial data visualizations.
+
+5. **Credit Card Volume and Delinquency Analysis:**
+   - Analyze credit card volume and delinquency trends using data from FRED or other reliable financial sources.
+
+6. **Engaging Metrics and Visualization:**
+   - Create interactive charts and graphs to visualize the impact of federal policies and other economic indicators on financial markets.
+   - Develop engaging metrics tailored for everyday users and investors.
+
+7. **Future Integration:**
+   - Plan for future integration of technologies like Apache Spark, Flink, and Kafka for real-time data processing, streaming, and enhanced analytical capabilities.
+   
+8. **ML Opportunities**
+   - Options to download quarterly, annual, proxy or 8-k statements; derive insights and compare to market trends or federal policy
+   - Comparative analysis between company provided reports and public information and whether there is correlating evidence to company provided information (detect the spin)
+   - Comparative analysis between federally provided reports and public & corporate provided information and whether there is correlating evidence to company provided information (detect the spin)
+   
 ## Background and Motivation
 
 Understanding the interplay between economic indicators and financial markets is crucial for making informed decisions in finance, economics, and policy-making. Traditional methods of data analysis often lack the ability to dynamically update and process large volumes of data in real-time. Additionally, government interventions can significantly impact market dynamics. This project aims to bridge these gaps by leveraging modern data processing technologies to create a robust, scalable, and real-time capable system.
@@ -92,119 +117,16 @@ WBA          | Walgreens Boots Alliance, Inc.           | Pharmaceutical Retaile
 NKE          | NIKE, Inc.                               | Footwear & Accessories
 DIS          | The Walt Disney Company                  | Entertainment
 MMM          | 3M Company                               | Conglomerates
-HON          | Honeywell International Inc.             | Conglomerates
-AMGN         | Amgen Inc.                               | Drug Manufacturers - General
-CAT          | Caterpillar Inc.                         | Farm & Heavy Construction Machinery
-RTX          | RTX Corporation                          | Aerospace & Defense
-GS           | The Goldman Sachs Group, Inc.            | Capital Markets
-AXP          | American Express Company                 | Credit Services
-LMT          | Lockheed Martin Corporation              | Aerospace & Defense
-MO           | Altria Group, Inc.                       | Tobacco
-CMCSA        | Comcast Corporation                      | Telecom Services
-DHR          | Danaher Corporation                      | Diagnostics & Research
-ORCL         | Oracle Corporation                       | Software - Infrastructure
-MDT          | Medtronic plc                            | Medical Devices
-GILD         | Gilead Sciences, Inc.                    | Drug Manufacturers - General
-BMY          | Bristol-Myers Squibb Company             | Drug Manufacturers - General
-COST         | Costco Wholesale Corporation             | Discount Stores
-TGT          | Target Corporation                       | Discount Stores
-LOW          | Lowe's Companies, Inc.                   | Home Improvement Retail
-HD           | The Home Depot, Inc.                     | Home Improvement Retail
-SBUX         | Starbucks Corporation                    | Restaurants
-FDX          | FedEx Corporation                        | Integrated Freight & Logistics
-UPS          | United Parcel Service, Inc.              | Integrated Freight & Logistics
-GM           | General Motors Company                   | Auto Manufacturers
-F            | Ford Motor Company                       | Auto Manufacturers
-TSLA         | Tesla, Inc.                              | Auto Manufacturers
-NFLX         | Netflix, Inc.                            | Entertainment
-NVDA         | NVIDIA Corporation                       | Semiconductors
-ADBE         | Adobe Inc.                               | Software - Infrastructure
-QCOM         | QUALCOMM Incorporated                    | Semiconductors
-AVGO         | Broadcom Inc.                            | Semiconductors
-TXN          | Texas Instruments Incorporated           | Semiconductors
-AMD          | Advanced Micro Devices, Inc.             | Semiconductors
-INTU         | Intuit Inc.                              | Software - Application
-AMAT         | Applied Materials, Inc.                  | Semiconductor Equipment & Materials
-MU           | Micron Technology, Inc.                  | Semiconductors
-LRCX         | Lam Research Corporation                 | Semiconductor Equipment & Materials
-KLAC         | KLA Corporation                          | Semiconductor Equipment & Materials
-HPQ          | HP Inc.                                  | Computer Hardware
-DELL         | Dell Technologies Inc.                   | Computer Hardware
-CSX          | CSX Corporation                          | Railroads
-UNP          | Union Pacific Corporation                | Railroads
-NSC          | Norfolk Southern Corporation             | Railroads
-KSU          | N/A                                      | N/A
-UAL          | United Airlines Holdings, Inc.           | Airlines
-DAL          | Delta Air Lines, Inc.                    | Airlines
-AAL          | American Airlines Group Inc.             | Airlines
-LUV          | Southwest Airlines Co.                   | Airlines
-JBLU         | JetBlue Airways Corporation              | Airlines
-SWA          | N/A                                      | N/A
-XEL          | Xcel Energy Inc.                         | Utilities - Regulated Electric
-NEE          | NextEra Energy, Inc.                     | Utilities - Regulated Electric
-DUK          | Duke Energy Corporation                  | Utilities - Regulated Electric
-SO           | The Southern Company                     | Utilities - Regulated Electric
-AEP          | American Electric Power Company, Inc.    | Utilities - Regulated Electric
-D            | Dominion Energy, Inc.                    | Utilities - Regulated Electric
-EXC          | Exelon Corporation                       | Utilities - Regulated Electric
-PEG          | Public Service Enterprise Group Incorporated | Utilities - Regulated Electric
-PCG          | PG&E Corporation                         | Utilities - Regulated Electric
-EIX          | Edison International                     | Utilities - Regulated Electric
-PPL          | PPL Corporation                          | Utilities - Regulated Electric
-FE           | FirstEnergy Corp.                        | Utilities - Regulated Electric
-ED           | Consolidated Edison, Inc.                | Utilities - Regulated Electric
-NRG          | NRG Energy, Inc.                         | Utilities - Independent Power Producers
-AES          | The AES Corporation                      | Utilities - Diversified
-CMS          | CMS Energy Corporation                   | Utilities - Regulated Electric
-DTE          | DTE Energy Company                       | Utilities - Regulated Electric
-ETR          | Entergy Corporation                      | Utilities - Regulated Electric
-AEE          | Ameren Corporation                       | Utilities - Regulated Electric
-WEC          | WEC Energy Group, Inc.                   | Utilities - Regulated Electric
-ES           | Eversource Energy                        | Utilities - Regulated Electric
-ATO          | Atmos Energy Corporation                 | Utilities - Regulated Gas
-NI           | NiSource Inc.                            | Utilities - Regulated Gas
-CNP          | CenterPoint Energy, Inc.                 | Utilities - Regulated Electric
-PNW          | Pinnacle West Capital Corporation        | Utilities - Regulated Electric
-OGE          | OGE Energy Corp.                         | Utilities - Regulated Electric
-IDA          | IDACORP, Inc.                            | Utilities - Regulated Electric
-ALB          | Albemarle Corporation                    | Specialty Chemicals
-PXD          | Pioneer Natural Resources Company        | Oil & Gas E&P
-EOG          | EOG Resources, Inc.                      | Oil & Gas E&P
-HAL          | Halliburton Company                      | Oil & Gas Equipment & Services
-SLB          | Schlumberger Limited                     | Oil & Gas Equipment & Services
-BKR          | Baker Hughes Company                     | Oil & Gas Equipment & Services
-DVN          | Devon Energy Corporation                 | Oil & Gas E&P
-COP          | ConocoPhillips                           | Oil & Gas E&P
-XEC          | N/A                                      | N/A
-OXY          | Occidental Petroleum Corporation         | Oil & Gas E&P
-APA          | APA Corporation                          | Oil & Gas E&P
-FANG         | Diamondback Energy, Inc.                 | Oil & Gas E&P
-HES          | Hess Corporation                         | Oil & Gas E&P
-MRO          | Marathon Oil Corporation                 | Oil & Gas E&P
-CLR          | N/A                                      | N/A
-CXO          | N/A                                      | N/A
-MTDR         | Matador Resources Company                | Oil & Gas E&P
-PSX          | Phillips 66                              | Oil & Gas Refining & Marketing
-VLO          | Valero Energy Corporation                | Oil & Gas Refining & Marketing
-MPC          | Marathon Petroleum Corporation           | Oil & Gas Refining & Marketing
-HFC          | N/A                                      | N/A
-DK           | Delek US Holdings, Inc.                  | Oil & Gas Refining & Marketing
-BP           | BP p.l.c.                                | Oil & Gas Integrated
-RDS.A        | N/A                                      | N/A
-RDS.B        | N/A                                      | N/A
-TOT          | N/A                                      | N/A
-E            | Eni S.p.A.                               | Oil & Gas Integrated
-ENB          | Enbridge Inc.                            | Oil & Gas Midstream
-TRP          | TC Energy Corporation                    | Oil & Gas Midstream
-KMI          | Kinder Morgan, Inc.                      | Oil & Gas Midstream
-WMB          | The Williams Companies, Inc.             | Oil & Gas Midstream
 OKE          | ONEOK, Inc.                              | Oil & Gas Midstream
 EPD          | Enterprise Products Partners L.P.        | Oil & Gas Midstream
 ET           | Energy Transfer LP                       | Oil & Gas Midstream
 MPLX         | MPLX LP                                  | Oil & Gas Midstream
 PAA          | Plains All American Pipeline, L.P.       | Oil & Gas Midstream
+....
+....
 jess@jess-mac-dev ~/Documents/development/learning/dataengineer.io/bootcamp4/rosy_economics_capstone/project_notes/sample_datasets => 
 </code></pre>
+
 ## Project Components
 
 1. **Data Retrieval**
@@ -296,4 +218,5 @@ The Economic and Financial Data Analysis System will provide a powerful tool for
 - Develop and test the initial data retrieval and storage scripts.
 
 We look forward to embarking on this project and unlocking new insights into the economic and financial landscape.
+
 
