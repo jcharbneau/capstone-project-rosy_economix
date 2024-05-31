@@ -18,4 +18,5 @@ dbt_project/seeds/cpi.csv
 dbt_project/seeds/gdp.csv
 dbt_project/seeds/raw_stock_data.csv
 dbt_project/seeds/unemployment_rate.csv
-
+archive/
+venv/
