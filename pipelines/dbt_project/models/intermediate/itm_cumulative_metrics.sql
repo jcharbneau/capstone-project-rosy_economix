@@ -42,7 +42,7 @@ cumulative AS (
     FROM
         base
     GROUP BY
-        ticker
+        ticker, date  -- Ensure date is included in the GROUP BY clause
 )
 
 SELECT * FROM cumulative
