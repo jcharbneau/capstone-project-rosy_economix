@@ -1,0 +1,15 @@
+/* src/components/MultiLens.css */
+.tab {
+  transition: transform 0.3s ease-in-out;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  transform: scale(-1);
+}
+
+.to-right {
+  transform: translateX(100%);
+}
+
+.to-left {
+  transform: translateX(-100%);
+}
