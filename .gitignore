@@ -27,3 +27,4 @@ api/.venv*
 pipelines/venv
 pipelines/dbt_project/.venv
 pipelines/archive
+archive/
