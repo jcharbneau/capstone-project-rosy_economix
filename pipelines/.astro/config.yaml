@@ -1,8 +1,19 @@
+postgres:
+    port: "5631"
 project:
-    name: capstone-airflow-dbt
+    name: pipelines
 skip_parse: false
 verbosity: debug
 webserver:
     port: "8181"
-postgres:
-    port: "5631"
+
+deployments:
+  - name: dev
+    astro_runtime_version: 5.0.0
+    executor: LocalExecutor
+    triggerer: true
+    environment_variables:
+      - key: AIRFLOW__CORE__SQL_ALCHEMY_CONN
+        value: postgresql+psycopg2://airflow:airflow@postgres:5631/airflow
+      - key: AIRFLOW__CELERY__RESULT_BACKEND
+        value: db+postgresql+psycopg2://airflow:airflow@postgres:5631/airflow

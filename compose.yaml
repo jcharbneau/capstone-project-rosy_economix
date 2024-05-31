@@ -1,10 +1,7 @@
-version: '3.8'
-
-# define our volumes
-volumes:
-  postgres_data:
-  kestra-data:
-    driver: local
+# define networks
+networks:
+  re_network:
+    driver: bridge
 
 # define our services
 #
@@ -14,24 +11,23 @@ volumes:
 #
 # data services:
 #   astro (airflow / postgresql / dbt )
+
 services:
   astro:
-    container_name: astro
     build:
       context: ./pipelines/
       dockerfile: Dockerfile
     volumes:
       - ./pipelines/dbt_project:/usr/local/airflow/dbt_project
       - ./pipelines:/usr/local/airflow/pipelines
+#      - airflow_data:/var/lib/airflow/data/
     ports:
       - 8181:8181
-    environment:
-      - AIRFLOW__CORE__LOAD_EXAMPLES=False
-      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
-      - AIRFLOW__WEBSERVER__RBAC=True
-      - AIRFLOW__WEBSERVER__PORT=8181
-#  capstoneui:
-#    container_name: capstoneui
+    networks:
+      - re_network
+
+#  re_ui:
+#    container_name: re_ui
 #    env_file:
 #      - ./frontend/.env
 #    build:
@@ -45,9 +41,11 @@ services:
 #    working_dir: /app
 #    ports:
 #      - 5174:5174
-
-#  capstoneapi:
-#    container_name: capstoneapi
+#    networks:
+#      - re_network
+#
+#  re_api:
+#    container_name: re_api
 #    env_file:
 #      - api/.env
 #    build:
@@ -60,32 +58,21 @@ services:
 #    expose:
 #      - 8000
 #    depends_on:
-#       - bipostgres
-##       - couchbase
-##         condition: service_healthy
-#  bipostgres:
-#    container_name: bipostgres
-#    build:
-#      context: ./postgres/
-#      dockerfile: ./Dockerfile
-#    volumes:
-#      - type: bind
-#        source: ./postgres/init.sql
-#        target: /docker-entrypoint-initdb.d/10-init.sql
-#      - type: bind
-#        source: ./postgres/setup-permissions.sql
-#        target: /docker-entrypoint-initdb.d/20-setup-permissions.sql
-#      - postgres_data:/var/lib/postgresql/data/
-#    ports:
-#      - 5432:5432
-#    expose:
-#      - 5432
+#       - re_astro
+#    networks:
+#      - re_network
+#    environment:
+#      - DATABASE_URL=postgresql://postgres:postgres@localhost:5631
 
+  jupyter_notebook:
+    container_name: jupyter_notebook
+    build:
+      context: ./jupyter/
+      dockerfile: Dockerfile
+    volumes:
+      - ./jupyter:/home/jesse/work
+    ports:
+      - 8888:8888
+    networks:
+      - re_network
 
-##networks:
-
-
-
-#  secrets:
-#   db-password:
-#     file: db/password.txt

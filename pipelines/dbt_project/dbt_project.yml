@@ -2,9 +2,6 @@ name: 'dbt_project'
 version: '1.0.0'
 config-version: 2
 
-on-run-start:
-  - '{{ create_schema_if_not_exists(target.schema) }}'
-
 profile: 'dbt_project'
 
 model-paths: ["models"]
@@ -14,15 +11,23 @@ seed-paths: ["seeds"]
 macro-paths: ["macros"]
 snapshot-paths: ["snapshots"]
 
+on-run-start:
+  - '{{ create_schema_if_not_exists(target.schema) }}'
+
 clean-targets:
   - "target"
   - "dbt_packages"
+
+vars:
+  raw_database: pipelines
 
 models:
   dbt_project:
     staging:
       +materialized: table
     intermediate:
+      +materialized: table
+    marts:
       +materialized: table
 
 seeds:
@@ -44,7 +49,18 @@ seeds:
         "Market Cap": bigint
         "Total Revenue": bigint
         "Net Income": bigint
-
-vars:
-  raw_database: pipelines
-#  raw_schema: public
+    gdp:
+      enabled: true
+      +column_types:
+        date: date
+        value: float
+    unemployment_rate:
+      enabled: true
+      +column_types:
+        date: date
+        value: float
+    cpi:
+      enabled: true
+      +column_types:
+        date: date
+        value: float
