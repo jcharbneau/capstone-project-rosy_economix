@@ -9,3 +9,13 @@ airflow-webserver.pid
 webserver_config.py
 airflow.cfg
 airflow.db
+dbt_project/.user.yml
+dbt_project/archive/
+dbt_project/dbt-requirements.txt.breaking
+dbt_project/dbt.env
+dbt_project/macros/run_load_economic_indicators.sql
+dbt_project/seeds/cpi.csv
+dbt_project/seeds/gdp.csv
+dbt_project/seeds/raw_stock_data.csv
+dbt_project/seeds/unemployment_rate.csv
+
