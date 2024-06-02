@@ -59,7 +59,9 @@
           >    - ReactJS Frontend: http://localhost:5180
           >    - FastAPI Backend: http://localhost:8500/docs
           >
-          >    Review src/docker-compose.overrides.yml for more details.
+          >    ℹ️ This is a customized implementation of Astronomer.
+          >
+          >    This repository contains a src/docker-compose.override.yml file, that allows us to "override" Astro and inject additional containers into the ecosystem.  There are deficiencies.  A 'astro dev <instance> bash' will still only work for the astro containers.  Use standard docker commands to avoid this challenge.  Review src/docker-compose.overrides.yml for more details.
           > 
        - You should see something resembling below:
 
@@ -176,8 +178,7 @@ Understanding the interplay between economic indicators and financial markets is
 As part of this effort, we anticipate making a decision about which datasets would be most useful by May 31st including identification of the pipelines we intend to incorporate and what insights they will provide in determining economic indicators and correlative impact.
 ### Explorative Datasets
 **Federal Reserve Datasets**
-<pre><code>
-jess@jess-mac-dev ~/Documents/development/learning/dataengineer.io/bootcamp4/rosy_economics_capstone/project_notes/sample_datasets => python lookup_fred_description.py 
+<pre><code>jess@jess-mac-dev ~/Documents/development/learning/dataengineer.io/bootcamp4/rosy_economics_capstone/project_notes/sample_datasets => python lookup_fred_description.py 
 File: PAYEMS.csv -> Dataset Name: All Employees, Total Nonfarm
 File: JTSJOL.csv -> Dataset Name: Job Openings: Total Nonfarm
 File: WILL5000PR.csv -> Dataset Name: Wilshire 5000 Price Index
@@ -212,8 +213,7 @@ jess@jess-mac-dev ~/Documents/development/learning/dataengineer.io/bootcamp4/ros
 In order to meet the objective of having at least one dataset that is over 1m rows, we are exploring options using Yahoo Finance to get the last 35 years of data on a large swath of companies, including those from the Technology, Energy, Retail and other industries.  Our test dataset is 1.3m rows, and includes the following stock ticker -> companies. 
 The file is 30+mb gzipped, so we have opted to provide a facility to download it.  If unable to use this project, a downloaded copy has been placed at https://www.jessecharbneau.com/downloads/stock_data_last_35_years.csv.gz.  We are also considering options to identify which vertical or industry a company belongs to, in order to classify and then identify trends around the economic indicators and if there is correlative data to show which industries are more affected by interventions and/or large economic impacts.
 
-<pre><code>
-jess@jess-mac-dev ~/Documents/development/learning/dataengineer.io/bootcamp4/rosy_economics_capstone/project_notes/sample_datasets => python lookup_stock_company.py 
+<pre><code>jess@jess-mac-dev ~/Documents/development/learning/dataengineer.io/bootcamp4/rosy_economics_capstone/project_notes/sample_datasets => python lookup_stock_company.py 
 Stock Ticker | Company Name                           | Industry
 --------------------------------------------------------------------------------
 AAPL         | Apple Inc.                               | Consumer Electronics
