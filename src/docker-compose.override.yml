@@ -3,8 +3,8 @@ networks:
     driver: bridge
 
 services:
-  jupyter_notebook:
-    container_name: jupyter_notebook
+  re_jnotebook:
+    container_name: re_jnotebook
     build:
       context: ./jupyter/
       dockerfile: Dockerfile
@@ -12,6 +12,8 @@ services:
       - ./jupyter:/home/jesse/work
     ports:
       - 8888:8888
+    links:
+      - postgres
     networks:
       - airflow
 

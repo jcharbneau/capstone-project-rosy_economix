@@ -1,2 +1,6 @@
 dbt-trino==1.8.0
 sqlfluff==3.0.6
+pandas
+psycopg2-binary
+dbt-postgres
+yfinance

@@ -1,7 +1,7 @@
 postgres:
     port: "5631"
 project:
-    name: pipelines
+    name: rosy_economix
 skip_parse: false
 verbosity: debug
 webserver:

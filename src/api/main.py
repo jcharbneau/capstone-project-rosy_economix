@@ -1,9 +1,15 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.responses import StreamingResponse
 import matplotlib.pyplot as plt
 import io
+import os
+import asyncpg
+
 
 app = FastAPI()
+
+DATABASE_URL = "postgresql://postgres:postgres@localhost:5631/pipelines"
+
 def create_chart(data, title, ylabel):
     fig, ax = plt.subplots(figsize=(10, 6))
 
@@ -109,6 +115,17 @@ async def get_bailouts_chart():
 
     buf = create_chart(data, 'US Economic Bailouts (2001-2023)', 'Amount (in billion $)')
     return StreamingResponse(buf, media_type='image/png')
+
+@app.get("/test-db-connection")
+async def test_db_connection():
+    try:
+        # Create a connection to the database
+        connection = await asyncpg.connect(DATABASE_URL)
+        # Close the connection
+        await connection.close()
+        return {"message": "Successfully connected to the database"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to connect to the database: {e}")
 
 if __name__ == "__main__":
     import uvicorn
