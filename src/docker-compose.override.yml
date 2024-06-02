@@ -12,7 +12,7 @@ services:
       context: ./jupyter/
       dockerfile: Dockerfile
     volumes:
-      - ./jupyter:/home/jovyan/work
+      - ./jupyter/notebooks:/home/jovyan/work
     ports:
       - 8888:8888
     links:

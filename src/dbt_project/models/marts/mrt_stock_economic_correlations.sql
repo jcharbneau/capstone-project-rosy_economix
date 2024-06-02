@@ -33,6 +33,7 @@ stock_cpi AS (
 ),
 correlations AS (
     SELECT
+        s.date,
         s.ticker,
         CORR(s.close, s.gdp) AS corr_gdp,
         CORR(s.close, u.unemployment_rate) AS corr_unemployment,
@@ -44,6 +45,7 @@ correlations AS (
     JOIN
         stock_cpi c ON s.date = c.date AND s.ticker = c.ticker
     GROUP BY
+        s.date,
         s.ticker
 )
 SELECT * FROM correlations
