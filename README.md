@@ -1,3 +1,4 @@
+# Rosy Economix - A tool to identify PR spin.
 
 **Table of Contents**
 
