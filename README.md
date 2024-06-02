@@ -37,29 +37,34 @@
     1. If you don’t have SSH configured with the GitHub CLI, please follow the instructions for [generating a new SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) and [adding a new SSH key to your GitHub account](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account?tool=cli) in the GitHub docs.
 2. **Docker Setup and Management**: Launch Docker Daemon or open the Docker Desktop app
 3. **Run the Astro Project**:
-    - Start the project on your local machine by running **`astro dev start`**
-        - This will spin up 7 Docker containers on your machine, each for a different Airflow component:
-            - **Postgres**: Airflow's Metadata Database, storing internal state and configurations.
-            - **Webserver**: Renders the Airflow UI.
-            - **Scheduler**: Monitors, triggers, and orchestrates task execution for proper sequencing and resource allocation.
-            - **Triggerer**: Triggers deferred tasks.
-            - **Notebook**: A Jupyter Notebook service for data exploration
-            - **Frontend**: A ReactJS+Vite+TailwindCSS environment
-            - **API**: A FastAPI backend
-        - Verify container creation with **`docker ps`** or **`astro dev ps`**
-          - **Access the Airflow UI**: Go to http://localhost:8181/ and log in with '**`admin`**' for both Username and Password
-        >
-        > ℹ️ Note: Running astro dev start exposes the Airflow Webserver at port **`8181`** and Postgres at port **`5631`**.
-        >
-        > If these ports are in use, halt existing Docker containers or modify port configurations in **`.astro/config.yaml`**.  
-        >
-        > There are several additional services included in this project.  
-        > - Jupyter Notebooks: http://localhost:8888
-        > - ReactJS Frontend: http://localhost:5180
-        > - FastAPI Backend: http://localhost:8500/docs
-        >
-        > Review src/docker-compose.overrides.yml for more details.
-        > 
+   - Start the project on your local machine by running **`astro dev start`**
+       - This will spin up 7 Docker containers on your machine, each for a different Airflow component:
+           - **Postgres**: Airflow's Metadata Database, storing internal state and configurations.
+           - **Webserver**: Renders the Airflow UI.
+           - **Scheduler**: Monitors, triggers, and orchestrates task execution for proper sequencing and resource allocation.
+           - **Triggerer**: Triggers deferred tasks.
+           - **Notebook**: A Jupyter Notebook service for data exploration
+           - **Frontend**: A ReactJS+Vite+TailwindCSS environment
+           - **API**: A FastAPI backend
+       - Verify container creation with **`docker ps`** or **`astro dev ps`**
+         - **Access the Airflow UI**: Go to http://localhost:8181/ and log in with '**`admin`**' for both Username and Password
+         
+          >
+          >    ℹ️ Note: Running astro dev start exposes the Airflow Webserver at port **`8181`** and Postgres at port **`5631`**.
+          >
+          >    If these ports are in use, halt existing Docker containers or modify port configurations in **`.astro/config.yaml`**.  
+          >
+          >    There are several additional services included in this project.  
+          >    - Jupyter Notebooks: http://localhost:8888
+          >    - ReactJS Frontend: http://localhost:5180
+          >    - FastAPI Backend: http://localhost:8500/docs
+          >
+          >    Review src/docker-compose.overrides.yml for more details.
+          > 
+       - You should see something resembling below:
+
+         ![Docker Desktop - Running Group](project_notes/screenshots/docker_running_group.png)
+
 
 4. **Setup the Seed data**
    
