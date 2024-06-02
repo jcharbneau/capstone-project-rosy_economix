@@ -1,6 +1,6 @@
 networks:
   airflow:
-    driver: bridge
+    driver: host
 
 services:
   re_jnotebook:
@@ -9,7 +9,7 @@ services:
       context: ./jupyter/
       dockerfile: Dockerfile
     volumes:
-      - ./jupyter:/home/jesse/work
+      - ./jupyter:/home/jovyan/work
     ports:
       - 8888:8888
     links:
@@ -54,3 +54,5 @@ services:
       - airflow
     environment:
       - DATABASE_URL=postgresql://postgres:postgres@localhost:5631
+
+
