@@ -61,7 +61,7 @@
           >
           >    ℹ️ This is a customized implementation of Astronomer.
           >
-          >    This repository contains a src/docker-compose.override.yml file, that allows us to "override" Astro and inject additional containers into the ecosystem.  There are deficiencies.  A 'astro dev <instance> bash' will still only work for the astro containers.  Use standard docker commands to avoid this challenge.  Review src/docker-compose.overrides.yml for more details.
+          >    This repository contains a src/docker-compose.override.yml file, that allows us to "override" Astro and inject additional containers into the ecosystem.  There are deficiencies.  A 'astro dev <instance> bash' will still only work for the astro containers.  Use standard docker commands to avoid this challenge.  Review src/docker-compose.overrides.yml for more details. In addition, communication is a little different between the client (us) and the internal services (namely postgres as it runs internally on 5432 while when we connect via a UI it is on 5631). 
           > 
        - You should see something resembling below:
 
@@ -125,10 +125,6 @@
     
 # Project Proposal
 A Rosy Economics Investigative Tool
-
-## Project Overview
-
-**Project Name:** Rosy Economix
 
 ## Team
 - Jesse (Jess) Charbneau - [LinkedIn](https://www.linkedin.com/in/jcharbneau)
@@ -273,12 +269,13 @@ jess@jess-mac-dev ~/Documents/development/learning/dataengineer.io/bootcamp4/ros
     - **Apache Flink:** Utilize Flink for real-time data streaming and processing, enabling near real-time analytics and insights.
     - **Apache Kafka:** Integrate Kafka for reliable and scalable data streaming, ensuring seamless data flow between various components of the system.
 
-## Implementation Plan
+## Implementation Plan / Current Status
 
 1. **Phase 1: Initial Setup and Data Retrieval**
     - ✅ Download Fred and Yahoo Finance datasets for Aleem and Anjana to begin review
-    - 🚧 Set up Apache Airflow, Postgres and Jupyter Docker containers (including compose)
-    - ⬜ Begin developing DAGs for data retrieval from FRED and Yahoo Finance
+    - ✅ Set up Apache Airflow, Postgres and Jupyter Docker containers (including compose)
+      - Used docker-compose.overrides.yml in conjunction with Astro
+    - 🚧 Begin developing DAGs for data retrieval from FRED and Yahoo Finance
       - Yahoo Datasets
         - Daily
         - Hourly: Note Yahoo Finance allows only the last 7 days for hour by hour data
@@ -286,9 +283,13 @@ jess@jess-mac-dev ~/Documents/development/learning/dataengineer.io/bootcamp4/ros
       - Identify strategy to back-fill as much data as possible, going back at least 35 years
 
 2. **Phase 2: Data Analysis and Visualization**
-    - ⬜ Implement preprocessing and alignment of data from different sources.
-    - ⬜ Perform correlation analysis to identify significant relationships.
-    - ⬜ Create visualizations to represent the findings.
+    - 🚧 Implement preprocessing and alignment of data from different sources.
+      - Initial build out utilizing python for mass data pull for historical backfill
+      - DBT for seeding and subsequent modeling of the data through to Mart level dataset.
+    - 🚧 Perform correlation analysis to identify significant relationships.
+    - 🚧 Create visualizations to represent the findings.
+      - Jupyter notebooks using matplotlib, plotly and ipywidgets
+      - React frontend and FastAPI backend included via docker-compose.overrides.yml (basic at this point)
     - ⬜ Integrate and overlay government interventions on the visualizations.
     - ⬜ Implement strategies to analyze credit card volume and delinquency data.
 
