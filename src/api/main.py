@@ -8,7 +8,7 @@ import asyncpg
 
 app = FastAPI()
 
-DATABASE_URL = "postgresql://postgres:postgres@localhost:5631/pipelines"
+DATABASE_URL = "postgresql://postgres:postgres@postgres:5432/pipelines"
 
 def create_chart(data, title, ylabel):
     fig, ax = plt.subplots(figsize=(10, 6))
