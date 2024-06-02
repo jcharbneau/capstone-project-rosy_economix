@@ -8,6 +8,8 @@ WITH stock_gdp AS (
         {{ ref('raw_stock_data') }} s
     JOIN
         {{ ref('gdp') }} g ON s."Date" = g.date
+    WHERE
+        s."Close" IS NOT NULL AND g.value IS NOT NULL
 ),
 stock_unemployment AS (
     SELECT
@@ -19,6 +21,8 @@ stock_unemployment AS (
         {{ ref('raw_stock_data') }} s
     JOIN
         {{ ref('unemployment_rate') }} u ON s."Date" = u.date
+    WHERE
+        s."Close" IS NOT NULL AND u.value IS NOT NULL
 ),
 stock_cpi AS (
     SELECT
@@ -30,14 +34,20 @@ stock_cpi AS (
         {{ ref('raw_stock_data') }} s
     JOIN
         {{ ref('cpi') }} c ON s."Date" = c.date
+    WHERE
+        s."Close" IS NOT NULL AND c.value IS NOT NULL
 ),
 correlations AS (
     SELECT
         s.date,
         s.ticker,
-        CORR(s.close, s.gdp) AS corr_gdp,
-        CORR(s.close, u.unemployment_rate) AS corr_unemployment,
-        CORR(s.close, c.cpi) AS corr_cpi
+        s.close,
+        s.gdp,
+        u.unemployment_rate,
+        c.cpi,
+        CORR(s.close, s.gdp) OVER (PARTITION BY s.ticker ORDER BY s.date) AS corr_gdp,
+        CORR(s.close, u.unemployment_rate) OVER (PARTITION BY s.ticker ORDER BY s.date) AS corr_unemployment,
+        CORR(s.close, c.cpi) OVER (PARTITION BY s.ticker ORDER BY s.date) AS corr_cpi
     FROM
         stock_gdp s
     JOIN
@@ -46,6 +56,10 @@ correlations AS (
         stock_cpi c ON s.date = c.date AND s.ticker = c.ticker
     GROUP BY
         s.date,
-        s.ticker
+        s.ticker,
+        s.close,
+        s.gdp,
+        u.unemployment_rate,
+        c.cpi
 )
 SELECT * FROM correlations
