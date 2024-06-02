@@ -1,6 +1,9 @@
+version: '2'
+
+
 networks:
   airflow:
-    driver: host
+    driver: bridge
 
 services:
   re_jnotebook:
@@ -16,6 +19,11 @@ services:
       - postgres
     networks:
       - airflow
+    depends_on:
+      - postgres
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432
+      - GRANT_SUDO=yes
 
   re_frontend:
     container_name: re_frontend
