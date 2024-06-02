@@ -63,22 +63,16 @@
 4. **Setup the Seed data**
    
    Execute the following statements to create a virtual environment for dbt.  You will need to have a recent version of Python 3 installed for these steps.
-   <pre><code>
-   cd src/dbt_project
+   
+   <pre><code>cd src/dbt_project
    python3 -m venv .venv
    source .venv/bin/activate
    pip install pip --upgrade
    pip install -r dbt-requirements.txt
    </code></pre>
-   Once these steps have been completed, move on to seeding the data
-   <pre><code>
-   # prepare the data
-   cd src/dbt_project # if not already there
+   Once these steps have been completed, move on to retrieving the data
    
-   # verify dbt is working correctly
-   dbt debug
-   
-   # execute the stock retrieval script
+   <pre><code># execute the stock retrieval script
    python scripts/get_stock_data_last_35years.py
    
    # verify the script wrote the file, and verify the file length 
@@ -91,7 +85,12 @@
    # verify the fred data downloaded 
    ls -l seeds/{gdp,cpi,unemployment_rate}.csv
    wc -l seeds/{gdp,cpi,unemployment_rate}.csv
-
+   </code></pre>
+5. **Seed the raw tables & Run the dbt models**
+   This step will take the raw data, and create the staging, intermediate and mart tables
+   <pre><code># verify dbt is working and configured correctly
+   dbt debug
+   
    # use dbt to seed the data to the postgresql instance
    dbt seed
    
@@ -108,9 +107,10 @@
    # raw unemployment rate data
    PGPASSWORD='postgres' psql -U postgres -h localhost -p 5631 -d pipelines -c "SELECT count(*) from public.unemployment_rate;"
    
-   
+   # if everything is sane, execute the models
+   dbt run
    </code></pre>
-5. **Stop** the Astro Docker container by running `**astro dev stop**`
+6. **Stop** the Astro Docker container by running `**astro dev stop**`
     >
     > ❗🚫❗  Remember to stop the Astro project after working to prevent issues with Astro and Docker ❗🚫❗
     >
