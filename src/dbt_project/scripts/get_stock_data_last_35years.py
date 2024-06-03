@@ -15,12 +15,12 @@ tickers = [
     "PEP", "VZ", "V", "CSCO", "INTC", "WBA", "NKE", "DIS", "MMM", "HON", "AMGN", "CAT", "RTX", "GS",
     "AXP", "LMT", "MO", "CMCSA", "DHR", "ORCL", "MDT", "GILD", "BMY", "COST", "TGT", "LOW", "HD",
     "SBUX", "FDX", "UPS", "GM", "F", "TSLA", "NFLX", "NVDA", "ADBE", "QCOM", "AVGO", "TXN", "AMD",
-    "INTU", "AMAT", "MU", "LRCX", "KLAC", "HPQ", "DELL", "CSX", "UNP", "NSC", "UAL", "DAL",
-    "AAL", "LUV", "JBLU", "SWA", "XEL", "NEE", "DUK", "SO", "AEP", "D", "EXC", "PEG", "PCG", "EIX",
-    "PPL", "FE", "ED", "NRG", "AES", "CMS", "DTE", "ETR", "AEE", "WEC", "ES", "ATO", "NI", "CNP",
-    "PNW", "OGE", "IDA", "ALB", "PXD", "EOG", "HAL", "SLB", "BKR", "DVN", "COP", "OXY",
-    "APA", "FANG", "HES", "MRO", "MTDR", "XOM", "CVX", "PSX", "VLO", "MPC",
-    "DK", "BP", "E", "ENB", "TRP", "KMI", "WMB", "OKE", "EPD", "ET", "MPLX", "PAA"
+    "INTU", "AMAT", "MU", "LRCX", "KLAC", "HPQ", "DELL", "CSX", "UNP", "NSC", "UAL", "DAL", "AAL",
+    "LUV", "JBLU", "SWA", "XEL", "NEE", "DUK", "SO", "AEP", "D", "EXC", "PEG", "PCG", "EIX", "PPL", "FE",
+    "ED", "NRG", "AES", "CMS", "DTE", "ETR", "AEE", "WEC", "ES", "ATO", "NI", "CNP", "PNW", "OGE", "IDA",
+    "ALB", "PXD", "EOG", "HAL", "SLB", "BKR", "DVN", "COP", "OXY", "APA", "FANG", "HES", "MRO",
+    "MTDR", "PSX", "VLO", "MPC", "DK", "BP", "E", "ENB", "TRP", "KMI", "WMB", "OKE", "EPD", "ET", "MPLX", "PAA",
+    "PLD", "AMT", "SPG", "LIN", "SHW", "APD"
 ]
 
 def get_company_info(tickers):
