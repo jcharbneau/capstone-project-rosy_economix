@@ -251,7 +251,21 @@ jess@jess-mac-dev ~/Documents/development/learning/dataengineer.io/bootcamp4/ros
 1. **Data Retrieval**
     - **FRED API:** Fetch historical and daily updates for macroeconomic indicators such as GDP, inflation rates, employment rates, etc.
     - **Yahoo Finance API:** Retrieve historical and daily updates for financial market data such as stock prices (e.g., S&P 500), interest rates, and exchange rates.
-    - **Intraday Stock Prices:** Fetch minute-by-minute or hourly stock prices for major indices or stocks to ensure a large dataset.
+      - Sector Representation
+
+        1.	Technology: AAPL, MSFT, IBM, CSCO, INTC, NVDA, ADBE, QCOM, AVGO, TXN, AMD, INTU, AMAT, MU, LRCX, KLAC, HPQ, DELL
+        2.	Consumer Discretionary: MCD, NKE, SBUX, GM, F, TSLA, HD, TGT, LOW, JBLU, SWA
+        3.	Consumer Staples: KO, PG, PEP, WMT, WBA, MO, COST
+        4.	Healthcare: JNJ, MRK, PFE, AMGN, MDT, GILD, BMY, DHR
+        5.	Financials: V, GS, AXP
+        6.	Energy: XOM, CVX, PXD, EOG, HAL, SLB, BKR, DVN, COP, OXY, APA, FANG, HES, MRO, MTDR, PSX, VLO, MPC, DK, BP, E, ENB, TRP, KMI, WMB, OKE, EPD, ET, MPLX, PAA
+        7.	Industrials: GE, BA, MMM, HON, CAT, RTX, LMT, FDX, UPS, CSX, UNP, NSC, UAL, DAL, AAL, LUV, IDA
+        8.	Utilities: XEL, NEE, DUK, SO, AEP, D, EXC, PEG, PCG, EIX, PPL, FE, ED, NRG, AES, CMS, DTE, ETR, AEE, WEC, ES, ATO, NI, CNP, PNW, OGE
+        9.	Communication Services: T, VZ, CMCSA, DIS, NFLX
+        10.	Real Estate: PLD, AMT, SPG
+        11.	Materials: ALB, LIN, SHW, APD
+
+    - **Intraday Stock Prices:** Fetch hourly stock prices for major indices or stocks to ensure a large dataset.
     - **Credit Card Data:** Retrieve data on credit card volume and delinquency rates from FRED or Alpha Vantage.
 
 2. **Data Storage**
@@ -277,7 +291,7 @@ jess@jess-mac-dev ~/Documents/development/learning/dataengineer.io/bootcamp4/ros
       - Used docker-compose.overrides.yml in conjunction with Astro
     - 🚧 Begin developing DAGs for data retrieval from FRED and Yahoo Finance
       - Yahoo Datasets
-        - Daily
+        - Daily for the last 35 years to use as a back-fill dataset 
         - Hourly: Note Yahoo Finance allows only the last 7 days for hour by hour data
       - Download identified FRED datasets, on a daily basis
       - Identify strategy to back-fill as much data as possible, going back at least 35 years
