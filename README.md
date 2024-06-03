@@ -1,4 +1,4 @@
-# Rosy Economix - A tool to identify spin.
+# Rosy Economix - A tool to identify spin
 
 **Table of Contents**
 
