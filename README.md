@@ -352,6 +352,13 @@ The Economic and Financial Data Analysis System will provide a powerful tool for
 
 **Next Steps:**
 - Finalize the project plan and identify datasets and begin finalizing the data model.
+  - Window Based Analysis:
+    - Would it be useful to have DoD / WoW / MoM / YoY values for stocks? What about Fed data?
+    - Rolling sum / avg?  monthly?  (Thinking trading volumes?) - Where else could we could apply this analysis?
+      - 50 day simple moving average (Advanced SQL and Applying Analytic Patterns ~ 49:30 minutes)
+    - Ranking?
+  - Aggregations
+  - Cumulation based
 - Complete the build out of the target Compose environment
 - Develop and test the initial data retrieval and storage scripts.
 
