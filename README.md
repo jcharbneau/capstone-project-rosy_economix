@@ -75,7 +75,13 @@
    <pre><code>cd src/dbt_project
    python3 -m venv .venv
    source .venv/bin/activate
+   #
+   # if using WSL, you may also need to run these commands:
+   # sudo apt install postgresql postgresql-contrib
+   # sudo apt-get install libpq-dev python3-dev build-essential
+   #
    pip install pip --upgrade
+   pip install psycopg2
    pip install -r dbt-requirements.txt
    </code></pre>
    Once these steps have been completed, move on to retrieving the data
