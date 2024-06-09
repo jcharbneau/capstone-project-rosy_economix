@@ -1,268 +1,129 @@
-/* index.css */
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
-  scroll-behavior: smooth;
-  color-scheme: light;
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-html {
-  scroll-behavior: smooth;
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
 }
-
-html, body, #app, #app>div {
-  height: 100%;
+a:hover {
+  color: #535bf2;
 }
-
-body > #root > div {
-  height: 100vh;
-}
-
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-
-.bg-rosy {
-  /*background: linear-gradient(*/
-  /*  to bottom,*/
-  /*  #000000,*/
-  /*  #000000 1%,*/
-  /*  transparent 100%*/
-  /*);*/
-  background-color: #d3d3d3;
-}
-
-.header {
-  font-size: 32px;
-  font-weight: bold;
-  background-color: #000000;
-  /*background: linear-gradient(*/
-  /*  90deg,*/
-  /*  rgba(255, 182, 193, 1),*/
-  /*  rgba(255, 218, 185, 1),*/
-  /*  rgba(255, 255, 204, 1),*/
-  /*  rgba(204, 255, 204, 1),*/
-  /*  rgba(175, 238, 238, 1),*/
-  /*  rgba(255, 191, 0, 1),*/
-  /*  rgba(127, 255, 0, 1),*/
-  /*  rgba(255, 127, 80, 1)*/
-  /*);*/
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin-top: 20px;
-  padding-top: 20px;
-  margin-bottom: 20px;
-  position: relative;
-}
-
-.header::before {
-  content: "";
-  position: relative;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #000000;
-  z-index: -1;
-}
-
 
 body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
   margin: 0;
-  background-color: #f0f0f0;
-}
-
-.container {
   display: flex;
-  position: relative;
-  margin: 10px;
+  min-width: 320px;
+  min-height: 100vh;
+  line-height: 2.0;
 }
 
-.left, .right {
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+.main-content {
+  margin-top: 120px;
+}
+.about-content {
+  margin-top: 120px;
+}
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
+
+.charts-container, .main-content, .about-content {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  width: 30%;
-  height: 100%;
-  border-radius: 10px;
+  align-items: flex-start;
 }
-
-.center {
-  width: 900px;
-  height: 600px;
-  background-color: white;
-  margin: 0 10px;
-  position: relative;
-  overflow: hidden;
-  border-radius: 10px;
-}
-
-.center-content {
-  position: relative;
-  z-index: 1;
-}
-
-.row {
-  flex: 1;
+/* about content */
+.about-content {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  color: black;
-  font-size: 14px;
+  flex-direction: column;
+  line-height: 2.0;
+  align-items: start; /* Center children horizontally */
+  justify-content: center; /* Adjust if necessary for internal spacing */
+  /* Add any additional styling here, such as padding or a max-width to control the size */
+  /* If you want this to 'float' in the middle, ensure the container allows it, or adjust accordingly */
+}
+.about-content p {
+  padding: 5px;
+}
+.about-content h2 {
   font-weight: bold;
-  cursor: pointer;
-  height: 10%;
-  padding: 10px 20px;
-  background-color: #d3d3d3; /* Uniform row color */
-  border-radius: 1px; /* Slightly rounded corners */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Light shadow for depth */
-  margin: 2px 0; /* Space between rows */
-  transition: background-color 0.3s, color 0.3s, transform 0.2s, box-shadow 0.2s;
+  font-size: x-large;
 }
-
-.row:hover {
-  background-color: rgba(255, 54, 220, 0.6);
-  transform: scale(1.05);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.055);
-}
-
-.row.active {
-  background-color: rgba(255, 255, 255, 0.6);
+.about-content h3 {
   font-weight: bold;
+  font-size: large;
+}
+.about-title {
+  margin-top: 20px; /* Adjust as needed */
+  /* Additional styling for the title */
 }
 
-.hidden {
-  visibility: hidden;
+
+ul {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+    unicode-bidi: isolate;
 }
 
-.overlay {
-  position: absolute;
-  top: 0;
-  height: 100%;
-  width: 650px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
-  /*margin-top:65px;*/
-  /*margin-left: 60px;*/
-  opacity: 0;
-  z-index: 2;
+.transparent-canvas {
+  background-color: transparent;
 }
 
-.overlay.show {
-  opacity: 1;
-}
-
-.overlay-left {
-  left: 0;
-  transform: translateX(-700px);
-}
-
-.overlay-left.show {
-  transform: translateX(0);
-}
-
-.overlay-right {
-  right: 0;
-  transform: translateX(700px);
-}
-
-.overlay-right.show {
-  transform: translateX(0);
-}
-
-.chart-container {
-  background-color: rgba(255, 255, 255, 0.2);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 300px;
-  max-width: 660px;
-  min-width: 580px;
-  width: 85%;
-  padding-top:50px;
-  padding-left:20px;
-}
-
-canvas {
-  display: block;
-  max-height: 300px;
-  background-color: rgba(255, 255, 255, 0);
-}
-
-/* Overlay color classes */
-.overlay-red {
-  background-color: rgba(255, 0, 0, 0.05);
-}
-
-.overlay-orange {
-  background-color: rgba(255, 165, 0, 0.05);
-}
-
-.overlay-blue {
-  background-color: rgba(0, 0, 255, 0.05);
-}
-
-.overlay-salmon {
-  background-color: rgba(250, 128, 114, 0.05);
-}
-
-.overlay-pink {
-  background-color: rgba(255, 182, 193, 0.05);
-}
-
-.overlay-violet {
-  background-color: rgba(238, 130, 238, 0.05);
-}
-
-.overlay-aqua {
-  background-color: rgba(0, 255, 255, 0.05);
-}
-
-.overlay-turquoise {
-  background-color: rgba(64, 224, 208, 0.05);
-}
-
-.overlay-purple {
-  background-color: rgba(128, 0, 128, 0.05);
-}
-
-.overlay-amber {
-  background-color: rgba(255, 191, 0, 0.05);
-}
-
-.overlay-chartreuse {
-  background-color: rgba(127, 255, 0, 0.05);
-}
-
-.overlay-coral {
-  background-color: rgba(255, 127, 80, 0.05);
-}
-
-.overlay-yellow {
-  background-color: rgba(255, 255, 0, 0.05);
-}
-
-.overlay-green {
-  background-color: rgba(0, 128, 0, 0.05);
-}
-
-.overlay-olive {
-  background-color: rgba(128, 128, 0, 0.05);
+#default-carousel > div {
+  min-height: 600px;
 }
