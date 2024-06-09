@@ -132,11 +132,6 @@
 # Project Proposal
 A Rosy Economics Investigative Tool
 
-## Team
-- Jesse (Jess) Charbneau - [LinkedIn](https://www.linkedin.com/in/jcharbneau)
-- Aleem Rahil - [LinkedIn](https://www.linkedin.com/in/aleemrahil/)
-- Anjana Shivangi - [LinkedIn](https://www.linkedin.com/in/anjana-shivangi)
-
 ### Objective
 
 To develop an integrated system that retrieves, stores, and analyzes economic and financial data from multiple sources, with the aim of identifying and correlating cause-and-effect relationships between various economic indicators and financial market trends. The system will also overlay significant government interventions, such as changes in interest rates, tax breaks, and currency policies, to provide a comprehensive view of market dynamics. The project will focus on analyzing the impact of federal policies on stock data, along with three main aspects: credit card volume and delinquency analysis, cumulative fact tables, and creating engaging metrics for everyday users/investors.
@@ -251,6 +246,10 @@ PAA          | Plains All American Pipeline, L.P.       | Oil & Gas Midstream
 ....
 jess@jess-mac-dev ~/Documents/development/learning/dataengineer.io/bootcamp4/rosy_economics_capstone/project_notes/sample_datasets => 
 </code></pre>
+## Architecture Diagrams
+
+### Development
+![DevelopmentDiagram](project_notes/screenshots/dev_diagram.png)
 
 ## Project Components
 
