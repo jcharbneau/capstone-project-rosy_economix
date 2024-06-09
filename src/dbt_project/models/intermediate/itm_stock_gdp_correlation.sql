@@ -7,7 +7,7 @@ WITH stock_gdp AS (
     FROM
         {{ ref('raw_stock_data') }} s
     JOIN
-        {{ ref('gdp') }} g ON s."Date" = g.date
+        {{ ref('raw_gdp') }} g ON s."Date" = g.date
 ),
 stock_unemployment AS (
     SELECT
@@ -18,7 +18,7 @@ stock_unemployment AS (
     FROM
         {{ ref('raw_stock_data') }} s
     JOIN
-        {{ ref('unemployment_rate') }} u ON s."Date" = u.date
+        {{ ref('raw_unemployment_rate') }} u ON s."Date" = u.date
 ),
 stock_cpi AS (
     SELECT
@@ -29,7 +29,7 @@ stock_cpi AS (
     FROM
         {{ ref('raw_stock_data') }} s
     JOIN
-        {{ ref('cpi') }} c ON s."Date" = c.date
+        {{ ref('raw_cpi') }} c ON s."Date" = c.date
 ),
 correlations AS (
     SELECT

@@ -75,7 +75,13 @@
    <pre><code>cd src/dbt_project
    python3 -m venv .venv
    source .venv/bin/activate
+   #
+   # if using WSL, you may also need to run these commands:
+   # sudo apt install postgresql postgresql-contrib
+   # sudo apt-get install libpq-dev python3-dev build-essential
+   #
    pip install pip --upgrade
+   pip install psycopg2
    pip install -r dbt-requirements.txt
    </code></pre>
    Once these steps have been completed, move on to retrieving the data
@@ -126,10 +132,11 @@
 # Project Proposal
 A Rosy Economics Investigative Tool
 
-## Team
+## Capstone Team
 - Jesse (Jess) Charbneau - [LinkedIn](https://www.linkedin.com/in/jcharbneau)
+
+### Additional Contributors
 - Aleem Rahil - [LinkedIn](https://www.linkedin.com/in/aleemrahil/)
-- Anjana Shivangi - [LinkedIn](https://www.linkedin.com/in/anjana-shivangi)
 
 ### Objective
 
@@ -245,6 +252,10 @@ PAA          | Plains All American Pipeline, L.P.       | Oil & Gas Midstream
 ....
 jess@jess-mac-dev ~/Documents/development/learning/dataengineer.io/bootcamp4/rosy_economics_capstone/project_notes/sample_datasets => 
 </code></pre>
+## Architecture Diagrams
+
+### Development
+![DevelopmentDiagram](project_notes/screenshots/dev_diagram.png)
 
 ## Project Components
 
@@ -352,6 +363,13 @@ The Economic and Financial Data Analysis System will provide a powerful tool for
 
 **Next Steps:**
 - Finalize the project plan and identify datasets and begin finalizing the data model.
+  - Window Based Analysis:
+    - Would it be useful to have DoD / WoW / MoM / YoY values for stocks? What about Fed data?
+    - Rolling sum / avg?  monthly?  (Thinking trading volumes?) - Where else could we could apply this analysis?
+      - 50 day simple moving average (Advanced SQL and Applying Analytic Patterns ~ 49:30 minutes)
+    - Ranking?
+  - Aggregations
+  - Cumulation based
 - Complete the build out of the target Compose environment
 - Develop and test the initial data retrieval and storage scripts.
 

@@ -1,0 +1,10 @@
+-- models/merge_incremental_data.sql
+with incremental_data as (
+    select * from {{ ref('incremental_stock_data') }}
+),
+merged_data as (
+    select * from {{ ref('raw_stock_data') }}
+    union all
+    select * from incremental_data
+)
+select * from merged_data

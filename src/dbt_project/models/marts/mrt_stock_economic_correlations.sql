@@ -7,7 +7,7 @@ WITH stock_gdp AS (
     FROM
         {{ ref('raw_stock_data') }} s
     JOIN
-        {{ ref('gdp') }} g ON s."Date" = g.date
+        {{ ref('raw_gdp') }} g ON s."Date" = g.date
     WHERE
         s."Close" IS NOT NULL AND g.value IS NOT NULL
 ),
@@ -20,7 +20,7 @@ stock_unemployment AS (
     FROM
         {{ ref('raw_stock_data') }} s
     JOIN
-        {{ ref('unemployment_rate') }} u ON s."Date" = u.date
+        {{ ref('raw_unemployment_rate') }} u ON s."Date" = u.date
     WHERE
         s."Close" IS NOT NULL AND u.value IS NOT NULL
 ),
@@ -33,7 +33,7 @@ stock_cpi AS (
     FROM
         {{ ref('raw_stock_data') }} s
     JOIN
-        {{ ref('cpi') }} c ON s."Date" = c.date
+        {{ ref('raw_cpi') }} c ON s."Date" = c.date
     WHERE
         s."Close" IS NOT NULL AND c.value IS NOT NULL
 ),

@@ -22,7 +22,7 @@ unemployment_data AS (
         date,
         value AS unemployment_rate
     FROM
-        public.unemployment_rate
+        public.raw_unemployment_rate
 )
 SELECT
     s.date,

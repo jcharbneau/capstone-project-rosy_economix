@@ -9,7 +9,7 @@ WITH stock_unemployment AS (
     FROM
         {{ ref('raw_stock_data') }} s
     JOIN
-        {{ ref('unemployment_rate') }} u ON s."Date" = u.date
+        {{ ref('raw_unemployment_rate') }} u ON s."Date" = u.date
     WHERE
         s."Close" IS NOT NULL AND u.value IS NOT NULL
 )

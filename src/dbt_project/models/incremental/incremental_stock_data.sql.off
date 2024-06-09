@@ -1,0 +1,2 @@
+-- models/incremental_stock_data.sql
+select * from {{ source('pipelines', 'incremental_stock_data') }}

@@ -1,4 +1,4 @@
--- models/staging/stg_raw_stock_data.sql
+-- models/staging/stg_stock_data.sql
 
 SELECT
     "Date" AS date,

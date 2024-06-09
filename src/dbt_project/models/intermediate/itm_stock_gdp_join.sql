@@ -22,7 +22,7 @@ gdp_data AS (
         date,
         value AS gdp
     FROM
-        public.gdp
+        public.raw_gdp
 )
 SELECT
     s.date,
