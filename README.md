@@ -12,7 +12,7 @@
 - [Project Components](#project-components)
 - [Implementation Plan](#implementation-plan)
 - [Potential Use Cases](#potential-use-cases)
-- [Getting Started](#getting-started)
+- [Getting Started](#-getting-started)
   - [Prerequisites](#prerequisites)
   - [Local Development](#local-development)
     - [Debugging](#debugging)
