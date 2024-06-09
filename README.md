@@ -2,11 +2,7 @@
 
 **Table of Contents**
 
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Local Development](#local-development)
-    - [Debugging](#debugging)
-  - [dbt Project Setup](#dbt-project-setup)
+
 - [Project Proposal](#project-proposal)
   - [Project Overview](#project-overview)
   - [Team](#team)
@@ -16,121 +12,18 @@
 - [Project Components](#project-components)
 - [Implementation Plan](#implementation-plan)
 - [Potential Use Cases](#potential-use-cases)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Local Development](#local-development)
+    - [Debugging](#debugging)
+  - [dbt Project Setup](#dbt-project-setup)
 - [POC Idea Development](#poc-idea-development)
 - [Conclusion](#conclusion)
 
-# **🚀 Getting Started**
-
-## **Prerequisites**
-
-1. **Install [Docker](https://docs.docker.com/engine/install/)**: Docker is a platform for packaging, distributing, and managing applications in containers.
-2. **Install the [Astro CLI](https://docs.astronomer.io/astro/cli/install-cli)**: Astro CLI is a command-line tool designed for working with Apache Airflow projects, streamlining project creation, deployment, and management for smoother development and deployment workflows.
-
-## **Local Development**
-
-1. **Clone the Repository**: Open a terminal, navigate to your desired directory, and clone the repository using:
-    ```bash
-    git clone git@github.com:DataExpert-ZachWilson-V4/capstone-project-rosy_economix.git # clone the repo
-    cd capstone-project-rosy_economix/ # navigate into the new folder
-    ```
-    
-    1. If you don’t have SSH configured with the GitHub CLI, please follow the instructions for [generating a new SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) and [adding a new SSH key to your GitHub account](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account?tool=cli) in the GitHub docs.
-2. **Docker Setup and Management**: Launch Docker Daemon or open the Docker Desktop app
-3. **Run the Astro Project**:
-   - Start the project on your local machine by running **`astro dev start`**
-       - This will spin up 7 Docker containers on your machine, each for a different Airflow component:
-           - **Postgres**: Airflow's Metadata Database, storing internal state and configurations.
-           - **Webserver**: Renders the Airflow UI.
-           - **Scheduler**: Monitors, triggers, and orchestrates task execution for proper sequencing and resource allocation.
-           - **Triggerer**: Triggers deferred tasks.
-           - **Notebook**: A Jupyter Notebook service for data exploration
-           - **Frontend**: A ReactJS+Vite+TailwindCSS environment
-           - **API**: A FastAPI backend
-       - Verify container creation with **`docker ps`** or **`astro dev ps`**
-         - **Access the Airflow UI**: Go to http://localhost:8181/ and log in with '**`admin`**' for both Username and Password
-         
-          >
-          >    ℹ️ Note: Running astro dev start exposes the Airflow Webserver at port **`8181`** and Postgres at port **`5631`**.
-          >
-          >    If these ports are in use, halt existing Docker containers or modify port configurations in **`.astro/config.yaml`**.  
-          >
-          >    There are several additional services included in this project.  
-          >    - Jupyter Notebooks: http://localhost:8888
-          >    - ReactJS Frontend: http://localhost:5180
-          >    - FastAPI Backend: http://localhost:8500/docs
-          >
-          >    ℹ️ This is a customized implementation of Astronomer.
-          >
-          >    This repository contains a src/docker-compose.override.yml file, that allows us to "override" Astro and inject additional containers into the ecosystem.  There are deficiencies.  A 'astro dev <instance> bash' will still only work for the astro containers.  Use standard docker commands to avoid this challenge.  Review src/docker-compose.overrides.yml for more details. In addition, communication is a little different between the client (us) and the internal services (namely postgres as it runs internally on 5432 while when we connect via a UI it is on 5631). 
-          > 
-       - You should see something resembling below:
-
-         ![Docker Desktop - Running Group](project_notes/screenshots/docker_running_group.png)
-
-
-4. **Setup the Seed data**
-   
-   Execute the following statements to create a virtual environment for dbt.  You will need to have a recent version of Python 3 installed for these steps.
-   
-   <pre><code>cd src/dbt_project
-   python3 -m venv .venv
-   source .venv/bin/activate
-   #
-   # if using WSL, you may also need to run these commands:
-   # sudo apt install postgresql postgresql-contrib
-   # sudo apt-get install libpq-dev python3-dev build-essential
-   #
-   pip install pip --upgrade
-   pip install psycopg2
-   pip install -r dbt-requirements.txt
-   </code></pre>
-   Once these steps have been completed, move on to retrieving the data
-   
-   <pre><code># execute the stock retrieval script
-   python scripts/get_stock_data_last_35years.py
-   
-   # verify the script wrote the file, and verify the file length 
-   #  there should be over 1m rows
-   ls -l seeds/raw_stock_data.csv && wc -l seeds/raw_stock_data.csv
-   
-   # execute the script to get the federal (fred) data
-   python scripts/download_fred_data.py
-   
-   # verify the fred data downloaded 
-   ls -l seeds/{gdp,cpi,unemployment_rate}.csv
-   wc -l seeds/{gdp,cpi,unemployment_rate}.csv
-   </code></pre>
-5. **Seed the raw tables & Run the dbt models**
-   This step will take the raw data, and create the staging, intermediate and mart tables
-   <pre><code># verify dbt is working and configured correctly
-   dbt debug
-   
-   # use dbt to seed the data to the postgresql instance
-   dbt seed
-   
-   # verify the record counts
-   # raw stock data
-   PGPASSWORD='postgres' psql -U postgres -h localhost -p 5631 -d pipelines -c "SELECT count(*) from public.raw_stock_data;"
-   
-   # raw cpi data
-   PGPASSWORD='postgres' psql -U postgres -h localhost -p 5631 -d pipelines -c "SELECT count(*) from public.cpi;"
-   
-   # raw gdp data
-   PGPASSWORD='postgres' psql -U postgres -h localhost -p 5631 -d pipelines -c "SELECT count(*) from public.gdp;"
-   
-   # raw unemployment rate data
-   PGPASSWORD='postgres' psql -U postgres -h localhost -p 5631 -d pipelines -c "SELECT count(*) from public.unemployment_rate;"
-   
-   # if everything is sane, execute the models
-   dbt run
-   </code></pre>
-6. **Stop** the Astro Docker container by running `**astro dev stop**`
-    >
-    > ❗🚫❗  Remember to stop the Astro project after working to prevent issues with Astro and Docker ❗🚫❗
-    >
     
 # Project Proposal
 A Rosy Economics Investigative Tool
+![Rosy Economix Development Screenshot](project_notes/screenshots/rosy_frontend.20240609.png)
 
 ## Capstone Team
 - Jesse (Jess) Charbneau - [LinkedIn](https://www.linkedin.com/in/jcharbneau)
@@ -257,6 +150,7 @@ jess@jess-mac-dev ~/Documents/development/learning/dataengineer.io/bootcamp4/ros
 ### Development
 ![DevelopmentDiagram](project_notes/screenshots/dev_diagram.png)
 
+
 ## Project Components
 
 1. **Data Retrieval**
@@ -332,6 +226,116 @@ jess@jess-mac-dev ~/Documents/development/learning/dataengineer.io/bootcamp4/ros
 4. **Investment Strategies:** Inform investment strategies by identifying correlations between macroeconomic indicators and market performance.
 5. **Policy Impact Analysis:** Evaluate the impact of government interventions on the economy and financial markets, providing valuable insights for policy-making.
 6. **Credit Card Risk Analysis:** Assess credit card volume and delinquency trends to inform risk management strategies for financial institutions.
+
+# **🚀 Getting Started**
+
+## **Prerequisites**
+
+1. **Install [Docker](https://docs.docker.com/engine/install/)**: Docker is a platform for packaging, distributing, and managing applications in containers.
+2. **Install the [Astro CLI](https://docs.astronomer.io/astro/cli/install-cli)**: Astro CLI is a command-line tool designed for working with Apache Airflow projects, streamlining project creation, deployment, and management for smoother development and deployment workflows.
+
+## **Local Development**
+
+1. **Clone the Repository**: Open a terminal, navigate to your desired directory, and clone the repository using:
+    ```bash
+    git clone git@github.com:DataExpert-ZachWilson-V4/capstone-project-rosy_economix.git # clone the repo
+    cd capstone-project-rosy_economix/ # navigate into the new folder
+    ```
+    
+    1. If you don’t have SSH configured with the GitHub CLI, please follow the instructions for [generating a new SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) and [adding a new SSH key to your GitHub account](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account?tool=cli) in the GitHub docs.
+2. **Docker Setup and Management**: Launch Docker Daemon or open the Docker Desktop app
+3. **Run the Astro Project**:
+   - Start the project on your local machine by running **`astro dev start`**
+       - This will spin up 7 Docker containers on your machine, each for a different Airflow component:
+           - **Postgres**: Airflow's Metadata Database, storing internal state and configurations.
+           - **Webserver**: Renders the Airflow UI.
+           - **Scheduler**: Monitors, triggers, and orchestrates task execution for proper sequencing and resource allocation.
+           - **Triggerer**: Triggers deferred tasks.
+           - **Notebook**: A Jupyter Notebook service for data exploration
+           - **Frontend**: A ReactJS+Vite+TailwindCSS environment
+           - **API**: A FastAPI backend
+       - Verify container creation with **`docker ps`** or **`astro dev ps`**
+         - **Access the Airflow UI**: Go to http://localhost:8181/ and log in with '**`admin`**' for both Username and Password
+         
+          >
+          >    ℹ️ Note: Running astro dev start exposes the Airflow Webserver at port **`8181`** and Postgres at port **`5631`**.
+          >
+          >    If these ports are in use, halt existing Docker containers or modify port configurations in **`.astro/config.yaml`**.  
+          >
+          >    There are several additional services included in this project.  
+          >    - Jupyter Notebooks: http://localhost:8888
+          >    - ReactJS Frontend: http://localhost:5180
+          >    - FastAPI Backend: http://localhost:8500/docs
+          >
+          >    ℹ️ This is a customized implementation of Astronomer.
+          >
+          >    This repository contains a src/docker-compose.override.yml file, that allows us to "override" Astro and inject additional containers into the ecosystem.  There are deficiencies.  A 'astro dev <instance> bash' will still only work for the astro containers.  Use standard docker commands to avoid this challenge.  Review src/docker-compose.overrides.yml for more details. In addition, communication is a little different between the client (us) and the internal services (namely postgres as it runs internally on 5432 while when we connect via a UI it is on 5631). 
+          > 
+       - You should see something resembling below:
+
+         ![Docker Desktop - Running Group](project_notes/screenshots/docker_running_group.png)
+
+
+4. **Setup the Seed data**
+   
+   Execute the following statements to create a virtual environment for dbt.  You will need to have a recent version of Python 3 installed for these steps.
+   
+   <pre><code>cd src/dbt_project
+   python3 -m venv .venv
+   source .venv/bin/activate
+   #
+   # if using WSL, you may also need to run these commands:
+   # sudo apt install postgresql postgresql-contrib
+   # sudo apt-get install libpq-dev python3-dev build-essential
+   #
+   pip install pip --upgrade
+   pip install psycopg2
+   pip install -r dbt-requirements.txt
+   </code></pre>
+   Once these steps have been completed, move on to retrieving the data
+   
+   <pre><code># execute the stock retrieval script
+   python scripts/get_stock_data_last_35years.py
+   
+   # verify the script wrote the file, and verify the file length 
+   #  there should be over 1m rows
+   ls -l seeds/raw_stock_data.csv && wc -l seeds/raw_stock_data.csv
+   
+   # execute the script to get the federal (fred) data
+   python scripts/download_fred_data.py
+   
+   # verify the fred data downloaded 
+   ls -l seeds/{gdp,cpi,unemployment_rate}.csv
+   wc -l seeds/{gdp,cpi,unemployment_rate}.csv
+   </code></pre>
+5. **Seed the raw tables & Run the dbt models**
+   This step will take the raw data, and create the staging, intermediate and mart tables
+   <pre><code># verify dbt is working and configured correctly
+   dbt debug
+   
+   # use dbt to seed the data to the postgresql instance
+   dbt seed
+   
+   # verify the record counts
+   # raw stock data
+   PGPASSWORD='postgres' psql -U postgres -h localhost -p 5631 -d pipelines -c "SELECT count(*) from public.raw_stock_data;"
+   
+   # raw cpi data
+   PGPASSWORD='postgres' psql -U postgres -h localhost -p 5631 -d pipelines -c "SELECT count(*) from public.cpi;"
+   
+   # raw gdp data
+   PGPASSWORD='postgres' psql -U postgres -h localhost -p 5631 -d pipelines -c "SELECT count(*) from public.gdp;"
+   
+   # raw unemployment rate data
+   PGPASSWORD='postgres' psql -U postgres -h localhost -p 5631 -d pipelines -c "SELECT count(*) from public.unemployment_rate;"
+   
+   # if everything is sane, execute the models
+   dbt run
+   </code></pre>
+6. **Stop** the Astro Docker container by running `**astro dev stop**`
+    >
+    > ❗🚫❗  Remember to stop the Astro project after working to prevent issues with Astro and Docker ❗🚫❗
+    >
 
 ## POC Idea Development
 
