@@ -132,6 +132,12 @@
 # Project Proposal
 A Rosy Economics Investigative Tool
 
+## Capstone Team
+- Jesse (Jess) Charbneau - [LinkedIn](https://www.linkedin.com/in/jcharbneau)
+
+### Additional Contributors
+- Aleem Rahil - [LinkedIn](https://www.linkedin.com/in/aleemrahil/)
+
 ### Objective
 
 To develop an integrated system that retrieves, stores, and analyzes economic and financial data from multiple sources, with the aim of identifying and correlating cause-and-effect relationships between various economic indicators and financial market trends. The system will also overlay significant government interventions, such as changes in interest rates, tax breaks, and currency policies, to provide a comprehensive view of market dynamics. The project will focus on analyzing the impact of federal policies on stock data, along with three main aspects: credit card volume and delinquency analysis, cumulative fact tables, and creating engaging metrics for everyday users/investors.
