@@ -22,7 +22,7 @@ cpi_data AS (
         date,
         value AS cpi
     FROM
-        public.cpi
+        public.raw_cpi
 )
 SELECT
     s.date,

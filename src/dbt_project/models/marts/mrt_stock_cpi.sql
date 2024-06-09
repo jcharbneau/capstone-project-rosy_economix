@@ -9,7 +9,7 @@ WITH stock_cpi AS (
     FROM
         {{ ref('raw_stock_data') }} s
     JOIN
-        {{ ref('cpi') }} c ON s."Date" = c.date
+        {{ ref('raw_cpi') }} c ON s."Date" = c.date
     WHERE
         s."Close" IS NOT NULL AND c.value IS NOT NULL
 )

@@ -17,7 +17,7 @@ WITH base AS (
         total_revenue,
         net_income
     FROM
-        {{ ref('stg_raw_stock_data') }}
+        {{ ref('stg_stock_data') }}
 ),
 cumulative AS (
     SELECT

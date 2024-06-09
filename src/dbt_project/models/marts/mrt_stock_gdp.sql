@@ -9,7 +9,7 @@ WITH stock_gdp AS (
     FROM
         {{ ref('raw_stock_data') }} s
     JOIN
-        {{ ref('gdp') }} g ON s."Date" = g.date
+        {{ ref('raw_gdp') }} g ON s."Date" = g.date
     WHERE
         s."Close" IS NOT NULL AND g.value IS NOT NULL
 )
