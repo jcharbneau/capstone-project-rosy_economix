@@ -150,6 +150,9 @@ jess@jess-mac-dev ~/Documents/development/learning/dataengineer.io/bootcamp4/ros
 ### Development
 ![DevelopmentDiagram](project_notes/screenshots/dev_diagram.png)
 
+### Production Proposal Diagram
+![ProductionDiagram](project_notes/screenshots/proposed_prod_diagram.png)
+
 
 ## Project Components
 
