@@ -7,7 +7,7 @@ const EconomicIndicatorsChart = () => {
   const [chartData, setChartData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [startDate, setStartDate] = useState(new Date(new Date().setFullYear(new Date().getFullYear() - 5)));
+  const [startDate, setStartDate] = useState(new Date(new Date().setFullYear(new Date().getFullYear() - 25)));
   const [endDate, setEndDate] = useState(new Date());
 
   const fetchData = async (start, end) => {
@@ -35,6 +35,7 @@ const EconomicIndicatorsChart = () => {
       const nonfarmPayrollsData = data.nonfarm_payrolls.map(item => item.value);
       const totalWagesAndSalariesData = data.total_wages_and_salaries.map(item => item.value);
 
+
       setChartData({
         labels: dates,
         datasets: [
@@ -43,54 +44,90 @@ const EconomicIndicatorsChart = () => {
             data: gdpData,
             borderColor: 'rgba(75, 192, 192, 1)',
             backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderWidth: 1, // Make lines thinner
+            pointRadius: 1, // Make plot points smaller
+            pointHitRadius: 1, // Adjust the hit radius for smaller points
+            fill: true,
           },
           {
             label: 'CPI',
             data: cpiData,
             borderColor: 'rgba(54, 162, 235, 1)',
             backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderWidth: 1, // Make lines thinner
+            pointRadius: 1, // Make plot points smaller
+            pointHitRadius: 1, // Adjust the hit radius for smaller points
+            fill: true,
           },
           {
             label: 'Unemployment Rate',
             data: unemploymentRateData,
             borderColor: 'rgba(255, 206, 86, 1)',
             backgroundColor: 'rgba(255, 206, 86, 0.2)',
+            borderWidth: 1, // Make lines thinner
+            pointRadius: 1, // Make plot points smaller
+            pointHitRadius: 1, // Adjust the hit radius for smaller points
+            fill: true,
           },
           {
-            label: 'Average Hourly Earnings',
+            label: 'Avg Hourly Earnings',
             data: avgHourlyEarningsData,
             borderColor: 'rgba(153, 102, 255, 1)',
             backgroundColor: 'rgba(153, 102, 255, 0.2)',
+            borderWidth: 1, // Make lines thinner
+            pointRadius: 1, // Make plot points smaller
+            pointHitRadius: 1, // Adjust the hit radius for smaller points
+            fill: true,
           },
           {
-            label: 'Average Weekly Earnings',
+            label: 'Avg Weekly Earnings',
             data: avgWeeklyEarningsData,
             borderColor: 'rgba(255, 159, 64, 1)',
             backgroundColor: 'rgba(255, 159, 64, 0.2)',
+            borderWidth: 1, // Make lines thinner
+            pointRadius: 1, // Make plot points smaller
+            pointHitRadius: 1, // Adjust the hit radius for smaller points
+            fill: true,
           },
           {
             label: 'Employment Cost Index',
             data: employmentCostIndexData,
             borderColor: 'rgba(75, 192, 192, 1)',
             backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderWidth: 1, // Make lines thinner
+            pointRadius: 1, // Make plot points smaller
+            pointHitRadius: 1, // Adjust the hit radius for smaller points
+            fill: true,
           },
           {
             label: 'Job Openings',
             data: jobOpeningsData,
             borderColor: 'rgba(54, 162, 235, 1)',
             backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderWidth: 1, // Make lines thinner
+            pointRadius: 1, // Make plot points smaller
+            pointHitRadius: 1, // Adjust the hit radius for smaller points
+            fill: true,
           },
           {
             label: 'Nonfarm Payrolls',
             data: nonfarmPayrollsData,
             borderColor: 'rgba(255, 206, 86, 1)',
             backgroundColor: 'rgba(255, 206, 86, 0.2)',
+            borderWidth: 1, // Make lines thinner
+            pointRadius: 1, // Make plot points smaller
+            pointHitRadius: 1, // Adjust the hit radius for smaller points
+            fill: true,
           },
           {
             label: 'Total Wages and Salaries',
             data: totalWagesAndSalariesData,
             borderColor: 'rgba(153, 102, 255, 1)',
             backgroundColor: 'rgba(153, 102, 255, 0.2)',
+            borderWidth: 1, // Make lines thinner
+            pointRadius: 1, // Make plot points smaller
+            pointHitRadius: 1, // Adjust the hit radius for smaller points
+            fill: true,
           },
         ],
       });
@@ -100,7 +137,54 @@ const EconomicIndicatorsChart = () => {
       setLoading(false);
     }
   };
-
+const options = {
+        responsive: true,
+        scales: {
+          y1: {
+            type: 'linear',
+            display: true,
+            position: 'left',
+            title: {
+              display: true,
+              text: 'GDP (in billions)',
+            },
+          },
+          y2: {
+            type: 'linear',
+            display: true,
+            position: 'right',
+            title: {
+              display: true,
+              text: 'Unemployment Rate (%)',
+            },
+            grid: {
+              drawOnChartArea: false, // only want the grid lines for one axis to show up
+            },
+          },
+          y3: {
+            type: 'linear',
+            display: true,
+            position: 'right',
+            title: {
+              display: true,
+              text: 'CPI (Index)',
+            },
+            grid: {
+              drawOnChartArea: false,
+            },
+          },
+        },
+        plugins: {
+          legend: {
+            display: true,
+            position: 'top',
+          },
+          title: {
+            display: true,
+            text: 'Economic Indicators Over Time',
+          },
+        },
+      };
   useEffect(() => {
     fetchData(startDate, endDate);
   }, [startDate, endDate]);
@@ -109,15 +193,10 @@ const EconomicIndicatorsChart = () => {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div className="w-full h-full max-w-4xl max-h-[28px] center transparent-canvas absolute block -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-      <h2>Economic Indicators Chart</h2>
-      <div style={{ marginBottom: '20px' }}>
-        <label>Start Date: </label>
-        <DatePicker selected={startDate} onChange={date => setStartDate(date)} />
-        <label style={{ marginLeft: '20px' }}>End Date: </label>
-        <DatePicker selected={endDate} onChange={date => setEndDate(date)} />
+    <div className="chart-container">
+      <div className="main-chart">
+        <Line data={chartData} options={options}  style={{maxHeight:'70vh'}}  />
       </div>
-      {chartData && <Line data={chartData} />}
     </div>
   );
 };
