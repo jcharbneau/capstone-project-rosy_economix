@@ -24,12 +24,19 @@ vars:
 models:
   dbt_project:
     staging:
-      +materialized: table
+      +materialized: view
+      stg_stock_returns:
+        enabled: true
+      stg_quarterly_stock_returns:
+        enabled: true
+      stg_gdp:
+        enabled: true
     intermediate:
       +materialized: table
     marts:
       +materialized: table
-
+      final_stock_gdp_data:
+        enabled: true
 seeds:
   dbt_project:
     raw_stock_data:
