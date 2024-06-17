@@ -1,52 +1,50 @@
-html {
-  scroll-behavior: smooth;
-}
-body, #root, #app, #app > div {
-  width: 100%; /* Ensure full width */
-  margin: 0; /* Remove any default margin */
-  overflow-x:hidden;
-  overflow-y:auto;
+html, body, #root, #app {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Prevent scroll on body */
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(40, 44, 52);
 }
 
+/* Header (top navigation) */
 .svg-container {
   width: 100%;
   height: 80px;
   background-color: rgb(40, 44, 52);
   position: fixed;
-  padding-left:20px;
+  top: 0;
+  left: 0;
+  padding-left: 20px;
   padding-top: 10px;
-  padding-bottom:10px;
-  /*margin: 5px auto;*/
-  top:0;
-  left:0;
-  z-index:1000;
+  padding-bottom: 10px;
+  z-index: 100;
 }
+
 .svg-container > img {
   max-width: 256px;
   max-height: 64px;
 }
+
 .nav-links {
   list-style: none;
   display: flex;
-  /*justify-content: flex-start;*/
   background-color: #3c3f41;
-  margin-top: 80px;
-  margin-left:0;
-  top:0;
-  padding: 10px 20px;
-  position: fixed;
+  margin: 0;
+  padding: 0;
   width: 100%;
-  /*z-index: 1000;*/
-  /*margin-left: 0;*/
+  top: 80px;
+  position: fixed;
+  z-index: 100;
+  border-top: 1px solid #ff69b4;
+  border-bottom: 1px solid #2a
 
-    /* Existing styles */
-    border-top: 1px solid #ff69b4;
-  border-bottom: 1px solid #2a3439;
-
+3439;
 }
 
 .nav-links li {
-
   margin-left: 20px;
 }
 
@@ -54,61 +52,73 @@ body, #root, #app, #app > div {
   color: #00bfff;
   text-decoration: none;
 }
+
 .nav-links a.nav-item-active {
   color: #ff69b4;
-  font-weight: bold; /* make the font weight bold */
+  font-weight: bold;
 }
+
 .nav-links a.nav-item-active:hover {
   color: #00bfff;
-
 }
 
+/* Main content area */
 .main-content {
-  margin-top: 120px;
-}
-
-.charts-container, .main-content, .about-content {
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding: 30px;
-  margin-top: 60px;
+  margin-top: 140px; /* Adjust to fit below the fixed header */
+  overflow-y: auto; /* Allow vertical scroll */
 }
 
-.chart-row {
+/* Center navigation buttons */
+.center-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 200; /* Ensure it appears above other content */
+}
+
+.center-nav.left {
+  left: 10px; /* Adjust as necessary */
+}
+
+.center-nav.right {
+  right: 10px; /* Adjust as necessary */
+}
+
+/* Charts container */
+.chart-container {
+  flex: 1;
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
+  overflow: hidden;
   width: 100%;
 }
-.charts-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Creates 3 columns */
-  grid-template-rows: repeat(3, 1fr); /* Creates 3 rows */
-  gap: 10px; /* Space between the charts */
-  padding: 10px;
-  margin: 10px;
-  height: 100%; /* Adjust height as necessary */
-  width: 100%; /* Adjust width as necessary */
+
+.main-chart {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
+.overview-chart {
+  flex: 0 0 100px; /* Fixed height for the overview chart */
+  margin: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .chart {
   width: 100%;
-  height: 300px;
-  background-color: #ddd; /* Default background color */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 20px;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for background and shadow */
-}
-
-.chart:hover {
-  background-color: rgb(0, 181, 173); /* Slightly lighter on hover */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for emphasis */
-  cursor: pointer;
+  height: 100%;
 }
 
 /* Modal window */
-
 .modal-backdrop {
   position: fixed;
   top: 0;
@@ -145,11 +155,14 @@ body, #root, #app, #app > div {
   cursor: pointer;
 }
 
-
-/* rigetti's "main-logo" class for the svg */
-@media only screen and (min-width:960px) {
-  .main-header .main-logo {
-    max-width: 7.9375rem;
-    padding-top: 0
-  }
+/* Footer (bottom navigation) */
+.footer {
+  width: 100%;
+  background-color: #3c3f41;
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+  border-top: 1px solid #ff69b4;
 }
