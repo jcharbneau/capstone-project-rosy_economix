@@ -63,7 +63,7 @@ const UnemploymentChart = () => {
     },
   };
 
-  return <Line data={chartData} options={options} />;
+  return <Line data={chartData} options={options}  style={{ "maxHeight": "640px" }}  />;
 };
 
 export default UnemploymentChart;
