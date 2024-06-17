@@ -2,12 +2,11 @@ from fastapi import FastAPI, HTTPException, Query
 from fastapi.responses import StreamingResponse
 import matplotlib.pyplot as plt
 import io
-import os
+from typing import List, Dict, Any, Optional
 
 from datetime import datetime, timedelta
 import asyncpg
 from pydantic import BaseModel
-from typing import List, Optional
 
 
 from fastapi.middleware.cors import CORSMiddleware
@@ -20,6 +19,33 @@ class IndicatorData(BaseModel):
     date: str
     value: float
 
+class ChartData(BaseModel):
+    labels: List[str]
+    datasets: List[Dict[str, Any]]
+
+# Pydantic model for response
+class GdpStockCorrelationData(BaseModel):
+    quarter: str
+    gdp_growth_rate: float
+    avg_stock_return: float
+
+class Financials(BaseModel):
+    ticker: str
+    companyName: str
+    industry: str
+    sector: str
+    marketCap: float
+    totalRevenue: float
+    netIncome: float
+
+class StockData(BaseModel):
+    ticker: str
+    chartData: ChartData
+    financials: Financials
+    offExchangeTrading: Dict[str, Any]
+    insiderTrading: Dict[str, Any]
+    senateTrading: List[Dict[str, Any]]
+
 class EconomicIndicatorSeries(BaseModel):
     gdp: List[IndicatorData]
     cpi: List[IndicatorData]
@@ -30,6 +56,18 @@ class EconomicIndicatorSeries(BaseModel):
     job_openings: List[IndicatorData]
     nonfarm_payrolls: List[IndicatorData]
     total_wages_and_salaries: List[IndicatorData]
+
+class BailoutStimulusChartData(BaseModel):
+    labels: List[str]
+    datasets: List[Dict[str, str]]
+
+class BailoutStimulusData(BaseModel):
+    chartData: BailoutStimulusChartData
+
+class TickerPrice(BaseModel):
+    symbol: str
+    price: float
+
 
 def default_start_date():
     return (datetime.now() - timedelta(days=1*365)).date()
@@ -340,9 +378,24 @@ async def get_gdp_cpi_ur(
         """
         results = await fetch_data(query, (start_date_obj, end_date_obj))
 
-        gdp_data = [IndicatorData(date=str(record['date']), value=record['gdp_value']) for record in results]
-        cpi_data = [IndicatorData(date=str(record['date']), value=record['cpi_value']) for record in results]
-        unemployment_data = [IndicatorData(date=str(record['date']), value=record['unemployment_rate']) for record in results]
+        gdp_data = [
+            IndicatorData(
+                date=str(record['date']),
+                value=record['gdp_value'] if record['gdp_value'] is not None else 0
+            ) for record in results
+        ]
+        cpi_data = [
+            IndicatorData(
+                date=str(record['date']),
+                value=record['cpi_value'] if record['cpi_value'] is not None else 0
+            ) for record in results
+        ]
+        unemployment_data = [
+            IndicatorData(
+                date=str(record['date']),
+                value=record['unemployment_rate'] if record['unemployment_rate'] is not None else 0
+            ) for record in results
+        ]
 
         return EconomicIndicatorSeries(
             gdp=gdp_data,
@@ -358,6 +411,148 @@ async def get_gdp_cpi_ur(
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to retrieve data: {e}")
 
+@app.get("/api/stock-data", response_model=StockData)
+async def get_stock_data(ticker: str = "AAPL"):
+    try:
+        connection = await asyncpg.connect(DATABASE_URL)
+
+        # Fetching chart data from stg_stock_data
+        chart_data_query = """
+        SELECT date, close as close_price
+        FROM stg_stock_data
+        WHERE ticker = $1
+        ORDER BY date
+        """
+        chart_data_results = await connection.fetch(chart_data_query, ticker)
+        chart_data = {
+            "labels": [str(record["date"]) for record in chart_data_results],
+            "datasets": [{
+                "label": "Stock Price",
+                "data": [record["close_price"] for record in chart_data_results],
+                "borderWidth": "2",
+                "borderColor": "rgba(75, 192, 192, 1)",
+                "backgroundColor": "rgba(75, 192, 192, 0.2)"
+            }]
+        }
+
+        # Fetching financial data from stock_financials
+        financials_query = """
+        SELECT ticker, company_name, industry, sector, market_cap, total_revenue, net_income
+        FROM stock_financials
+        WHERE ticker = $1
+        """
+        financials_result = await connection.fetchrow(financials_query, ticker)
+        financials = {
+            "ticker": financials_result["ticker"],
+            "companyName": financials_result["company_name"],
+            "industry": financials_result["industry"],
+            "sector": financials_result["sector"],
+            "marketCap": financials_result["market_cap"],
+            "totalRevenue": financials_result["total_revenue"],
+            "netIncome": financials_result["net_income"]
+        }
+
+        off_exchange_trading = {}
+        insider_trading = {}
+        senate_trading = []
+
+        await connection.close()
+
+        return StockData(
+            ticker=ticker,
+            chartData=chart_data,
+            financials=financials,
+            offExchangeTrading=off_exchange_trading,
+            insiderTrading=insider_trading,
+            senateTrading=senate_trading
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to retrieve stock data: {e}")
+
+
+
+@app.get("/api/bailout-stimulus", response_model=BailoutStimulusData)
+async def get_bailout_stimulus_data():
+    try:
+        connection = await asyncpg.connect(DATABASE_URL)
+
+        # Fetching chart data from stg_government_bailout_stimulus
+        chart_data_query = """
+        SELECT year, bailout_amount, stimulus_amount
+        FROM stg_government_bailout_stimulus
+        ORDER BY date
+        """
+        chart_data_results = await connection.fetch(chart_data_query)
+        chart_data = {
+            "labels": [str(record["date"]) for record in chart_data_results],
+            "datasets": [
+                {
+                    "label": "Bailout Amount",
+                    "data": [record["bailout_amount"] for record in chart_data_results],
+                    "borderWidth": "2",
+                    "borderColor": "rgba(75, 192, 192, 1)",
+                    "backgroundColor": "rgba(75, 192, 192, 0.2)"
+                },
+                {
+                    "label": "Stimulus Amount",
+                    "data": [record["stimulus_amount"] for record in chart_data_results],
+                    "borderWidth": "2",
+                    "borderColor": "rgba(153, 102, 255, 1)",
+                    "backgroundColor": "rgba(153, 102, 255, 0.2)"
+                }
+            ]
+        }
+
+        await connection.close()
+
+        return BailoutStimulusData(chartData=chart_data)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to retrieve bailout stimulus data: {e}")
+
+
+@app.get("/api/gdp-stock-correlation", response_model=List[GdpStockCorrelationData])
+async def get_gdp_stock_correlation():
+    query = """
+    SELECT quarter, gdp_growth_rate, avg_stock_return
+    FROM final_stock_gdp_data
+    ORDER BY quarter;
+    """
+    try:
+        results = await fetch_data(query, ())
+        # Filter out records where avg_stock_return is None
+        data = [
+            GdpStockCorrelationData(
+                quarter=str(record['quarter']),
+                gdp_growth_rate=record['gdp_growth_rate'],
+                avg_stock_return=record['avg_stock_return'] if record['avg_stock_return'] is not None else 0.0  # Default to 0.0 if None
+            )
+            for record in results
+            if record['avg_stock_return'] is not None
+        ]
+        return data
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to retrieve data: {e}")
+
+# Endpoint to get stock tickers and their latest prices
+@app.get("/api/stock-tickers", response_model=List[TickerPrice])
+async def get_stock_tickers():
+    try:
+        connection = await asyncpg.connect(DATABASE_URL)
+        query = """
+        SELECT ticker as symbol, close as price
+        FROM (
+            SELECT *,
+                   ROW_NUMBER() OVER (PARTITION BY ticker ORDER BY date DESC) as rn
+            FROM stg_stock_data
+        ) sub
+        WHERE rn = 1
+        """
+        results = await connection.fetch(query)
+        await connection.close()
+
+        return [TickerPrice(symbol=record['symbol'], price=record['price']) for record in results]
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to retrieve stock tickers: {e}")
 
 if __name__ == "__main__":
     import uvicorn
