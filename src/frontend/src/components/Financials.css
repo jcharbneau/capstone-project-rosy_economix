@@ -1,0 +1,6 @@
+.financials-data, .stock-chart-container {
+  border: 2px solid #ccc; /* Match the border style */
+  border-radius: 8px; /* Match the radius */
+  padding: 16px;
+  background-color: #f9f9f9;
+}

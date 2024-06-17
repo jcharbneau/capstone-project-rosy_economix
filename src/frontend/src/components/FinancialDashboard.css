@@ -1,0 +1,55 @@
+.dashboard {
+  padding: 0px;
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+.dashboard h1 {
+  font-size: 2em;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.charts,
+.details {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: nowrap;
+  margin-bottom: 0px;
+}
+
+.charts > div,
+.details > div {
+  flex: 1 1 45%;
+  margin: 0px;
+  padding: 20px;
+  /*border: 1px solid #ddd;*/
+  /*border-radius: 5px;*/
+  /*background-color: #f9f9f9;*/
+}
+
+.charts > .stock-chart {
+  flex: 1 1 75%;
+}
+
+.charts > .financials {
+  flex: 1 1 25%;
+}
+
+.details {
+  flex-direction: column;
+}
+
+.details > div {
+  flex: 1 1 100%;
+}
+
+h2, h3 {
+  margin-top: 0;
+}
+
+@media (min-width: 768px) {
+  .details {
+    flex-direction: row;
+  }
+}
