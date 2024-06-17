@@ -1,0 +1,33 @@
+{
+    "tickers": [
+        "AAPL", "MSFT", "IBM", "GE", "KO", "JNJ", "XOM", "PG", "MCD", "WMT", "T", "MRK", "PFE", "CVX", "BA",
+        "PEP", "VZ", "V", "CSCO", "INTC", "WBA", "NKE", "DIS", "MMM", "HON", "AMGN", "CAT", "RTX", "GS",
+        "AXP", "LMT", "MO", "CMCSA", "DHR", "ORCL", "MDT", "GILD", "BMY", "COST", "TGT", "LOW", "HD",
+        "SBUX", "FDX", "UPS", "GM", "F", "TSLA", "NFLX", "NVDA", "ADBE", "QCOM", "AVGO", "TXN", "AMD",
+        "INTU", "AMAT", "MU", "LRCX", "KLAC", "HPQ", "DELL", "CSX", "UNP", "NSC", "UAL", "DAL", "AAL",
+        "LUV", "JBLU", "SWA", "XEL", "NEE", "DUK", "SO", "AEP", "D", "EXC", "PEG", "PCG", "EIX", "PPL", "FE",
+        "ED", "NRG", "AES", "CMS", "DTE", "ETR", "AEE", "WEC", "ES", "ATO", "NI", "CNP", "PNW", "OGE", "IDA",
+        "ALB", "PXD", "EOG", "HAL", "SLB", "BKR", "DVN", "COP", "OXY", "APA", "FANG", "HES", "MRO",
+        "MTDR", "PSX", "VLO", "MPC", "DK", "BP", "E", "ENB", "TRP", "KMI", "WMB", "OKE", "EPD", "ET", "MPLX", "PAA",
+        "PLD", "AMT", "SPG", "LIN", "SHW", "APD", "GOOGL", "FB", "TSM", "TM", "NVS", "SAP", "ORAN", "SNY", "MDLZ",
+        "UNH", "ADP", "MS", "BLK", "SCHW", "SPGI", "MA", "PYPL", "JPM", "BAC", "WFC", "C", "USB", "TD", "RBC", "HSBC",
+        "BBVA", "SAN", "BABA", "TCEHY", "PDD", "JD", "SHOP", "SQ", "ZM", "DOCU", "UBER", "LYFT", "ABNB", "PINS", "SNAP",
+        "TWTR", "ZM", "CRWD", "ZS", "OKTA", "NOW", "TEAM", "WORK", "DDOG", "MDB", "FSLY", "NET", "RNG", "PLTR", "SNOW",
+        "ASML", "CDNS", "ADSK", "ANSS", "WDAY", "CRM", "SPLK", "HUBS", "ZEN", "DOCN", "SWKS", "QRVO", "MPWR", "ON",
+        "NXPI", "MCHP", "TSM", "UMC", "ASX", "LPL", "AUO", "ERIC", "NOK", "INFY", "WIT", "CTSH", "ACN", "IBM", "DOX",
+        "EPAM", "GLOB", "IT", "TWLO", "TWOU", "TTEC", "MANH", "CFLT", "ESTC", "DLO", "BILL", "SPS", "RPD", "TENB",
+        "VRNS", "SPLK", "DT", "CYBR", "PFPT", "FTNT", "CHKP", "SYMC", "VRSK", "FICO", "RELX", "DNB", "RBLX", "EA",
+        "TTWO", "ATVI", "ZNGA", "NTDOY", "SE", "NTES", "BILI", "HUYA", "DOYU", "BABA", "JD", "PDD", "VIPS", "MELI",
+        "CPNG", "ETSY", "W", "EBAY", "CHWY", "OSTK", "REAL", "FTCH", "M", "KSS", "JWN", "DDS", "SHLDQ", "CPRI", "TPR",
+        "GPS", "ANF", "LB", "ROST", "TJX", "BURL", "DG", "DLTR", "FIVE", "BIG", "OLLI", "DBI", "CHS", "LOFT", "SBH",
+        "ULTA", "GME", "BBBY", "WMT", "TGT", "COST", "AMZN", "BBBY", "FL", "FIVE", "ANF", "GME", "BJ", "SPG", "FRT",
+        "REG", "KIM", "WPG", "CBL", "MAC", "BRX", "NNN", "O", "VICI", "BXP", "SLG", "VNO", "KRC", "ARE", "AAT", "DEA",
+        "EPR", "CTRE", "SBRA", "MPW", "OHI", "HCP", "NHI", "HTA", "DOC", "GMRE", "DRE", "PLD", "FR", "REXR", "STAG",
+        "TRNO", "EQT", "CNX", "RRC", "SWN", "AR", "SBOW", "MR", "CHK", "CPE", "ESTE", "GTE", "LPI", "NOG", "PDCE",
+        "PVAC", "SM", "SWN", "WLL", "XEC", "PDCE", "WLL", "XEC", "APA", "APA", "CLR", "CDEV", "CRC", "CVE", "DVN",
+        "ECA", "HES", "NFX", "OAS", "PE", "QEP", "WPX", "HES", "MRO", "XOM", "CVX", "BP", "E", "TOT", "RDS.A", "COP",
+        "PSX", "VLO", "MPC", "ANDV", "HFC", "PBF", "TSO", "DK", "MUSA", "INT", "MPC", "PSX", "VLO", "HFC", "ANDV",
+        "DK", "TSO", "SUN", "CLMT", "ALJ", "NGL", "SPH", "ARLP", "BTU", "CLD", "CNX", "NBL", "NBLX", "ALB", "FCX",
+        "SCCO", "TECK", "BHP", "RIO", "VALE", "FCX", "SCCO", "TECK", "ALB", "SQM", "LAC", "PLL", "LTHM"
+    ]
+}
