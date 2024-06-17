@@ -145,12 +145,42 @@ PAA          | Plains All American Pipeline, L.P.       | Oil & Gas Midstream
 ....
 jess@jess-mac-dev ~/Documents/development/learning/dataengineer.io/bootcamp4/rosy_economics_capstone/project_notes/sample_datasets => 
 </code></pre>
+
+## Questions to be answered
+### Economic Indicators:
+- How do GDP growth rates correlate with stock market performance?
+- What is the relationship between unemployment rates and consumer spending?
+- How do inflation rates impact the stock prices of different sectors?
+
+### Stock Market Analysis:
+- Which sectors have shown the highest growth over the past decade?
+- How do dividend yields compare across different industries?
+- What are the top-performing stocks in terms of ROI (Return on Investment) over the past year?
+
+### Credit and Debt Metrics:
+- How has consumer credit delinquency evolved over time, and what are the implications for financial stability?
+- What are the trends in corporate debt issuance and repayment?
+
+### Government and Fiscal Policy:
+- How do changes in federal interest rates affect the stock market?
+- What is the impact of government spending on economic growth?
+
+### Business and Stock Data:
+- How does stock volatility differ between large-cap and small-cap companies?
+- What are the most common characteristics of companies that have consistently outperformed the market?
+
+### User-Engaging Metrics:
+- Which stocks have the most favorable P/E (Price-to-Earnings) ratios?
+- What are the historical trends in stock splits and their impact on stock prices?
+
+These questions aim to uncover insights about economic trends, market behaviors, and investment opportunities. 
+
 ## Architecture Diagrams
 
 ### Development
 ![DevelopmentDiagram](project_notes/screenshots/dev_diagram.png)
 
-### Production Proposal Diagram
+### Production Diagram
 ![ProductionDiagram](project_notes/screenshots/proposed_prod_diagram.png)
 
 
