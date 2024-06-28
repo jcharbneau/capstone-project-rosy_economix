@@ -10,6 +10,10 @@ with raw_stock as (
 select
     date,
     ticker,
-    (closing_price - prev_closing_price) / prev_closing_price as daily_return
+    (((closing_price - prev_closing_price) / nullif(prev_closing_price,0)) * 100) as daily_return
 from raw_stock
 where prev_closing_price is not null
+
+
+--
+--    ((gdp_value - prev_gdp_value) / nullif(prev_gdp_value, 0) * 100) as gdp_growth_rate

@@ -5,6 +5,7 @@
 with raw as (
     select *
     from {{ ref('raw_unemployment_rate') }}
+    where value is not null
 ),
 cleaned as (
     select

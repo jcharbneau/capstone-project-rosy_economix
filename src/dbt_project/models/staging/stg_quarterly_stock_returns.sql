@@ -1,4 +1,7 @@
 -- models/staging/stg_quarterly_stock_returns.sql
+
+{{ config(materialized='table') }}
+
 with daily_returns as (
     select
         date,
@@ -6,6 +9,7 @@ with daily_returns as (
         daily_return,
         date_trunc('quarter', date) as quarter
     from {{ ref('stg_stock_returns') }}
+    where daily_return is not null
 )
 select
     quarter,
