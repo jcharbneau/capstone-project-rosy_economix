@@ -1,0 +1,200 @@
+.ai-spinner-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 350px;
+    height: 350px;
+    margin: 50px auto;
+    overflow: hidden; /* Prevent overflow issues */
+}
+
+/* Spinner animation */
+.ai-spinner {
+    position: absolute;
+    width: 90%; /* Adjusted width to provide more space */
+    height: 90%; /* Adjusted height to provide more space */
+    border: 8px solid transparent; /* Thinner border */
+    border-radius: 50%;
+    background: linear-gradient(to right, rgba(255, 105, 180, 0) 0%, rgba(255, 105, 180, 1) 50%, rgba(255, 105, 180, 0) 100%);
+    mask: radial-gradient(circle, white 60%, black 60%);
+    -webkit-mask: radial-gradient(circle, transparent 60%, black 60%);
+    animation: ai-spin 1s linear infinite;
+}
+
+@keyframes ai-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Text color animation */
+@keyframes ai-textColor {
+    0% { color: #ff69b4; }
+    50% { color: #ffffff; }
+    100% { color: #ff69b4; }
+}
+
+.ai-spinner-text {
+    font-size: 1.2em;
+    font-weight: bold;
+    animation: ai-textColor 3s linear infinite;
+    z-index: 1;
+}
+
+/* Other styles as previously defined */
+.ai-chart-and-annotations {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+}
+
+.ai-chart-container {
+    flex: 1;
+    transition: flex 0.3s ease; /* Animation for sliding effect */
+}
+
+.ai-right-pane {
+    background-color: #3c3f41; /* Same gray as the sidebar navigation arrow boxes */
+    color: white; /* Text color for the annotations section */
+    transition: width 0.3s ease; /* Animation for sliding effect */
+    width: 0;
+    flex: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.ai-right-pane.ai-open {
+    width: 400px; /* Adjust to desired width */
+    flex: none;
+    padding: 0; /* Remove padding to align with title bar */
+    overflow: hidden; /* Hide overflow to make sure the title bar stays fixed */
+}
+
+.ai-right-pane > h2 {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+    font-weight: bold;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.ai-rosy-line {
+    border-bottom: 1px solid #ff69b4; /* Rosy color */
+    margin-bottom: 10px;
+}
+
+.ai-right-pane .ai-content {
+    line-height: 1.8em;
+    padding-right: 5px;
+    padding-left: 15px;
+    padding-top: 0px;
+    padding-bottom: 40px; /* Additional padding at the bottom */
+    overflow-y: auto; /* Enable vertical scrolling */
+    height: calc(100% - 65px); /* Adjust to fit within container minus the height of h2 */
+}
+
+/* Custom scrollbar styles */
+.ai-right-pane .ai-content::-webkit-scrollbar {
+    width: 10px;
+}
+
+.ai-right-pane .ai-content::-webkit-scrollbar-track {
+    background: #3c3f41; /* Same gray as the background */
+}
+
+.ai-right-pane .ai-content::-webkit-scrollbar-thumb {
+    background: black; /* Black scroll identifier */
+    border-radius: 5px;
+}
+
+.ai-right-pane .ai-content::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Darker gray when hovered */
+}
+
+.ai-refresh-button,
+.ai-close-button,
+.ai-question-button,
+.ai-microphone-button {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 10px; /* Ensure padding is consistent */
+    outline: none; /* Remove the default focus outline */
+}
+
+.ai-refresh-button:hover,
+.ai-close-button:hover,
+.ai-question-button:hover,
+.ai-microphone-button:hover {
+    cursor: pointer;
+    color: #ff69b4;
+}
+
+.ai-refresh-button:focus,
+.ai-close-button:focus,
+.ai-question-button:focus,
+.ai-microphone-button:focus {
+    outline: none; /* Ensure the focus outline is removed */
+    color: #ff69b4; /* Optional: Add focus styles */
+}
+
+.ai-microphone-active {
+    color: #ff69b4; /* Rosy color when microphone button is held down */
+}
+
+.ai-title {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #f3f3f3;
+}
+
+.ai-tagline {
+    font-size: 0.9em;
+    font-weight: normal;
+    color: #f3f3f3;
+    margin-top: 10px; /* Raise the tagline slightly */
+    margin-left: 10px; /* Space between title and tagline */
+    position: relative;
+    top: -10px; /* Adjust this value to fine-tune the alignment */
+}
+
+.ai-title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative;
+    padding-left: 10px;
+    background-color: #000000;
+}
+
+.ai-right-pane h2 {
+    margin: 0;
+    display: flex;
+    align-items: center; /* Align items center horizontally */
+}
+
+.ai-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 6px; /* Adjusted padding for a cleaner look */
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: #000000;
+    border-top: 1px solid #ff69b4;
+}
+
+.ai-footer-text {
+    color: white; /* Ensure footer text is visible */
+    font-size: 0.9em; /* Adjust font size as needed */
+}
