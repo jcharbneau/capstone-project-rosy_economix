@@ -43,7 +43,7 @@ const StockTickerScroller = ({ onTickerClick, backgroundColor, color, scrollSpee
   useEffect(() => {
     const fetchTickers = async () => {
       try {
-        const response = await fetch('http://localhost:8500/api/stock-tickers');
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/stock-tickers`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }

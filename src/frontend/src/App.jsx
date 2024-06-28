@@ -1,8 +1,11 @@
+import 'regenerator-runtime/runtime';
 import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import ReactGA from 'react-ga4';
+import { initGA, logPageView } from "./util/analytics.js";
 import Main from "./components/Main.jsx";
+import DesignDataModel from "./components/DesignDataModel.jsx";
 import About from "./components/About.jsx";
-// import Charts from "./components/Chart.jsx";
 import NavBar from "./components/NavBar.jsx";
 import './App.css';
 import './index.css';
@@ -79,7 +82,8 @@ function App() {
                     <Routes>
                         <Route path="/" element={<Main />} />
                         {/*<Route path="/charts" element={<Charts />} />*/}
-                        <Route path="/about" element={<About />} />
+                        <Route path="/design" element={<DesignDataModel />} />
+                        {/*<Route path="/about" element={<About />} />*/}
                     </Routes>
                     <div className={`sliding-panel ${activePanel ? 'active' : ''}`} style={{ zIndex: 40 }}>
                         {activePanel && (
@@ -95,33 +99,33 @@ function App() {
                     </div>
                 </div>
                 <div className="footer flex justify-end fixed absolute z-40" style={{"width":"100%", backgroundColor: "rgb(40, 44, 52)" }}>
-                    <div className="flex justify-center items-center w-full space-x-1.5 mt-1" style={{ paddingLeft: '5px', paddingRight: '5px' }}>
-                        {[
-                            { key: 'economic_indicators', text: 'Economic Indicators' },
-                            { key: 'stock_market_analysis', text: 'Stock Market Analysis' },
-                            { key: 'credit_and_debt_metrics', text: 'Credit & Market Analysis' },
-                            { key: 'government_fiscal_policy', text: 'Government & Fiscal Policy' },
-                            { key: 'business_and_stock', text: 'Business & Stock Data' },
-                            { key: 'user_engagement_metrics', text: 'User-Engaging Metrics' }
-                        ].map(({ key, text }) => (
-                            <button
-                                key={key}
-                                className={`overlay-button w-full h-10 center ${activePanel === key ? 'active-button' : ''}`}
-                                style={{ margin: '2px' }}
-                                onClick={() => handleClick(key)}
-                                onMouseEnter={(e) => handleMouseEnter(text, e)}
-                                onMouseLeave={handleMouseLeave}
-                            >
-                                {text}
-                            </button>
-                        ))}
-                    </div>
+                    {/*<div className="flex justify-center items-center w-full space-x-1.5 mt-1" style={{ paddingLeft: '5px', paddingRight: '5px' }}>*/}
+                    {/*    {[*/}
+                    {/*        { key: 'economic_indicators', text: 'Economic Indicators' },*/}
+                    {/*        { key: 'stock_market_analysis', text: 'Stock Market Analysis' },*/}
+                    {/*        { key: 'credit_and_debt_metrics', text: 'Credit & Market Analysis' },*/}
+                    {/*        { key: 'government_fiscal_policy', text: 'Government & Fiscal Policy' },*/}
+                    {/*        { key: 'business_and_stock', text: 'Business & Stock Data' },*/}
+                    {/*        { key: 'user_engagement_metrics', text: 'User-Engaging Metrics' }*/}
+                    {/*    ].map(({ key, text }) => (*/}
+                    {/*        <button*/}
+                    {/*            key={key}*/}
+                    {/*            className={`overlay-button w-full h-10 center ${activePanel === key ? 'active-button' : ''}`}*/}
+                    {/*            style={{ margin: '2px' }}*/}
+                    {/*            onClick={() => handleClick(key)}*/}
+                    {/*            onMouseEnter={(e) => handleMouseEnter(text, e)}*/}
+                    {/*            onMouseLeave={handleMouseLeave}*/}
+                    {/*        >*/}
+                    {/*            {text}*/}
+                    {/*        </button>*/}
+                    {/*    ))}*/}
+                    {/*</div>*/}
                 </div>
-                {tooltip.show && (
-                    <div className="tooltip" style={{ top: tooltip.y - 40, left: tooltip.x }}>
-                        {tooltip.text}
-                    </div>
-                )}
+                {/*{tooltip.show && (*/}
+                {/*    <div className="tooltip" style={{ top: tooltip.y - 40, left: tooltip.x }}>*/}
+                {/*        {tooltip.text}*/}
+                {/*    </div>*/}
+                {/*)}*/}
             </div>
         </BrowserRouter>
     );

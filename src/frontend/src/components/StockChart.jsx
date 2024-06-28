@@ -61,7 +61,9 @@ const StockChart = ({ data, ticker, companyName }) => {
           mode: 'x',
         },
         zoom: {
-          enabled: true,
+          drag: { enabled: false },
+          wheel: { enabled: false },
+          pinch: { enabled: true },
           mode: 'x',
         },
       },

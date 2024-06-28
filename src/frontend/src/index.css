@@ -46,7 +46,7 @@ h1 {
   position: relative;
   font-weight: bold;
   background-color: #4a4a4a;
-  border: 2px solid transparent;
+  border: 1px solid transparent;
   outline: none;
 }
 
@@ -55,16 +55,8 @@ h1 {
   color: #00bfff;
 }
 
-.overlay-button:focus {
-  border-color: #ff69b4;
-}
-
-.overlay-button:active {
-  border-color: #646cff;
-}
-
 .active-button {
-  border-color: #ff69b4;
+  border-color: #646cff;
   background-color: #5a5a5a;
 }
 
@@ -85,7 +77,7 @@ h1 {
   left: 0;
   width: 100%;
   height: 0;
-  background-color: rgba(255, 255, 255, 0.4);
+  background-color: rgba(255, 255, 255, 1);
   overflow: hidden;
   transition: height 0.5s ease-out;
   z-index: 20;
@@ -126,11 +118,7 @@ button {
 
 button:hover {
   border-color: #646cff;
-}
-
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  cursor: pointer;
 }
 
 .main-content {
@@ -206,7 +194,7 @@ ul {
 }
 
 #default-carousel > div {
-  min-height: 650px;
+  min-height: 690px;
 }
 
 #default-carousel > div.second-carousel-item {
@@ -222,7 +210,7 @@ ul {
   bottom: 0;
   left: 0;
   z-index: 100;
-  border-top: 1px solid #ff69b4;
+  /*border-top: 1px solid #ff69b4;*/
 }
 
 .ticker-scroller {
@@ -236,4 +224,218 @@ ul {
 
 .marquee-container {
   white-space: nowrap;
+}
+
+
+.chart-and-annotations {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+}
+
+.chart-container {
+    flex: 1;
+    transition: flex 0.3s ease; /* Animation for sliding effect */
+}
+
+.annotation-container {
+    background-color: #3c3f41; /* Same gray as the sidebar navigation arrow boxes */
+    color: white; /* Text color for the annotations section */
+    transition: width 0.3s ease; /* Animation for sliding effect */
+    width: 0;
+    flex: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.annotation-container.open {
+    width: 400px; /* Adjust to desired width */
+    flex: none;
+    padding: 10px;
+    overflow-y: auto; /* Enable vertical scrolling */
+    height: calc(100% - 20px); /* Adjust to fit within container */
+}
+
+.annotation-container > h2 {
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    background-color: #f5f5f5;
+    font-size: 14px;
+    gap: 5px;
+}
+/* AnnotationButton.css */
+.annotation-button {
+  background-color: #e0e0e0; /* Default color */
+  color: #000;
+  border: 1px solid #ccc;
+  padding: 10px 20px;
+  margin: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  flex: 1;
+  text-align: center;
+}
+
+.annotation-button.active {
+  background-color: #888; /* Active state color */
+  color: #fff;
+}
+
+.annotation-button.disabled {
+  background-color: #e0e0e0; /* Ensure same as default or desired disabled color */
+  color: #a0a0a0; /* Gray out the text */
+  cursor: not-allowed;
+  opacity: 0.6;
+  pointer-events: none; /* Disable hover and click events */
+}
+
+.annotation-button.disabled:hover {
+  background-color: #e0e0e0; /* No change on hover */
+}
+
+.feedback-button {
+  margin: 5px;
+    padding: 5px;
+    font-size: 14px;
+    background-color: #3c3f41;
+    color: #ff69b4; /* Rosy color */
+    flex: 1;
+    cursor: pointer;
+    border: none;
+    position: relative; /* Relative positioning for the arrow */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.spinner {
+    border: 8px solid #f3f3f3; /* Light grey */
+    border-top: 8px solid #ff69b4; /* Rosy color */
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+    margin: 50px auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+
+.main-content-c1-flex {
+  display: flex;
+}
+
+.main-content-c1-flex-col {
+  flex-direction: column;
+}
+
+.main-content-c1-p-6 {
+  padding: 1.5rem;
+}
+
+.main-content-c1-m-4 {
+  margin: 1rem;
+}
+
+.main-content-c1-overflow-y-scroll {
+  overflow-y: scroll;
+}
+
+.main-content-c1-max-h-full {
+  max-height: 100%;
+}
+
+.main-content-c1-bg-white {
+  background-color: white;
+}
+
+.main-content-c1-rounded-lg {
+  border-radius: 0.5rem;
+}
+
+.main-content-c1-shadow-md {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.main-content-c1-text-3xl {
+  font-size: 1.875rem;
+}
+
+.main-content-c1-font-bold {
+  font-weight: bold;
+}
+
+.main-content-c1-mb-4 {
+  margin-bottom: 1rem;
+}
+
+.main-content-c1-text-gray-800 {
+  color: #2d3748;
+}
+
+.main-content-c1-text-base {
+  font-size: 1rem;
+}
+
+.main-content-c1-leading-relaxed {
+  line-height: 1.625;
+}
+
+.main-content-c1-text-gray-700 {
+  color: #4a5568;
+}
+
+.main-content-c1-text-2xl {
+  font-size: 1.5rem;
+}
+
+.main-content-c1-font-semibold {
+  font-weight: 600;
+}
+
+.main-content-c1-mb-2 {
+  margin-bottom: 0.5rem;
+}
+
+.main-content-c1-text-blue-600 {
+  color: #3182ce;
+}
+
+.main-content-c1-underline {
+  text-decoration: underline;
+}
+
+.main-content-c1-list {
+  list-style-type: none;
+  padding-left: 30px;
+}
+
+.main-content-c1-mr-2 {
+  margin-right: 0.5rem;
+}
+
+.main-content-c1-mb-2 {
+  margin-bottom: 0.5rem;
+}
+
+.main-content-c1-items-center {
+  align-items: center;
 }

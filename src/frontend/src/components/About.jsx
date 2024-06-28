@@ -3,7 +3,9 @@ import React from "react";
 
 const About = () => (
 
-    <div className="about-content w-full h-full">
+    // <div className="about-content w-full h-full">
+    <div className="min-h-screen flex flex-col min-w-screen p-8 overflow-y-scroll mb-10 pb-16" style={{ marginTop: '110px', marginLeft: '0px', marginRight: '0px'}}>
+
         <h1>About this application</h1>
         <div>
             <h3>A tool to assess the "Rosiness" of economic reports and stock data</h3>

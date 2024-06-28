@@ -17,7 +17,7 @@ const GDPChart = () => {
         const formattedStartDate = startDate.toISOString().split('T')[0];
         const formattedEndDate = currentDate.toISOString().split('T')[0];
 
-        const response = await fetch(`http://localhost:8500/api/gdp?start_date=${formattedStartDate}&end_date=${formattedEndDate}`);
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/gdp?start_date=${formattedStartDate}&end_date=${formattedEndDate}`);
         const result = await response.json();
 
         // Log the API response

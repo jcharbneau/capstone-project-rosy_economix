@@ -13,7 +13,7 @@ const EconomicIndicatorsChart = () => {
   const fetchData = async (start, end) => {
     try {
       const response = await fetch(
-        `http://localhost:8500/economic-indicators?start_date=${start.toISOString().split('T')[0]}&end_date=${end.toISOString().split('T')[0]}`
+        `${import.meta.env.VITE_API_BASE_URL}/api/economic-indicators?start_date=${start.toISOString().split('T')[0]}&end_date=${end.toISOString().split('T')[0]}`
       );
       const data = await response.json();
 

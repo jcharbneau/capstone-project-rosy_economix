@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import html2canvas from 'html2canvas';
 import { Line } from 'react-chartjs-2';
 import { Chart, registerables } from 'chart.js';
 import 'chartjs-adapter-moment';
-
+import zoomPlugin from 'chartjs-plugin-zoom';
+import axios from 'axios';
 import AnnotationGenerator from './AnnotationGenerator';
-Chart.register(...registerables);
+import AIPane from './AIPane';
+import AnnotationToggleButton from "./AnnotationToggleButton.jsx";
+
+Chart.register(...registerables, zoomPlugin);
 
 const GdpStockCorrelationChart = () => {
     const [chartData, setChartData] = useState({
@@ -13,9 +18,14 @@ const GdpStockCorrelationChart = () => {
     });
     const [showAnnotations, setShowAnnotations] = useState(false);
     const [annotationType, setAnnotationType] = useState('all');
+    const [activeAnnotations, setActiveAnnotations] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [feedback, setFeedback] = useState(null);
+    const [paneOpen, setPaneOpen] = useState(false);
+    const [showShadedAreas, setShowShadedAreas] = useState(false);
 
     useEffect(() => {
-         fetch('http://localhost:8500/api/gdp-stock-correlation')
+        fetch(`${import.meta.env.VITE_API_BASE_URL}/api/gdp-stock-correlation`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -36,9 +46,9 @@ const GdpStockCorrelationChart = () => {
                                 data: gdpData,
                                 borderColor: 'blue',
                                 backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                                borderWidth: 1, // Make lines thinner
-                                pointRadius: 1, // Make plot points smaller
-                                pointHitRadius: 1, // Adjust the hit radius for smaller points
+                                borderWidth: 1,
+                                pointRadius: 1,
+                                pointHitRadius: 1,
                                 fill: true,
                                 yAxisID: 'y-axis-1',
                             },
@@ -47,9 +57,9 @@ const GdpStockCorrelationChart = () => {
                                 data: stockData,
                                 borderColor: 'red',
                                 backgroundColor: 'rgba(255,99,132,0.2)',
-                                borderWidth: 1, // Make lines thinner
-                                pointRadius: 1, // Make plot points smaller
-                                pointHitRadius: 1, // Adjust the hit radius for smaller points
+                                borderWidth: 1,
+                                pointRadius: 1,
+                                pointHitRadius: 1,
                                 fill: true,
                                 yAxisID: 'y-axis-2',
                             }
@@ -61,10 +71,51 @@ const GdpStockCorrelationChart = () => {
             })
             .catch(error => console.error('Error fetching data:', error));
     }, []);
-    console.log("GDO Stock correlation: chartData");
-    console.log(chartData);
 
-    const annotations = showAnnotations ? AnnotationGenerator({ data:chartData, type: annotationType }) : [];
+    const captureAndUpload = async () => {
+        const chartElement = document.getElementById('gdpStockCorrelationChart');
+        setIsLoading(true);
+        setPaneOpen(true);  // Open the pane first
+
+        // Capture the chart
+        html2canvas(chartElement, {
+            useCORS: true, // Ensure CORS is enabled
+            scale: 2 // Increase resolution for better quality
+        }).then(canvas => {
+            canvas.toBlob(async (blob) => {
+                const formData = new FormData();
+                formData.append('file', blob, 'chart.png');
+                formData.append('aiprompt', 'Review this image. Identify correlations between GDP growth rate and stock market return.');
+                try {
+                    // Upload to FastAPI
+                    const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/upload-chart/`, formData);
+                    const feedbackData = response.data.feedback;
+
+                    // Clean up the feedback data
+                    const cleanedFeedback = feedbackData.replace(/<pre[^>]*>/g, '').replace(/<\/pre>/g, '').trim();
+
+                    setFeedback(cleanedFeedback);
+                } catch (error) {
+                    console.error('Error uploading chart:', error);
+                } finally {
+                    setIsLoading(false);
+                }
+            });
+        });
+    };
+
+    const togglePane = () => {
+        setPaneOpen(!paneOpen);
+    };
+
+    const toggleAnnotationType = (type) => {
+        setActiveAnnotations(prev =>
+            prev.includes(type) ? prev.filter(t => t !== type) : [...prev, type]
+        );
+        setShowAnnotations(true); // Ensure annotations are shown
+    };
+
+    const annotations = chartData ? AnnotationGenerator({ data: chartData, showAnnotations, type: activeAnnotations, showShadedAreas }) : [];
 
     const options = {
         scales: {
@@ -96,52 +147,83 @@ const GdpStockCorrelationChart = () => {
             }
         },
         plugins: {
-          legend: {
-            display: true,
-            position: 'top',
-          },
-          title: {
-            display: true,
-            text: 'GDP Growth Rate vs Stock Market Return',
-          },
-          annotation: {
-            annotations: annotations,
-          },
+            legend: {
+                display: true,
+                position: 'top',
+            },
+            title: {
+                display: true,
+                text: 'GDP Growth Rate vs Stock Market Return',
+            },
+            annotation: {
+                annotations: annotations,
+            },
+            zoom: {
+                pan: {
+                    enabled: false,
+                    mode: 'x',
+                    speed: 0.03,
+                    threshold: 10,
+                },
+                zoom: {
+                    wheel: {
+                        speed: 0.03,
+                        enabled: false
+                    },
+                    pinch: {
+                        enabled: true,
+                    },
+                    mode: 'xy',
+                },
+            },
         },
     };
 
+    const buttons = [
+        { label: 'Conflict', key: 'war' },
+        { label: 'Finance', key: 'financial' },
+        { label: 'Policy', key: 'policy' },
+        { label: 'Pandemic', key: 'pandemic' },
+    ];
+
     return (
-           <div className="chart-container m-2" >
-
-<div className="button-container" style={{ display: 'flex', justifyContent: 'space-between', padding: '5px', backgroundColor: '#f5f5f5', fontSize: '14px' }}>
-
-
-      <button onClick={() => setAnnotationType('all')} style={{ flex: 1, margin: '0 5px', padding: '5px', fontSize: '14px', backgroundColor: showAnnotations ? '' : '#ccc', cursor: showAnnotations ? 'pointer' : 'not-allowed' }} disabled={!showAnnotations}>All</button>
-      <button onClick={() => setAnnotationType('war')} style={{ flex: 1, margin: '0 5px', padding: '5px', fontSize: '14px', backgroundColor: showAnnotations ? '' : '#ccc', cursor: showAnnotations ? 'pointer' : 'not-allowed' }} disabled={!showAnnotations}>Conflict</button>
-      <button onClick={() => setAnnotationType('financial')} style={{ flex: 1, margin: '0 5px', padding: '5px', fontSize: '14px', backgroundColor: showAnnotations ? '' : '#ccc', cursor: showAnnotations ? 'pointer' : 'not-allowed' }} disabled={!showAnnotations}>Finance</button>
-      <button onClick={() => setAnnotationType('policy')} style={{ flex: 1, margin: '0 5px', padding: '5px', fontSize: '14px', backgroundColor: showAnnotations ? '' : '#ccc', cursor: showAnnotations ? 'pointer' : 'not-allowed' }} disabled={!showAnnotations}>Policy</button>
-      <button onClick={() => setAnnotationType('pandemic')} style={{ flex: 1, margin: '0 5px', padding: '5px', fontSize: '14px', backgroundColor: showAnnotations ? '' : '#ccc', cursor: showAnnotations ? 'pointer' : 'not-allowed' }} disabled={!showAnnotations}>Pandemic</button>
-      <label style={{ display: 'flex', alignItems: 'center', margin: '0 5px', paddingRight: '10px' }}>
-        <input
-          type="checkbox"
-          checked={showAnnotations}
-          onChange={() => setShowAnnotations(!showAnnotations)}
-          style={{ marginRight: '5px' }}
-        />
-        Enable Annotations
-      </label>
-
-      </div>
-      <div className="main-chart">
-        {/*<Line data={data} options={options} style={{maxHeight:'60vh'}} />*/}
-
-            {chartData.labels.length > 0 ? (
-                <Line data={chartData} options={options}  style={{maxHeight:'60vh'}} />
-            ) : (
-                <p>Loading data...</p>
-            )}
+        <div className="chart-and-annotations">
+            <div className="chart-container">
+                <div className="button-container">
+                    {buttons.map((button) => (
+                        <AnnotationToggleButton
+                            key={button.key}
+                            label={button.label}
+                            isActive={activeAnnotations.includes(button.key)}
+                            onClick={() => toggleAnnotationType(button.key)}
+                        />
+                    ))}
+                    <AnnotationToggleButton
+                        label="Key Moments"
+                        isActive={showShadedAreas}
+                        onClick={() => setShowShadedAreas(prevState => !prevState)}
+                        disabled={false}
+                    />
+                    <button onClick={paneOpen ? togglePane : captureAndUpload} className="feedback-button">
+                        {isLoading ? 'Loading...' : (paneOpen ? 'Close' : 'Insights')}
+                    </button>
+                </div>
+                <div className="main-chart" id="gdpStockCorrelationChart" style={{ position: 'relative' }}>
+                    {chartData.labels.length > 0 ? (
+                        <Line data={chartData} options={options} style={{ maxHeight: '60vh' }} />
+                    ) : (
+                        <p>Loading data...</p>
+                    )}
+                </div>
+            </div>
+            <AIPane
+                isOpen={paneOpen}
+                isLoading={isLoading}
+                feedback={feedback}
+                onClose={togglePane}
+                onRefresh={captureAndUpload}  // Add the refresh hook here
+            />
         </div>
-               </div>
     );
 };
 

@@ -5,7 +5,7 @@ const BailoutStimulusChart = () => {
     const [chartData, setChartData] = useState(null);
 
     useEffect(() => {
-        fetch('/api/bailout-stimulus')
+        fetch(`${import.meta.env.VITE_API_BASE_URL}/api/bailout-stimulus`)
             .then(response => response.json())
             .then(data => {
                 setChartData(data);

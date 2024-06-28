@@ -12,7 +12,7 @@ function FinancialDashboard() {
 
   const fetchData = async (ticker) => {
     try {
-      const response = await fetch(`http://localhost:8500/api/stock-data?ticker=${ticker}`);
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/stock-data?ticker=${ticker}`);
       const data = await response.json();
       if (data && data.chartData && data.financials) {
         setChartData(data.chartData);

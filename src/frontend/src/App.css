@@ -37,11 +37,10 @@ html, body, #root, #app {
   width: 100%;
   top: 80px;
   position: fixed;
+  height:64px;
   z-index: 100;
   border-top: 1px solid #ff69b4;
-  border-bottom: 1px solid #2a
-
-3439;
+  border-bottom: 2px solid #2a3439;
 }
 
 .nav-links li {
