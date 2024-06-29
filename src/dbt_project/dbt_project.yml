@@ -25,18 +25,43 @@ models:
   dbt_project:
     staging:
       +materialized: view
+      stg_consumer_spending:
+        enabled: true
       stg_stock_returns:
         enabled: true
       stg_quarterly_stock_returns:
         enabled: true
       stg_gdp:
         enabled: true
+      stg_stock_prices:
+        enabled: true
+      stg_labor_force_participation_rate:
+        enabled: true
+      stg_discouraged_workers:
+        enabled: true
+      stg_marginally_attached_workers:
+        enabled: true
+      stg_underemployment_rate:
+        enabled: true
+      stg_raw_table_list:
+        enabled: true
     intermediate:
       +materialized: table
+      int_combined_dbt_tables:
+        enabled: true
+      int_jobs_analysis:
+        enabled: true
     marts:
       +materialized: table
+      sector_growth_last_decade:
+        enabled: true
       final_stock_gdp_data:
         enabled: true
+      jobs_analysis:
+        enabled: true
+      dbt_models:
+        enabled: true
+
 seeds:
   dbt_project:
     raw_stock_data:
@@ -56,6 +81,10 @@ seeds:
         "Market Cap": bigint
         "Total Revenue": bigint
         "Net Income": bigint
+        "Average Volume": bigint
+        "Officer Pay": bigint
+        "PE Ratio": float
+        "PS Ratio": float
 
     raw_government_bailout_stimulus:
       enabled: true
@@ -71,50 +100,134 @@ seeds:
         "Vice President": varchar
         "Govt Intervention": varchar
 
-
-
     raw_gdp:
       enabled: true
       +column_types:
         date: date
         value: float
+
     raw_unemployment_rate:
       enabled: true
       +column_types:
         date: date
         value: float
+
     raw_cpi:
       enabled: true
       +column_types:
         date: date
         value: float
+
     raw_nonfarm_payrolls:
       enabled: true
       +column_types:
         date: date
         value: float
+
     raw_job_openings:
       enabled: true
       +column_types:
         date: date
         value: float
+
     raw_average_hourly_earnings:
       enabled: true
       +column_types:
         date: date
         value: float
+
     raw_total_wages_and_salaries:
       enabled: true
       +column_types:
         date: date
         value: float
+
     raw_employment_cost_index:
       enabled: true
       +column_types:
         date: date
         value: float
+
     raw_average_weekly_earnings:
       enabled: true
       +column_types:
         date: date
         value: float
+
+    raw_consumer_spending:
+      enabled: true
+      +column_types:
+        date: date
+        value: float
+
+    raw_labor_force_participation_rate:
+      enabled: true
+      +column_types:
+        date: date
+        value: float
+
+    raw_discouraged_workers:
+      enabled: true
+      +column_types:
+        date: date
+        value: float
+
+    raw_marginally_attached_workers:
+      enabled: true
+      +column_types:
+        date: date
+        value: float
+
+    raw_underemployment_rate:
+      enabled: true
+      +column_types:
+        date: date
+        value: float
+
+    raw_daily_treasury_yield_curve_rates:
+      enabled: true
+      +column_types:
+        date: date
+        value: float
+
+    raw_30_year_fixed_rate_mortgage_average:
+      enabled: true
+      +column_types:
+        date: date
+        value: float
+
+    raw_sp500:
+      enabled: true
+      +column_types:
+        date: date
+        value: float
+
+    raw_new_private_housing_units_authorized_by_building_permits:
+      enabled: true
+      +column_types:
+        date: date
+        value: float
+
+    raw_10_year_treasury_constant_maturity_rate:
+      description: "Daily 10-Year Treasury Constant Maturity Rate data from FRED"
+      columns:
+        date:
+          description: "Date of the observation"
+        value:
+          description: "10-Year Treasury Constant Maturity Rate"
+
+    raw_exchange_rate_usd_to_eur:
+      description: "Daily exchange rate of USD to EUR from FRED"
+      columns:
+        date:
+          description: "Date of the observation"
+        value:
+          description: "Exchange rate of USD to EUR"
+
+    raw_federal_funds_effective_rate:
+      description: "Daily Federal Funds Effective Rate data from FRED"
+      columns:
+        date:
+          description: "Date of the observation"
+        value:
+          description: "Federal Funds Effective Rate"
