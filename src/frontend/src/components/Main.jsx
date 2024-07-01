@@ -80,27 +80,7 @@ const Main = () => {
                         <div className="main-content-c1-flex main-content-c1-flex-col main-content-c1-p-6 main-content-c1-m-4 main-content-c1-overflow-y-scroll main-content-c1-max-h-full main-content-c1-bg-white main-content-c1-rounded-lg main-content-c1-shadow-md">
                             <h1 className="main-content-c1-text-3xl main-content-c1-font-bold main-content-c1-mb-4 main-content-c1-text-gray-800">Welcome to Rosy Economix</h1>
                             <p className="main-content-c1-text-base main-content-c1-leading-relaxed main-content-c1-mb-4 main-content-c1-text-gray-700">Welcome to my project, the "Rosy Economix" tool. This tool started as an idea about how an average person interested in economics, stocks, or other measurable metrics we encounter daily could assess whether the picture is "Rosy" or not.  While this was a useful exercise, I believe the goal will be harder to achieve without including sentiment analysis, and incorporating other factors including the interest rates, housing costs and other economic influences into the overall view of the economy and markets.  Many of these data sets are only available to "members", and so would take some research and/or funding to acquire.</p>
-
-                            <h2 className="main-content-c1-text-2xl main-content-c1-font-semibold main-content-c1-mb-2 main-content-c1-text-gray-800">A quick walk thru</h2>
-                            <p className="main-content-c1-text-base main-content-c1-leading-relaxed main-content-c1-mb-4 main-content-c1-text-gray-700">
-                                On each panel that you navigate to using the arrows on either side of the application, you will find various charts attempting to answer questions I developed as part of this exercise.
-                                In some cases, I selected data sets that do not historically align with a typical comparison.  The idea being to see what interesting insights could be gleaned for data sets not generally found useful,
-                                by augmenting and overlaying them with various events.  To that end, each of the charts you encounter will have a series of Selectors at the top of the chart named "Conflict", "Finance", "Policy", "Pandemic" and "Key Moments".  While these are currently hard coded, a longer term idea was to have these as user configurable.  That way the user could define (or select pre-existing definitions) the events that they want to analyze or overlay for impact observability.
-                            </p><p className="main-content-c1-text-base main-content-c1-leading-relaxed main-content-c1-mb-4 main-content-c1-text-gray-700">
-                            One example of this is the "GDP Growth Rate vs Stock Market Return".  From some perspectives, this sort of comparison would not be considered ideal.
-                            However, if we layer in Finance related annotations, we can start to see occurrences where both move in similar ways, tho stocks tend to be more extreme and/or volatile and recover more quickly.
-                            These are observations that I would likely miss, not being trained in these disciplines.  Having a way to highlight and/or inject these annotations dynamically is a useful way to customize these charts for the users needs.
-                        </p>
-                            <p className="main-content-c1-text-base main-content-c1-leading-relaxed main-content-c1-mb-4 main-content-c1-text-gray-700">
-                                At the urging of friends/colleagues, and a little smitten with the auto-grading functionality developed for DataExpert.io, I decided to test the idea of incorporating an AI engine to provide feedback on the data.
-                                By selecting the "Insights" button on any of the charts, you will receive feedback from OpenAI on the chart presented.  If you layer in annotations, and select the refresh icon, the chart will be reassessed and an updated analysis provided.
-                            </p>
-
-                            <p className="main-content-c1-text-base main-content-c1-leading-relaxed main-content-c1-mb-4 main-content-c1-text-gray-700">
-                                One final exploration taken as part of this study, was to dig into the functionality afforded by the Data Build Tool (dbt from the folks at dbtlabs).  This tool has been very eye opening for me, and I wish I would have explored its capabilities sooner.  If you select DbtFlow from the navigation menu above, you will be taken to a representation of the source data and the flow of the data and modeling from dbt.
-
-                            </p>
-                             <h2 className="main-content-c1-text-2xl main-content-c1-font-semibold main-content-c1-mb-2 main-content-c1-text-gray-800">Technology Preview</h2>
+  <h2 className="main-content-c1-text-2xl main-content-c1-font-semibold main-content-c1-mb-2 main-content-c1-text-gray-800">Technology Preview</h2>
                             <p className="main-content-c1-text-base main-content-c1-leading-relaxed main-content-c1-mb-4 main-content-c1-text-gray-700">While this project has come a long way in six weeks, it has a long way to go. In many ways, it is a presentation of what is possible; and in no way should be considered "production worthy". You will see bugs, you will likely encounter data that is inaccurate, you will encounter broken functionality and potential layout issues. While I have longer term ideas, this is a project for a class; and so certain ideas had to be left for later.  I also believe determining the "Rosiness" of various readings of economics is a goal that is nebulous, and so may take a few extra minutes ;-).  Note also that the data is US focused only, and does not include economic data from any other country.  Also note that in this early proof-of-concept, I am only targeting Google Chrome so please test using that browser.</p>
                             <p className="main-content-c1-text-base main-content-c1-leading-relaxed main-content-c1-mb-4 main-content-c1-text-gray-700">Please keep these thoughts in mind as you navigate this demonstration. </p>
                            <h2 className="text-2xl font-semibold mb-2 text-gray-800">Technology Stack</h2>
@@ -122,6 +102,26 @@ const Main = () => {
         <span className="ml-1.5">OpenAI</span>
     </li>
 </ul>
+                            <h2 className="main-content-c1-text-2xl main-content-c1-font-semibold main-content-c1-mb-2 main-content-c1-text-gray-800">A quick walk thru</h2>
+                            <p className="main-content-c1-text-base main-content-c1-leading-relaxed main-content-c1-mb-4 main-content-c1-text-gray-700">
+                                On each panel that you navigate to using the arrows on either side of the application, you will find various charts attempting to answer questions I developed as part of this exercise.
+                                In some cases, I selected data sets that do not historically align with a typical comparison.  The idea being to see what interesting insights could be gleaned for data sets not generally found useful,
+                                by augmenting and overlaying them with various events.  To that end, each of the charts you encounter will have a series of Selectors at the top of the chart named "Conflict", "Finance", "Policy", "Pandemic" and "Key Moments".  While these are currently hard coded, a longer term idea was to have these as user configurable.  That way the user could define (or select pre-existing definitions) the events that they want to analyze or overlay for impact observability.
+                            </p><p className="main-content-c1-text-base main-content-c1-leading-relaxed main-content-c1-mb-4 main-content-c1-text-gray-700">
+                            One example of this is the "GDP Growth Rate vs Stock Market Return".  From some perspectives, this sort of comparison would not be considered ideal.
+                            However, if we layer in Finance related annotations, we can start to see occurrences where both move in similar ways, tho stocks tend to be more extreme and/or volatile and recover more quickly.
+                            These are observations that I would likely miss, not being trained in these disciplines.  Having a way to highlight and/or inject these annotations dynamically is a useful way to customize these charts for the users needs.
+                        </p>
+                            <p className="main-content-c1-text-base main-content-c1-leading-relaxed main-content-c1-mb-4 main-content-c1-text-gray-700">
+                                At the urging of friends/colleagues, and a little smitten with the auto-grading functionality developed for DataExpert.io, I decided to test the idea of incorporating an AI engine to provide feedback on the data.
+                                By selecting the "Insights" button on any of the charts, you will receive feedback from OpenAI on the chart presented.  If you layer in annotations, and select the refresh icon, the chart will be reassessed and an updated analysis provided.
+                            </p>
+
+                            <p className="main-content-c1-text-base main-content-c1-leading-relaxed main-content-c1-mb-4 main-content-c1-text-gray-700">
+                                One final exploration taken as part of this study, was to dig into the functionality afforded by the Data Build Tool (dbt from the folks at dbtlabs).  This tool has been very eye opening for me, and I wish I would have explored its capabilities sooner.  If you select DbtFlow from the navigation menu above, you will be taken to a representation of the source data and the flow of the data and modeling from dbt.
+
+                            </p>
+
 
 
 

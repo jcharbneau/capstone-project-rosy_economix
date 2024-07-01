@@ -4,6 +4,7 @@
 
 - [Project Demo](#project-demo)
   - [Airflow DAG Screenshots](#airflow-dag-screenshots)
+  - [Dataflow Diagrams](#data-flow-diagrams)
 - [Project Proposal](#project-proposal)
   - [Project Overview](#project-overview)
   - [Team](#team)
@@ -36,6 +37,15 @@ A demonstration application has been developed for the Chrome browser and has be
 ![FRED Daily Dag Shape - Zoomed Out](project_notes/screenshots/fred_data_pipeline.dag_shape_1.png)
 ![FRED Daily Dag Shape - Zoomed In](project_notes/screenshots/fred_data_pipeline.dag_shape_2.png)
 
+## Data flow diagrams
+### Economic Indicators with Sector
+![Economic Indicators](project_notes/screenshots/economic_indicators.dataflow.png)
+
+### Jobs Analysis
+![Jobs Analysis](project_notes/screenshots/jobs_analysis.dataflow.png)
+
+### Dbt Models 
+![Dbt Models](project_notes/screenshots/dbt_models.dataflow.png)
 
 # Project Proposal
 A Rosy Economics Investigative Tool
