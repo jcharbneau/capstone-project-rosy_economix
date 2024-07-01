@@ -22,7 +22,7 @@
 - [Conclusion](#conclusion)
 
 # Project Demo
-A demonstration has been deployed to https://demo.rosyeconomix.com/. Note this demo also includes a much more readable or "Medium'ish" document as its opening slide.  Please feel free to review there.
+A demonstration application has been developed for the Chrome browser and has been deployed to https://demo.rosyeconomix.com/. Note this demo also includes a much more readable or "Medium'ish" document as its opening slide.  Please feel free to review there.
 
 ## Demo Interface
 ![Rosy Economix Demo Screenshot](project_notes/screenshots/demo_jobchart.png)
