@@ -2,7 +2,8 @@
 
 **Table of Contents**
 
-
+- [Project Demo](#project-demo)
+  - [Airflow DAG Screenshots](#airflow-dag-screenshots)
 - [Project Proposal](#project-proposal)
   - [Project Overview](#project-overview)
   - [Team](#team)
@@ -20,7 +21,22 @@
 - [POC Idea Development](#poc-idea-development)
 - [Conclusion](#conclusion)
 
-    
+# Project Demo
+A demonstration has been deployed to https://demo.rosyeconomix.com/. Note this demo also includes a much more readable or "Medium'ish" document as its opening slide.  Please feel free to review there.
+
+## Demo Interface
+![Rosy Economix Demo Screenshot](project_notes/screenshots/demo_jobchart.png)
+
+## Airflow DAG Screenshots
+
+### Stock Data Pipeline
+![YFinance Daily Dag](project_notes/screenshots/daily_stock_data_update.dag_shape.png)
+### Fred Data Pipeline
+![FRED Daily Dag](project_notes/screenshots/fred_data_pipeline.dag_details.png)
+![FRED Daily Dag Shape - Zoomed Out](project_notes/screenshots/fred_data_pipeline.dag_shape_1.png)
+![FRED Daily Dag Shape - Zoomed In](project_notes/screenshots/fred_data_pipeline.dag_shape_2.png)
+
+
 # Project Proposal
 A Rosy Economics Investigative Tool
 ![Rosy Economix Development Screenshot](project_notes/screenshots/rosy_frontend.20240609.png)
