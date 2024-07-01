@@ -1,5 +1,5 @@
 postgres:
-    port: "5631"
+    port: "5432"
 project:
     name: rosy_economix
 skip_parse: false

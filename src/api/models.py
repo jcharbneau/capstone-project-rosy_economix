@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 class IndicatorData(BaseModel):
     date: str
@@ -75,7 +75,11 @@ class SectorGrowthData(BaseModel):
 
 class JobsAnalysis(BaseModel):
     date: str
-    labor_force_participation_rate: float
-    discouraged_workers: int
-    marginally_attached_workers: int
-    underemployment_rate: float
+    labor_force_participation_rate: Optional[float] = None
+    discouraged_workers: Optional[float] = None
+    marginally_attached_workers: Optional[float] = None
+    underemployment_rate: Optional[float] = None
+    federal_funds_rate: Optional[float] = None
+    year_treasury_rate: Optional[float] = None
+    job_openings: Optional[float] = None
+    unemployment_rate: Optional[float] = None

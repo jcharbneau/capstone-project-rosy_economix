@@ -6,24 +6,24 @@ networks:
     driver: bridge
 
 services:
-  re_jnotebook:
-    container_name: re_jnotebook
-    build:
-      context: ./jupyter/
-      dockerfile: Dockerfile
-    volumes:
-      - ./jupyter/notebooks:/home/jovyan/work
-    ports:
-      - 8888:8888
-    links:
-      - postgres
-    networks:
-      - airflow
-    depends_on:
-      - postgres
-    environment:
-      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432
-      - GRANT_SUDO=yes
+#  re_jnotebook:
+#    container_name: re_jnotebook
+#    build:
+#      context: ./jupyter/
+#      dockerfile: Dockerfile
+#    volumes:
+#      - ./jupyter/notebooks:/home/jovyan/work
+#    ports:
+#      - 8888:8888
+#    links:
+#      - postgres
+#    networks:
+#      - airflow
+#    depends_on:
+#      - postgres
+#    environment:
+#      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432
+#      - GRANT_SUDO=yes
 
   re_frontend:
     container_name: re_frontend
@@ -60,7 +60,6 @@ services:
        - re_astro
     networks:
       - airflow
-    environment:
-      - DATABASE_URL=postgresql://postgres:postgres@localhost:5631
+
 
 

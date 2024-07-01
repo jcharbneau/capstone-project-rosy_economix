@@ -17,11 +17,15 @@ The primary objective is to create a platform that can:
 
 To achieve our objectives, we are utilizing a suite of powerful tools and technologies:
 - **Airflow** for workflow management.
-- **Trino (formerly PrestoSQL)** for distributed SQL query execution.
-- **Apache Iceberg** for handling large analytic tables.
 - **PostgreSQL** as our database system.
 - **Docker** to streamline environment setup.
 - **ReactJS** and **FastAPI** for the application side.
+
+Future iterations will migrate much of the ingestion and storage to utilize:
+- **Trino (formerly PrestoSQL)** for distributed SQL query execution.
+- **Apache Iceberg** for handling large analytic tables.
+- **AWS S3** for storage
+- **Apache Spark / Glue** for ingestion and processing
 
 ## Key Datasets
 
@@ -46,13 +50,15 @@ Here’s a glimpse of the dataset:
 | MCD          | McDonald’s Corporation | Restaurants |
 | WMT          | Walmart Inc. | Discount Stores |
 
+**In the future, we'll move much of the data collection to using Polygon.IO or similar service that exposes S3 as the endpoint, and ingest and process using Spark**
+
 ## Project Implementation and Notes
 
 - **Docker Setup**: We utilized Docker to manage the environment for ReactJS, FastAPI, and PostgreSQL.
 - **Airflow**: Airflow is set up and ready, but using the Yahoo Finance API for more than 500 stock tickers proved slow. While a DAG is stubbed out, it’s basic and does not perform data updates at this time.
 - **Astro Compose Environment**: Overrode the Astro Compose environment to facilitate hosting the React and FastAPI environments.
 - **Data Analysis and Visualizations**: Spent considerable time on data analysis, particularly visualizations, to answer key questions using the available data.
-- **OpenAI Integration**: Following advice from a friend and inspired by autograding approaches, we explored integrating OpenAI. Initial tests with annotations and leveraging OpenAI to analyze charts have been insightful, showing a lot of potential.
+- **OpenAI Integration**: OpenAI integration has opened up a world of analytical opportunity. The simplistic implementation has already revealed the ability for OpenAI to review generated charts and graphs and provide feedback that is both concise but seemingly accurate. Further discussions with economists are lined up to get feedback on how this is working. Additionally, ML contacts have been engaged to help identify prompt development opportunities and challenges. The ability to layer in defined markers and have the AI engine account for those changes, and update analysis based on potential impact markers has been extremely impressive.
 
 ## Key Questions and Visualizations
 
@@ -81,8 +87,10 @@ Here are the key questions we aimed to answer, along with some visualizations th
 The following screenshots demonstrate some of the insights derived from the data:
 
 ![GDP and Economic Indicators](project_notes/screenshots/econ_ind.gdp_cpi_ur_over_time_w_annotations.png)
+![GDP and Economic Indicators - AI Loading](project_notes/screenshots/econ_ind.gdp_cpi_ur.ai_loading.png)
+![GDP and Economic Indicators - AI Feedback](project_notes/screenshots/econ_ind.gdp_cpi_ur.ai_loaded.png)
 
-### Additional Questions Addressed
+### Additional Questions Identified
 - **How has consumer credit delinquency evolved over time, and what are the implications for financial stability?**
 - **What are the trends in corporate debt issuance and repayment?**
 - **How do changes in federal interest rates affect the stock market?**

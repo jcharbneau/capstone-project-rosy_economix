@@ -4,9 +4,10 @@ from PIL import Image
 import io
 from utils import scale_down_image, get_feedback
 import logging
-
+import os
 router = APIRouter()
 logger = logging.getLogger(__name__)
+
 
 @router.post("/upload-chart/")
 async def upload_chart(file: UploadFile = File(...), aiprompt: str = Form(...)):

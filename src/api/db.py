@@ -3,6 +3,7 @@ from fastapi import HTTPException
 import os
 
 DATABASE_URL = os.getenv('DATABASE_URL')
+print("DATABASE_URL:", DATABASE_URL)
 
 async def fetch_data(query: str, params: tuple = ()):
     connection = await asyncpg.connect(DATABASE_URL)

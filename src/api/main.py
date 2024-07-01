@@ -2,8 +2,7 @@ import logging
 import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from dotenv import load_dotenv
-
+from utils import load_environment
 
 from routers import (
     combined_chart,
@@ -20,7 +19,7 @@ from routers import (
     economic_indicators
 )
 
-load_dotenv()
+load_environment()
 
 DATABASE_URL = os.getenv('DATABASE_URL')
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
@@ -42,7 +41,7 @@ app.add_middleware(
     allow_origins=['*'],
     allow_credentials=True,
     allow_methods=["*"],
-    allow_headers=["*"],
+    allow_headers=["*"]
 )
 
 app.include_router(combined_chart.router, prefix="/api")

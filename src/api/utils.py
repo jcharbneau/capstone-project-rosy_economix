@@ -10,7 +10,11 @@ from dotenv import load_dotenv
 def load_environment():
     env = os.getenv('APP_ENV', 'development')
     dotenv_path = f'.env.{env}' if env else '.env.development'
-    load_dotenv(dotenv_path)
+    print(f"loading {dotenv_path}:{env}")
+    print(os.environ)
+    load_dotenv(dotenv_path,override=True)
+
+    print(f"openai_api_key:{os.getenv('OPENAI_API_KEY')}")
 
 def default_start_date():
     return (datetime.now() - timedelta(days=1 * 365)).date()
@@ -59,8 +63,11 @@ def create_chart(data, title, ylabel):
     buf.seek(0)
     return buf
 
+
+
 def get_feedback(file_path, prompt=None):
     api_key = os.getenv('OPENAI_API_KEY')
+    print(f"api_key:{api_key}")
     if not api_key:
         raise ValueError("API key not found in environment variables")
 
@@ -69,42 +76,56 @@ def get_feedback(file_path, prompt=None):
         "Authorization": f"Bearer {api_key}"
     }
 
-    with open(file_path, "rb") as image_file:
-        base64_image = base64.b64encode(image_file.read()).decode('utf-8')
+    try:
+        with open(file_path, "rb") as image_file:
+            base64_image = base64.b64encode(image_file.read()).decode('utf-8')
 
-    if prompt is None:
-        prompt = "What's in this image?"
+        if prompt is None:
+            prompt = "What's in this image?"
 
-    payload = {
-        "model": "gpt-4o",
-        "messages": [
-            {
-                "role": "system",
-                "content": "You are an Economist specializing in analyzing statistical reports to determine the economic outlook. Your analysis is objective, forthright, and based on data-driven insights. When presenting your findings, use a first-person perspective. Structure your sentences with explicit line breaks to ensure clarity and avoid run-ons. Focus on identifying key trends, correlations, and their implications for the economy. Your conclusions should be clear, concise, and directly related to the data presented."
-            },
-            {
-                "role": "user",
-                "content": [
-                    {
-                        "type": "text",
-                        "text": f"{prompt}"
-                    },
-                    {
-                        "type": "image_url",
-                        "image_url": {
-                            "url": f"data:image/png;base64,{base64_image}"
+        system_prompt = "For the duration of this conversation, act as an Economics expert specializing in analyzing statistical reports to determine the economic impacts and probable outlook. Your analysis is objective, forthright, and based on data-driven insights. When presenting your findings, use a first-person perspective. Structure your sentences with explicit line breaks to ensure clarity and avoid run-ons. Focus on identifying key trends, correlations, and their implications for the economy. Be sure to provide clear and concise explanations for your analysis and support it with relevant data and evidence.   "
+        # system_prompt = "For the duration of this conversation, act as an Economics expert specializing in .  Your first task is to review the provided image, and thoroughly research current economic theories and identify any gaps or limitations in their approach.  Then, using your expertise in both Micro and Macroeconomics, create a new theory that addresses these gaps and provides a more comprehensive review of this chart.  Be sure to provide clear and concise explanations for your analysis and support it with relevant data and evidence.  Finally, you must limit your response to under 1000 tokens as expressed by ChatGPT."
+        payload = {
+            "model": "gpt-4o",
+            "messages": [
+                {
+                    "role": "system",
+                    "content": system_prompt
+                },
+                {
+                    "role": "user",
+                    "content": [
+                        {
+                            "type": "text",
+                            "text": f"{prompt}"
+                        },
+                        {
+                            "type": "image_url",
+                            "image_url": {
+                                "url": f"data:image/png;base64,{base64_image}"
+                            }
                         }
-                    }
-                ]
-            }
-        ],
-        "max_tokens": 1000,
-        "temperature": 0.2
-    }
+                    ]
+                }
+            ],
+            "max_tokens": 1250,
+            "temperature": 0.1
+        }
+        print(f"payload:{payload}")
 
-    response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload)
-    if response.status_code == 200:
-        output = response.json()['choices'][0]['message']['content']
-        return output
-    else:
-        return {"error": "Failed to get response from OpenAI API", "status_code": response.status_code}
+        response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload)
+        if response.status_code == 200:
+            output = response.json()['choices'][0]['message']['content']
+            print(output)
+            return output
+        else:
+            return {"error": "Failed to get response from OpenAI API", "status_code": response.status_code}
+    finally:
+        # Ensure the image file is removed after processing
+        print(f"removing {file_path}")
+        if os.path.exists(file_path):
+            os.remove(file_path)
+
+# Usage example:
+# feedback = get_feedback('/path/to/image.png', 'Analyze this economic chart.')
+

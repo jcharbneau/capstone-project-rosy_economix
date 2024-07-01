@@ -22,9 +22,22 @@ indicators = {
     'Average Hourly Earnings': 'AHETPI',
     'Total Wages and Salaries': 'BA06RC1A027NBEA',
     'Employment Cost Index': 'ECIWAG',
-    'Average Weekly Earnings': 'CES0500000011'
+    'Average Weekly Earnings': 'CES0500000011',
+    'Consumer Spending': 'PCEC',
+    'Labor Force Participation Rate': 'CIVPART',
+    'Discouraged Workers': 'LNU05026645',
+    'Marginally Attached Workers': 'LNU05026645',  # Same as Discouraged Workers
+    'Underemployment Rate': 'U6RATE',
+    'Consumer Sentiment Index': 'UMCSENT',
+    'Daily Treasury Yield Curve Rates': 'DGS1',
+    '30-Year Fixed-Rate Mortgage Average': 'MORTGAGE30US',
+    'S&P 500 Index': 'SP500',
+    'New Private Housing Units Authorized by Building Permits': 'PERMIT',
+    # New datasets
+    '10-Year Treasury Constant Maturity Rate': 'DGS10',
+    'Exchange Rate USD to EUR': 'DEXUSEU',
+    'Federal Funds Effective Rate': 'FEDFUNDS'
 }
-
 
 def fetch_fred_data(series_id):
     url = f'https://api.stlouisfed.org/fred/series/observations?series_id={series_id}&api_key={api_key}&file_type=json'
@@ -45,7 +58,6 @@ def fetch_fred_data(series_id):
     logging.info(f"Fetched {len(df)} rows for series {series_id}.")
     return df[['date', 'value']]
 
-
 def save_data_to_csv(data, filename):
     seeds_dir = 'seeds'
     os.makedirs(seeds_dir, exist_ok=True)
@@ -53,14 +65,13 @@ def save_data_to_csv(data, filename):
     data.to_csv(file_path, index=False)
     logging.info(f"Data saved to {file_path}")
 
-
 # Fetch and save data to CSV in the seeds directory
 for name, series_id in indicators.items():
     df = fetch_fred_data(series_id)
     if df.empty:
         logging.error(f"Skipping {name} due to data fetch error.")
         continue
-    filename = f"raw_{name.lower().replace(' ', '_')}.csv"
+    filename = f"raw_{name.lower().replace(' ', '_').replace('-','_')}.csv"
     save_data_to_csv(df, filename)
 
 logging.info("Data fetching and saving process completed.")

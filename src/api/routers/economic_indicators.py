@@ -21,7 +21,7 @@ async def get_economic_indicators(
         query = """
         SELECT date, gdp_value, cpi_value, unemployment_rate, avg_hourly_earnings,
                avg_weekly_earnings, employment_cost_index, job_openings, nonfarm_payrolls,
-               total_wages_and_salaries
+               total_wages_and_salaries, year_treasury_rate, exchange_rate, federal_funds_rate
         FROM agg_economic_indicators
         WHERE date BETWEEN $1 AND $2
         """
@@ -39,7 +39,10 @@ async def get_economic_indicators(
             employment_cost_index=format_data('employment_cost_index'),
             job_openings=format_data('job_openings'),
             nonfarm_payrolls=format_data('nonfarm_payrolls'),
-            total_wages_and_salaries=format_data('total_wages_and_salaries')
+            total_wages_and_salaries=format_data('total_wages_and_salaries'),
+            year_treasury_rate=format_data('year_treasury_rate'),
+            exchange_rate=format_data('exchange_rate'),
+            federal_funds_rate=format_data('federal_funds_rate')
         )
         return economic_indicators
     except Exception as e:
@@ -119,6 +122,51 @@ async def get_gdp_cpi_ur(
             cpi=cpi_data,
             unemployment_rate=unemployment_data
         )
+    except Exception as e:
+        logger.error(f"Failed to retrieve data: {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to retrieve data: {e}")
+
+@router.get("/get_year_treasury_rate", response_model=List[IndicatorData])
+async def get_year_treasury_rate(start_date: str = Query(default=default_start_date()), end_date: str = Query(default=default_end_date())):
+    query = """
+    SELECT date, year_treasury_rate as value
+    FROM agg_economic_indicators
+    WHERE date BETWEEN $1 AND $2
+    ORDER BY date
+    """
+    try:
+        results = await fetch_data(query, (start_date, end_date))
+        return [IndicatorData(date=str(record['date']), value=record['value']) for record in results]
+    except Exception as e:
+        logger.error(f"Failed to retrieve data: {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to retrieve data: {e}")
+
+@router.get("/get_exchange_rate", response_model=List[IndicatorData])
+async def get_exchange_rate(start_date: str = Query(default=default_start_date()), end_date: str = Query(default=default_end_date())):
+    query = """
+    SELECT date, exchange_rate as value
+    FROM agg_economic_indicators
+    WHERE date BETWEEN $1 AND $2
+    ORDER BY date
+    """
+    try:
+        results = await fetch_data(query, (start_date, end_date))
+        return [IndicatorData(date=str(record['date']), value=record['value']) for record in results]
+    except Exception as e:
+        logger.error(f"Failed to retrieve data: {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to retrieve data: {e}")
+
+@router.get("/get_federal_funds_rate", response_model=List[IndicatorData])
+async def get_federal_funds_rate(start_date: str = Query(default=default_start_date()), end_date: str = Query(default=default_end_date())):
+    query = """
+    SELECT date, federal_funds_rate as value
+    FROM agg_economic_indicators
+    WHERE date BETWEEN $1 AND $2
+    ORDER BY date
+    """
+    try:
+        results = await fetch_data(query, (start_date, end_date))
+        return [IndicatorData(date=str(record['date']), value=record['value']) for record in results]
     except Exception as e:
         logger.error(f"Failed to retrieve data: {e}")
         raise HTTPException(status_code=500, detail=f"Failed to retrieve data: {e}")

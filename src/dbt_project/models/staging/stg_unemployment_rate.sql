@@ -1,5 +1,3 @@
--- models/staging/stg_unemployment_rate.sql
-
 {{ config(materialized='view') }}
 
 with raw as (

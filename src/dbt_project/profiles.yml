@@ -3,9 +3,10 @@ dbt_project:
   outputs:
     dev:
       type: postgres
-      host: localhost
+      host: postgres
       user: postgres
       password: postgres
       dbname: pipelines
       schema: public
-      port: 5631
+      port: 5432
+      threads: 16

@@ -99,6 +99,8 @@ def insert_incremental_data(**kwargs):
 
 start = DummyOperator(task_id='start', dag=dag)
 
+# probably not the right way to go... should always act on
+#  execution time rather than getting the date from the data
 get_last_data_date = PythonOperator(
     task_id='get_last_data_date',
     python_callable=get_last_data_date,

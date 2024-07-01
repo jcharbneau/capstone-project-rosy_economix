@@ -45,6 +45,14 @@ models:
         enabled: true
       stg_raw_table_list:
         enabled: true
+      stg_federal_funds_effective_rate:
+        enabled: true
+      stg_10_year_treasury_constant_maturity_rate:
+        enabled: true
+      stg_job_openings:
+        enabled: true
+      stg_unemployment_rate:
+        enabled: true
     intermediate:
       +materialized: table
       int_combined_dbt_tables:
@@ -209,25 +217,19 @@ seeds:
         value: float
 
     raw_10_year_treasury_constant_maturity_rate:
-      description: "Daily 10-Year Treasury Constant Maturity Rate data from FRED"
-      columns:
-        date:
-          description: "Date of the observation"
-        value:
-          description: "10-Year Treasury Constant Maturity Rate"
+      enabled: true
+      +column_types:
+        date: date
+        value: float
 
     raw_exchange_rate_usd_to_eur:
-      description: "Daily exchange rate of USD to EUR from FRED"
-      columns:
-        date:
-          description: "Date of the observation"
-        value:
-          description: "Exchange rate of USD to EUR"
+      enabled: true
+      +column_types:
+        date: date
+        value: float
 
     raw_federal_funds_effective_rate:
-      description: "Daily Federal Funds Effective Rate data from FRED"
-      columns:
-        date:
-          description: "Date of the observation"
-        value:
-          description: "Federal Funds Effective Rate"
+      enabled: true
+      +column_types:
+        date: date
+        value: float

@@ -1,27 +1,24 @@
+# routers/your_router.py
 from fastapi import APIRouter, Query, HTTPException
 from typing import List
 from db import fetch_data
-from models import StockData, TickerPrice, IndicatorData, GdpStockCorrelationData
+from models import StockData, TickerPrice, IndicatorData, GdpStockCorrelationData, Financials
 from datetime import datetime
 import logging
-import asyncpg
-import os
+
 router = APIRouter()
 logger = logging.getLogger(__name__)
-DATABASE_URL = os.getenv('DATABASE_URL')
 
 @router.get("/stock-data", response_model=StockData)
 async def get_stock_data(ticker: str = "AAPL"):
     try:
-        connection = await asyncpg.connect(DATABASE_URL)
-
         chart_data_query = """
         SELECT date, close as close_price
         FROM stg_stock_data
         WHERE ticker = $1
         ORDER BY date
         """
-        chart_data_results = await connection.fetch(chart_data_query, ticker)
+        chart_data_results = await fetch_data(chart_data_query, (ticker,))
         chart_data = {
             "labels": [str(record["date"]) for record in chart_data_results],
             "datasets": [{
@@ -38,22 +35,22 @@ async def get_stock_data(ticker: str = "AAPL"):
         FROM stock_financials
         WHERE ticker = $1
         """
-        financials_result = await connection.fetchrow(financials_query, ticker)
-        financials = {
-            "ticker": financials_result["ticker"],
-            "companyName": financials_result["company_name"],
-            "industry": financials_result["industry"],
-            "sector": financials_result["sector"],
-            "marketCap": financials_result["market_cap"],
-            "totalRevenue": financials_result["total_revenue"],
-            "netIncome": financials_result["net_income"]
-        }
+        financials_result = await fetch_data(financials_query, (ticker,))
+        financials_data = financials_result[0]
+
+        financials = Financials(
+            ticker=financials_data['ticker'],
+            companyName=financials_data['company_name'],
+            industry=financials_data['industry'],
+            sector=financials_data['sector'],
+            marketCap=financials_data['market_cap'],
+            totalRevenue=financials_data['total_revenue'],
+            netIncome=financials_data['net_income']
+        )
 
         off_exchange_trading = {}
         insider_trading = {}
         senate_trading = []
-
-        await connection.close()
 
         return StockData(
             ticker=ticker,

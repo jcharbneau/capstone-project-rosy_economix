@@ -29,25 +29,29 @@ const AnnotationGenerator = ({ data, showAnnotations = true, type = [], showShad
   console.log("Annotation Generator");
   console.log(data);
 
-  const significantEvents = [
-    { date: '2001-09-11', label: '9/11 Attack', color: 'red', type: 'attack' },
-    { date: '2008-03-16', label: 'Bear Stearns Bailout', color: 'green', yAdjust: 120, type: 'financial' },
-    { date: '2008-09-15', label: 'Lehman Brothers Bankruptcy', color: 'red', yAdjust: -60, xAdjust: -80, type: 'financial' },
-    { date: '2008-10-03', label: 'TARP Bailout', color: 'green', yAdjust: -20, type: 'financial' },
-    { date: '2009-03-30', label: 'Auto Bailout', color: 'green', yAdjust: 30, xAdjust: 20, type: 'financial' },
-    { date: '2011-08-05', label: 'US Credit Rating Downgrade', color: 'red', yAdjust: 80, type: 'financial' },
-    { date: '2015-12-16', label: 'Fed Rate Hike', color: 'blue', type: 'policy' },
-    { date: '2020-01-01', label: 'COVID-19 Pandemic', color: 'red', type: 'pandemic' },
-    { date: '2020-03-09', label: 'Stock Market Drop', color: 'red', yAdjust: 80, type: 'financial' },
-    { date: '2020-03-27', label: 'CARES Act Stimulus', color: 'blue', yAdjust: -40, type: 'policy' },
-    { date: '2021-03-11', label: 'American Rescue Plan', color: 'blue', yAdjust: 120, xAdjust: -60, type: 'policy' },
-    { date: '2023-05-03', label: 'First Republic Bank Failure', color: 'red', yAdjust: -140, type: 'financial' },
-    { date: '1991-01-17', label: 'Gulf War Begins', color: 'red', type: 'war' },
-    { date: '2001-10-07', label: 'War in Afghanistan Begins', color: 'red', type: 'war' },
-    { date: '2003-03-20', label: 'Iraq War Begins', color: 'red', type: 'war', yAdjust: -40 },
-    { date: '2014-02-20', label: 'Annexation of Crimea by Russia', color: 'red', type: 'war' },
-    { date: '2022-02-24', label: 'Russian Invasion of Ukraine', color: 'red', type: 'war' },
-  ];
+const significantEvents = [
+  { date: '2001-09-11', label: '9/11 Attack', color: 'red', type: 'attack' },
+  { date: '2008-03-16', label: 'Bear Stearns Bailout', color: 'green', yAdjust: 120, type: 'financial' },
+  { date: '2008-09-15', label: 'Lehman Brothers Bankruptcy', color: 'red', yAdjust: -60, xAdjust: -80, type: 'financial' },
+  { date: '2008-10-03', label: 'TARP Bailout', color: 'green', yAdjust: -20, type: 'financial' },
+  { date: '2009-03-30', label: 'Auto Bailout', color: 'green', yAdjust: 30, xAdjust: 20, type: 'financial' },
+  { date: '2011-08-05', label: 'US Credit Rating Downgrade', color: 'red', yAdjust: 80, type: 'financial' },
+  { date: '2015-12-16', label: 'Fed Rate Hike', color: 'blue', type: 'policy' },
+  { date: '2020-01-01', label: 'COVID-19 Pandemic', color: 'red', type: 'pandemic' },
+  { date: '2020-03-09', label: 'Stock Market Drop', color: 'red', yAdjust: 80, type: 'financial' },
+  { date: '2020-03-27', label: 'CARES Act Stimulus', color: 'blue', yAdjust: -40, type: 'policy' },
+  { date: '2021-03-11', label: 'American Rescue Plan', color: 'blue', yAdjust: 120, xAdjust: -60, type: 'policy' },
+  { date: '2023-05-03', label: 'First Republic Bank Failure', color: 'red', yAdjust: -140, type: 'financial' },
+  { date: '1991-01-17', label: 'Gulf War Begins', color: 'red', type: 'war' },
+  { date: '2001-10-07', label: 'War in Afghanistan Begins', color: 'red', type: 'war' },
+  { date: '2003-03-20', label: 'Iraq War Begins', color: 'red', type: 'war', yAdjust: -40 },
+  { date: '2014-02-20', label: 'Annexation of Crimea by Russia', color: 'red', type: 'war' },
+  { date: '2022-02-24', label: 'Russian Invasion of Ukraine', color: 'red', type: 'war' },
+  { date: '2003-02-21', label: 'SARS Outbreak', color: 'red', yAdjust: -60, type: 'pandemic' },
+  { date: '2009-04-01', label: 'H1N1 (Swine Flu) Outbreak', color: 'red', yAdjust: 60, type: 'pandemic' },
+  { date: '2005-01-01', label: 'Bird Flu Epidemic', color: 'red', yAdjust: -20, type: 'pandemic' }
+];
+
 
   const filteredEvents = type.length === 0 ? [] : significantEvents.filter(event => type.includes(event.type));
 
