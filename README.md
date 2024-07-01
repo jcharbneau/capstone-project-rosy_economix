@@ -248,12 +248,17 @@ These questions aim to uncover insights about economic trends, market behaviors,
     - **Apache Kafka:** Integrate Kafka for reliable and scalable data streaming, ensuring seamless data flow between various components of the system.
 
 ## Implementation Plan / Current Status
+***Legend:***
+- 🚧 - under development
+- ✅ - completed
+- 🚫 - canceled
+- ⬜ - planned
 
 1. **Phase 1: Initial Setup and Data Retrieval**
     - ✅ Download Fred and Yahoo Finance datasets for Aleem and Anjana to begin review
     - ✅ Set up Apache Airflow, Postgres and Jupyter Docker containers (including compose)
       - Used docker-compose.overrides.yml in conjunction with Astro
-    - 🚧 Begin developing DAGs for data retrieval from FRED and Yahoo Finance
+    - ✅ Begin developing DAGs for data retrieval from FRED and Yahoo Finance
       - Yahoo Datasets
         - Daily for the last 35 years to use as a back-fill dataset 
         - Hourly: Note Yahoo Finance allows only the last 7 days for hour by hour data
@@ -261,21 +266,21 @@ These questions aim to uncover insights about economic trends, market behaviors,
       - Identify strategy to back-fill as much data as possible, going back at least 35 years
 
 2. **Phase 2: Data Analysis and Visualization**
-    - 🚧 Implement preprocessing and alignment of data from different sources.
+    - ✅ Implement preprocessing and alignment of data from different sources.
       - Initial build out utilizing python for mass data pull for historical backfill
       - DBT for seeding and subsequent modeling of the data through to Mart level dataset.
-    - 🚧 Perform correlation analysis to identify significant relationships.
-    - 🚧 Create visualizations to represent the findings.
-      - Jupyter notebooks using matplotlib, plotly and ipywidgets
-      - React frontend and FastAPI backend included via docker-compose.overrides.yml (basic at this point)
-    - ⬜ Integrate and overlay government interventions on the visualizations.
-    - ⬜ Implement strategies to analyze credit card volume and delinquency data.
+    - ✅ Perform correlation analysis to identify significant relationships.
+    - ✅ Create visualizations to represent the findings.
+      - ~~Jupyter notebooks using matplotlib, plotly and ipywidgets~~
+      - ✅ React frontend and FastAPI backend included via docker-compose.overrides.yml (basic at this point)
+    - ✅ Integrate and overlay government interventions on the visualizations.
+    - 🚫 Implement strategies to analyze credit card volume and delinquency data.
 
 
 3. **Phase 3: Testing and Deployment**
-    - Conduct thorough testing of all components and ensure seamless integration.
-    - Deploy the system in a production environment.
-    - Monitor and maintain the system, ensuring it runs smoothly and efficiently.
+    - 🚧 Conduct thorough testing of all components and ensure seamless integration.
+    - 🚫 Deploy the system in a production environment.
+    - 🚫 Monitor and maintain the system, ensuring it runs smoothly and efficiently.
 
 ## Potential Use Cases
 
