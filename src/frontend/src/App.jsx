@@ -1,12 +1,14 @@
 import 'regenerator-runtime/runtime';
-import React, { useState } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import ReactGA from 'react-ga4';
 import { initGA, logPageView } from "./util/analytics.js";
 import Main from "./components/Main.jsx";
 import DesignDataModel from "./components/DesignDataModel.jsx";
 import About from "./components/About.jsx";
 import NavBar from "./components/NavBar.jsx";
+import LiveDataStream from "./components/LiveStreamExample.jsx";
+
 import './App.css';
 import './index.css';
 import rosyheaderimage from './assets/rosy_header_logo.png';
@@ -49,9 +51,22 @@ const buttonLabels = {
     user_engagement_metrics: 'User-Engaging Metrics'
 };
 
+// Custom hook to log page views on route change
+const usePageViews = () => {
+    const location = useLocation();
+    useEffect(() => {
+        logPageView();
+    }, [location]);
+};
+
 function App() {
     const [tooltip, setTooltip] = useState({ show: false, text: '', x: 0, y: 0 });
     const [activePanel, setActivePanel] = useState(null);
+
+    useEffect(() => {
+        initGA();
+        logPageView();
+    }, []);
 
     const handleMouseEnter = (text, event) => {
         const { clientX: x, clientY: y } = event;
@@ -68,6 +83,7 @@ function App() {
 
     return (
         <BrowserRouter>
+            <PageViewsLogger />
             <div>
                 {/* Top banner */}
                 <div className="flex justify-start" style={{zIndex:100}}>
@@ -81,9 +97,9 @@ function App() {
                 <div className="text-black mt-56 pl-4 bg-white min-h-screen w-full justify-between relative">
                     <Routes>
                         <Route path="/" element={<Main />} />
-                        {/*<Route path="/charts" element={<Charts />} />*/}
                         <Route path="/design" element={<DesignDataModel />} />
-                        {/*<Route path="/about" element={<About />} />*/}
+                        <Route path="/example" element={<LiveDataStream />} />
+
                     </Routes>
                     <div className={`sliding-panel ${activePanel ? 'active' : ''}`} style={{ zIndex: 40 }}>
                         {activePanel && (
@@ -98,7 +114,8 @@ function App() {
                         )}
                     </div>
                 </div>
-                <div className="footer flex justify-end fixed absolute z-40" style={{"width":"100%", backgroundColor: "rgb(40, 44, 52)" }}>
+                <div className="footer flex justify-end fixed absolute z-40 justify-end text-gray-400 text-sm max-h-[5px]" style={{"width":"100%", backgroundColor: "rgb(40, 44, 52)" }}>
+                    {/*Jesse L Charbneau*/}
                     {/*<div className="flex justify-center items-center w-full space-x-1.5 mt-1" style={{ paddingLeft: '5px', paddingRight: '5px' }}>*/}
                     {/*    {[*/}
                     {/*        { key: 'economic_indicators', text: 'Economic Indicators' },*/}
@@ -130,5 +147,10 @@ function App() {
         </BrowserRouter>
     );
 }
+
+const PageViewsLogger = () => {
+    usePageViews();
+    return null;
+};
 
 export default App;

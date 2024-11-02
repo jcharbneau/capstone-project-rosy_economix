@@ -7,10 +7,12 @@ import axios from 'axios';
 import AnnotationGenerator from './AnnotationGenerator';
 import AIPane from './AIPane';
 import AnnotationToggleButton from "./AnnotationToggleButton.jsx";
+import { logEvent } from '../util/analytics';
+import captureAndUpload from "../util/captureAndUpload.js";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, annotationPlugin);
 
-const UnemploymentConsumerSpendingChart = () => {
+const UnemploymentConsumerSpendingChart = ({currentSlideIndex}) => {
     const [data, setData] = useState({
         labels: [],
         datasets: [],
@@ -23,6 +25,7 @@ const UnemploymentConsumerSpendingChart = () => {
     const [feedback, setFeedback] = useState(null);
     const [paneOpen, setPaneOpen] = useState(false);
     const [showShadedAreas, setShowShadedAreas] = useState(false);
+    const aiprompt = 'Review this image. Identify any relationships between unemployment rates and consumer spending.';
 
     const fetchData = async () => {
         try {
@@ -91,38 +94,42 @@ const UnemploymentConsumerSpendingChart = () => {
         }));
     }, [showAnnotations, activeAnnotations, showShadedAreas, data]);
 
-    const captureAndUpload = async () => {
-        const chartElement = document.getElementById('unemploymentConsumerSpendingChart');
-        setIsLoading(true);
-        setPaneOpen(true);
-
-        html2canvas(chartElement, {
-            useCORS: true,
-            scale: 2
-        }).then(canvas => {
-            canvas.toBlob(async (blob) => {
-                const formData = new FormData();
-                formData.append('file', blob, 'chart.png');
-                formData.append('aiprompt', 'Review this image. Identify any relationships between unemployment rates and consumer spending.');
-                try {
-                    const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/upload-chart/`, formData);
-                    const feedbackData = response.data.feedback;
-                    const cleanedFeedback = feedbackData.replace(/<pre[^>]*>/g, '').replace(/<\/pre>/g, '').trim();
-
-                    setFeedback(cleanedFeedback);
-                } catch (error) {
-                    console.error('Error uploading chart:', error);
-                } finally {
-                    setIsLoading(false);
-                }
-            });
-        });
-    };
+    // const captureAndUpload = async () => {
+    //     const chartElement = document.getElementById('unemploymentConsumerSpendingChart');
+    //     setIsLoading(true);
+    //     setPaneOpen(true);
+    //
+    //     html2canvas(chartElement, {
+    //         useCORS: true,
+    //         scale: 2
+    //     }).then(canvas => {
+    //         canvas.toBlob(async (blob) => {
+    //             const formData = new FormData();
+    //             formData.append('file', blob, 'chart.png');
+    //             formData.append('aiprompt', 'Review this image. Identify any relationships between unemployment rates and consumer spending.');
+    //             try {
+    //                 const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/upload-chart/`, formData);
+    //                 const feedbackData = response.data.feedback;
+    //                 const cleanedFeedback = feedbackData.replace(/<pre[^>]*>/g, '').replace(/<\/pre>/g, '').trim();
+    //
+    //                 setFeedback(cleanedFeedback);
+    //             } catch (error) {
+    //                 console.error('Error uploading chart:', error);
+    //             } finally {
+    //                 setIsLoading(false);
+    //             }
+    //         });
+    //     });
+    // };
 
     const togglePane = () => {
         setPaneOpen(!paneOpen);
     };
-
+    const handleRefresh = async () => {
+     const uniqueId = `${Date.now()}`;
+     logEvent('Button', 'AIPane', `Refresh button clicked on slide ${currentSlideIndex} (unemploymentConsumerSpendingChart)`);
+     await captureAndUpload('unemploymentConsumerSpendingChart', `unemploymentConsumerSpendingChart-${uniqueId}.png`,`${aiprompt}`, `${import.meta.env.VITE_API_BASE_URL}/api/upload-chart/`, setIsLoading, setFeedback, setPaneOpen);
+    };
     const toggleAnnotationType = (type) => {
         setActiveAnnotations(prev =>
             prev.includes(type) ? prev.filter(t => t !== type) : [...prev, type]
@@ -187,6 +194,7 @@ const UnemploymentConsumerSpendingChart = () => {
                             label={button.label}
                             isActive={activeAnnotations.includes(button.key)}
                             onClick={() => toggleAnnotationType(button.key)}
+                            slideIndex={currentSlideIndex}
                         />
                     ))}
                     <AnnotationToggleButton
@@ -195,9 +203,21 @@ const UnemploymentConsumerSpendingChart = () => {
                         onClick={() => setShowShadedAreas(prevState => !prevState)}
                         disabled={true}
                     />
-                    <button onClick={paneOpen ? togglePane : captureAndUpload} className="feedback-button">
-                        {isLoading ? 'Loading...' : (paneOpen ? 'Close' : 'Insights')}
+                    <button
+                      onClick={() => {
+                        const label = isLoading ? 'Loading' : (paneOpen ? 'Close' : 'Insights');
+                        logEvent('Button', 'Click', `${label} button clicked on slide ${currentSlideIndex} (unemploymentConsumerSpendingChart)`);
+                        paneOpen ? togglePane() : captureAndUpload('unemploymentConsumerSpendingChart', 'chart.png', `${aiprompt}`, `${import.meta.env.VITE_API_BASE_URL}/api/upload-chart/`, setIsLoading, setFeedback, setPaneOpen);
+                      }}
+                      className="feedback-button"
+                    >
+                      {isLoading ? 'Loading...' : (paneOpen ? 'Close' : 'Insights')}
                     </button>
+
+
+                    {/*<button onClick={paneOpen ? togglePane : captureAndUpload} className="feedback-button">*/}
+                    {/*    {isLoading ? 'Loading...' : (paneOpen ? 'Close' : 'Insights')}*/}
+                    {/*</button>*/}
                 </div>
                 <div className="main-chart" id="unemploymentConsumerSpendingChart">
                     <Line data={data} options={options} style={{ maxHeight: '60vh' }} />
@@ -208,7 +228,7 @@ const UnemploymentConsumerSpendingChart = () => {
                 isLoading={isLoading}
                 feedback={feedback}
                 onClose={togglePane}
-                onRefresh={captureAndUpload}
+                onRefresh={handleRefresh}
             />
         </div>
     );

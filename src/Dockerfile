@@ -1,4 +1,4 @@
-FROM quay.io/astronomer/astro-runtime:11.4.0
+FROM quay.io/astronomer/astro-runtime:11.6.0
 
 USER root
 COPY ./dbt_project ./dbt_project

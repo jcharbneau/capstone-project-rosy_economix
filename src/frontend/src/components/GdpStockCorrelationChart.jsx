@@ -8,10 +8,13 @@ import axios from 'axios';
 import AnnotationGenerator from './AnnotationGenerator';
 import AIPane from './AIPane';
 import AnnotationToggleButton from "./AnnotationToggleButton.jsx";
+import { logEvent } from '../util/analytics';
+import captureAndUpload from "../util/captureAndUpload.js";
+
 
 Chart.register(...registerables, zoomPlugin);
 
-const GdpStockCorrelationChart = () => {
+const GdpStockCorrelationChart = ({currentSlideIndex}) => {
     const [chartData, setChartData] = useState({
         labels: [],
         datasets: []
@@ -23,6 +26,7 @@ const GdpStockCorrelationChart = () => {
     const [feedback, setFeedback] = useState(null);
     const [paneOpen, setPaneOpen] = useState(false);
     const [showShadedAreas, setShowShadedAreas] = useState(false);
+    const aiprompt = 'Review this image. Identify correlations between GDP growth rate and stock market return.';
 
     useEffect(() => {
         fetch(`${import.meta.env.VITE_API_BASE_URL}/api/gdp-stock-correlation`)
@@ -72,42 +76,45 @@ const GdpStockCorrelationChart = () => {
             .catch(error => console.error('Error fetching data:', error));
     }, []);
 
-    const captureAndUpload = async () => {
-        const chartElement = document.getElementById('gdpStockCorrelationChart');
-        setIsLoading(true);
-        setPaneOpen(true);  // Open the pane first
-
-        // Capture the chart
-        html2canvas(chartElement, {
-            useCORS: true, // Ensure CORS is enabled
-            scale: 2 // Increase resolution for better quality
-        }).then(canvas => {
-            canvas.toBlob(async (blob) => {
-                const formData = new FormData();
-                formData.append('file', blob, 'chart.png');
-                formData.append('aiprompt', 'Review this image. Identify correlations between GDP growth rate and stock market return.');
-                try {
-                    // Upload to FastAPI
-                    const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/upload-chart/`, formData);
-                    const feedbackData = response.data.feedback;
-
-                    // Clean up the feedback data
-                    const cleanedFeedback = feedbackData.replace(/<pre[^>]*>/g, '').replace(/<\/pre>/g, '').trim();
-
-                    setFeedback(cleanedFeedback);
-                } catch (error) {
-                    console.error('Error uploading chart:', error);
-                } finally {
-                    setIsLoading(false);
-                }
-            });
-        });
-    };
-
     const togglePane = () => {
         setPaneOpen(!paneOpen);
     };
-
+    const handleRefresh = async () => {
+     const uniqueId = `${Date.now()}`;
+     logEvent('Button', 'AIPane', `Refresh button clicked on slide ${currentSlideIndex} (gdpStockCorrelationChart)`);
+     await captureAndUpload('gdpStockCorrelationChart', `gdpStockCorrelationChart-${uniqueId}.png`,`${aiprompt}`, `${import.meta.env.VITE_API_BASE_URL}/api/upload-chart/`, setIsLoading, setFeedback, setPaneOpen);
+    };
+    // const captureAndUpload = async () => {
+    //     const chartElement = document.getElementById('gdpStockCorrelationChart');
+    //     setIsLoading(true);
+    //     setPaneOpen(true);  // Open the pane first
+    //
+    //     // Capture the chart
+    //     html2canvas(chartElement, {
+    //         useCORS: true, // Ensure CORS is enabled
+    //         scale: 2 // Increase resolution for better quality
+    //     }).then(canvas => {
+    //         canvas.toBlob(async (blob) => {
+    //             const formData = new FormData();
+    //             formData.append('file', blob, 'chart.png');
+    //             formData.append('aiprompt', 'Review this image. Identify correlations between GDP growth rate and stock market return.');
+    //             try {
+    //                 // Upload to FastAPI
+    //                 const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/upload-chart/`, formData);
+    //                 const feedbackData = response.data.feedback;
+    //
+    //                 // Clean up the feedback data
+    //                 const cleanedFeedback = feedbackData.replace(/<pre[^>]*>/g, '').replace(/<\/pre>/g, '').trim();
+    //
+    //                 setFeedback(cleanedFeedback);
+    //             } catch (error) {
+    //                 console.error('Error uploading chart:', error);
+    //             } finally {
+    //                 setIsLoading(false);
+    //             }
+    //         });
+    //     });
+    // };
     const toggleAnnotationType = (type) => {
         setActiveAnnotations(prev =>
             prev.includes(type) ? prev.filter(t => t !== type) : [...prev, type]
@@ -196,6 +203,7 @@ const GdpStockCorrelationChart = () => {
                             label={button.label}
                             isActive={activeAnnotations.includes(button.key)}
                             onClick={() => toggleAnnotationType(button.key)}
+                            slideIndex={currentSlideIndex}
                         />
                     ))}
                     <AnnotationToggleButton
@@ -203,10 +211,21 @@ const GdpStockCorrelationChart = () => {
                         isActive={showShadedAreas}
                         onClick={() => setShowShadedAreas(prevState => !prevState)}
                         disabled={false}
+                        slideIndex={currentSlideIndex}
                     />
-                    <button onClick={paneOpen ? togglePane : captureAndUpload} className="feedback-button">
-                        {isLoading ? 'Loading...' : (paneOpen ? 'Close' : 'Insights')}
+                    <button
+                      onClick={() => {
+                        const label = isLoading ? 'Loading' : (paneOpen ? 'Close' : 'Insights');
+                        logEvent('Button', 'Click', `${label} button clicked on slide ${currentSlideIndex} (gdpStockCorrelationChart)`);
+                        paneOpen ? togglePane() : captureAndUpload('gdpStockCorrelationChart', 'chart.png', `${aiprompt}`, `${import.meta.env.VITE_API_BASE_URL}/api/upload-chart/`, setIsLoading, setFeedback, setPaneOpen);
+                      }}
+                      className="feedback-button"
+                    >
+                      {isLoading ? 'Loading...' : (paneOpen ? 'Close' : 'Insights')}
                     </button>
+                    {/*<button onClick={paneOpen ? togglePane : captureAndUpload} className="feedback-button">*/}
+                    {/*    {isLoading ? 'Loading...' : (paneOpen ? 'Close' : 'Insights')}*/}
+                    {/*</button>*/}
                 </div>
                 <div className="main-chart" id="gdpStockCorrelationChart" style={{ position: 'relative' }}>
                     {chartData.labels.length > 0 ? (
@@ -221,7 +240,7 @@ const GdpStockCorrelationChart = () => {
                 isLoading={isLoading}
                 feedback={feedback}
                 onClose={togglePane}
-                onRefresh={captureAndUpload}  // Add the refresh hook here
+                onRefresh={handleRefresh}  // Add the refresh hook here
             />
         </div>
     );

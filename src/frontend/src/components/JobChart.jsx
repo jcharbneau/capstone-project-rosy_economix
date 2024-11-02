@@ -8,9 +8,11 @@ import AnnotationGenerator from './AnnotationGenerator';
 import AnnotationToggleButton from './AnnotationToggleButton';
 import captureAndUpload from '../util/captureAndUpload';
 import AIPane from './AIPane';
+import { logEvent } from '../util/analytics';
+
 Chart.register(...registerables, zoomPlugin);
 
-const JobsChart = () => {
+const JobsChart = ({ currentSlideIndex }) => {
   const [chartData, setChartData] = useState(null);
   const [showAnnotations, setShowAnnotations] = useState(true);
   const [activeAnnotations, setActiveAnnotations] = useState([]);
@@ -143,9 +145,15 @@ const JobsChart = () => {
   }, []);
 
   const togglePane = () => {
+
+    logEvent('Button', 'AIPane', `AIPane closed`);
     setPaneOpen(!paneOpen);
   };
-
+  const handleRefresh = async () => {
+     const uniqueId = `${Date.now()}`;
+     logEvent('Button', 'AIPane', `Refresh button clicked on slide ${currentSlideIndex} (jobsChart)`);
+     await captureAndUpload('jobsChart', `JobsChart-${uniqueId}.png`,`${aiprompt}`, `${import.meta.env.VITE_API_BASE_URL}/api/upload-chart/`, setIsLoading, setFeedback, setPaneOpen);
+  };
   const toggleAnnotationType = (type) => {
     setActiveAnnotations(prev =>
       prev.includes(type) ? prev.filter(t => t !== type) : [...prev, type]
@@ -297,7 +305,7 @@ const JobsChart = () => {
   ];
 
   return (
-    <div className="chart-and-annotations">
+    <div className="chart-and-annotations ">
       <div className="chart-container">
         <div className="button-container">
           {buttons.map((button) => (
@@ -306,16 +314,26 @@ const JobsChart = () => {
               label={button.label}
               isActive={activeAnnotations.includes(button.key)}
               onClick={() => toggleAnnotationType(button.key)}
+              slideIndex={currentSlideIndex}
             />
           ))}
           <AnnotationToggleButton
             label="Key Moments"
             isActive={showShadedAreas}
             onClick={() => setShowShadedAreas(prevState => !prevState)}
+            slideIndex={currentSlideIndex}
           />
-          <button onClick={paneOpen ? togglePane : () => captureAndUpload('jobsChart', 'chart.png', `${aiprompt}`, `${import.meta.env.VITE_API_BASE_URL}/api/upload-chart/`, setIsLoading, setFeedback, setPaneOpen)} className="feedback-button">
-            {isLoading ? 'Loading...' : (paneOpen ? 'Close' : 'Insights')}
-          </button>
+           <button
+              onClick={() => {
+                const label = isLoading ? 'Loading' : (paneOpen ? 'Close' : 'Insights');
+                logEvent('Button', 'Click', `${label} button clicked on slide ${currentSlideIndex} (jobsChart)`);
+                logEvent('Button', 'AIPane', `AIPane open`);
+                paneOpen ? togglePane() : captureAndUpload('jobsChart', 'chart.png', `${aiprompt}`, `${import.meta.env.VITE_API_BASE_URL}/api/upload-chart/`, setIsLoading, setFeedback, setPaneOpen);
+              }}
+              className="feedback-button"
+            >
+              {isLoading ? 'Loading...' : (paneOpen ? 'Close' : 'Insights')}
+            </button>
         </div>
         <div className="main-chart" id="jobsChart" style={{ position: 'relative' }}>
           {chartData ? (
@@ -330,10 +348,7 @@ const JobsChart = () => {
         isLoading={isLoading}
         feedback={feedback}
         onClose={togglePane}
-        onRefresh={() => {
-          const uniqueId = `${Date.now()}`;
-          captureAndUpload('jobsChart', `JobsChart-${uniqueId}.png`,`${aiprompt}`, `${import.meta.env.VITE_API_BASE_URL}/api/upload-chart/`, setIsLoading, setFeedback, setPaneOpen);
-        }}
+        onRefresh={handleRefresh}
       />
 
     </div>

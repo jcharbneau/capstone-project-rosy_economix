@@ -16,7 +16,8 @@ from routers import (
     jobs_data,
     stock_data,
     upload_chart,
-    economic_indicators
+    economic_indicators,
+    newsapi
 )
 
 load_environment()
@@ -38,10 +39,10 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=['*'],
+    allow_origins=["*"],  # Use ["http://localhost:3000"] for specific frontend
     allow_credentials=True,
     allow_methods=["*"],
-    allow_headers=["*"]
+    allow_headers=["*"],
 )
 
 app.include_router(combined_chart.router, prefix="/api")
@@ -56,6 +57,8 @@ app.include_router(jobs_data.router, prefix="/api")
 app.include_router(stock_data.router, prefix="/api")
 app.include_router(upload_chart.router, prefix="/api")
 app.include_router(economic_indicators.router, prefix="/api")
+
+app.include_router(newsapi.router, prefix="/api")
 
 if __name__ == "__main__":
     import uvicorn

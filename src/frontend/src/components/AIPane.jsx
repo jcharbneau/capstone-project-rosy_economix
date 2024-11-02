@@ -73,7 +73,7 @@ const AIPane = ({ isOpen, isLoading, feedback, onClose, onRefresh, onQuery }) =>
                     <ReactMarkdown>{feedback}</ReactMarkdown>
                 )}
             </div>
-            <div className="ai-footer"></div>
+            {/*<div className="ai-footer"></div>*/}
         </div>
     );
 };

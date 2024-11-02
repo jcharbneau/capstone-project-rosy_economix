@@ -33,7 +33,7 @@ function FinancialDashboard() {
   };
 
   return (
-    <div className="dashboard overflow-hidden" style={{ maxHeight: "640px" }}>
+    <div className="dashboard overflow-hidden" style={{ maxHeight: "80vh", maxWidth: '100vw' }}>
       <StockTickerScroller
         className="overflow-hidden"
         backgroundColor="#282c34"
@@ -41,14 +41,13 @@ function FinancialDashboard() {
         scrollSpeed={40}
         onTickerClick={handleTickerClick}
       />
-      <div className="charts border-2" style={{ maxHeight: "550px" }}>
+      <div className="charts border-2 md:hidden">
         <div className="stock-chart">
           <StockChart
             data={chartData || { labels: [], datasets: [] }}
             ticker={selectedTicker}
             companyName={companyName}
             className="border-2"
-            style={{ maxHeight: "500px" }}
           />
         </div>
         <div className="financials">

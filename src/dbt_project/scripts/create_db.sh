@@ -6,7 +6,7 @@ DB_NAME="pipelines"
 DB_USER="postgres"
 DB_PASSWORD="postgres"
 DB_HOST="localhost"
-DB_PORT="5631"
+DB_PORT="5432"
 
 # Check if database exists
 RESULT=$(psql -U $DB_USER -h $DB_HOST -p $DB_PORT -tAc "SELECT 1 FROM pg_database WHERE datname='$DB_NAME'")

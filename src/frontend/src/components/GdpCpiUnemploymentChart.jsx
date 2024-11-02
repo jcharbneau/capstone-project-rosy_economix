@@ -8,6 +8,7 @@ import AnnotationGenerator from './AnnotationGenerator';
 import AIPane from './AIPane';
 import AnnotationToggleButton from './AnnotationToggleButton';
 import captureAndUpload from '../util/captureAndUpload';
+import { logEvent } from '../util/analytics';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, annotationPlugin);
 
@@ -28,7 +29,7 @@ const calculateSMA = (data, windowSize) => {
     return sma;
 };
 
-const GdpCpiUnemploymentChart = () => {
+const GdpCpiUnemploymentChart = ({currentSlideIndex}) => {
     const [data, setData] = useState({
         labels: [],
         datasets: [],
@@ -45,6 +46,7 @@ const GdpCpiUnemploymentChart = () => {
     const [feedback, setFeedback] = useState(null);
     const [paneOpen, setPaneOpen] = useState(false);
     const [showShadedAreas, setShowShadedAreas] = useState(false);
+    const aiprompt = 'Review this image. Identify any significant trends in GDP, CPI, and unemployment rate over time.';
 
     const fetchData = async () => {
         try {
@@ -210,7 +212,11 @@ const GdpCpiUnemploymentChart = () => {
     const togglePane = () => {
         setPaneOpen(!paneOpen);
     };
-
+    const handleRefresh = async () => {
+     const uniqueId = `${Date.now()}`;
+     logEvent('Button', 'AIPane', `Refresh button clicked on slide ${currentSlideIndex} (gdpCpiUnemploymentChart)`);
+     await captureAndUpload('gdpCpiUnemploymentChart', `gdpCpiUnemploymentChart-${uniqueId}.png`,`${aiprompt}`, `${import.meta.env.VITE_API_BASE_URL}/api/upload-chart/`, setIsLoading, setFeedback, setPaneOpen);
+    };
     const toggleAnnotationType = (type) => {
         setActiveAnnotations(prev =>
             prev.includes(type) ? prev.filter(t => t !== type) : [...prev, type]
@@ -323,6 +329,7 @@ const GdpCpiUnemploymentChart = () => {
                             label={button.label}
                             isActive={activeAnnotations.includes(button.key)}
                             onClick={() => toggleAnnotationType(button.key)}
+                            slideIndex={currentSlideIndex}
                         />
                     ))}
                     <AnnotationToggleButton
@@ -331,9 +338,20 @@ const GdpCpiUnemploymentChart = () => {
                         onClick={() => setShowShadedAreas(prevState => !prevState)}
                         disabled={true}
                     />
-                    <button onClick={paneOpen ? togglePane : () => captureAndUpload('gdpCpiUnemploymentChart', 'chart.png', 'Review this image. Identify any significant trends in GDP, CPI, and unemployment rate over time.', `${import.meta.env.VITE_API_BASE_URL}/api/upload-chart/`, setIsLoading, setFeedback, setPaneOpen)} className="feedback-button">
-                        {isLoading ? 'Loading...' : (paneOpen ? 'Close' : 'Insights')}
+                    <button
+                      onClick={() => {
+                        const label = isLoading ? 'Loading' : (paneOpen ? 'Close' : 'Insights');
+                        logEvent('Button', 'Click', `${label} button clicked on slide ${currentSlideIndex} (gdpCpiUnemploymentChart)`);
+                        paneOpen ? togglePane() : captureAndUpload('gdpCpiUnemploymentChart', 'chart.png', `${aiprompt}`, `${import.meta.env.VITE_API_BASE_URL}/api/upload-chart/`, setIsLoading, setFeedback, setPaneOpen);
+                      }}
+                      className="feedback-button"
+                    >
+                      {isLoading ? 'Loading...' : (paneOpen ? 'Close' : 'Insights')}
                     </button>
+
+                    {/*<button onClick={paneOpen ? togglePane : () => captureAndUpload('gdpCpiUnemploymentChart', 'chart.png', 'Review this image. Identify any significant trends in GDP, CPI, and unemployment rate over time.', `${import.meta.env.VITE_API_BASE_URL}/api/upload-chart/`, setIsLoading, setFeedback, setPaneOpen)} className="feedback-button">*/}
+                    {/*    {isLoading ? 'Loading...' : (paneOpen ? 'Close' : 'Insights')}*/}
+                    {/*</button>*/}
                 </div>
                 <div className="main-chart" id="gdpCpiUnemploymentChart">
                     <Line data={data} options={options} style={{ maxHeight: '52vh' }} />
@@ -347,7 +365,7 @@ const GdpCpiUnemploymentChart = () => {
                 isLoading={isLoading}
                 feedback={feedback}
                 onClose={togglePane}
-                onRefresh={() => captureAndUpload('gdpCpiUnemploymentChart', 'chart.png', 'Review this image. Identify any significant trends in GDP, CPI, and unemployment rate over time.', `${import.meta.env.VITE_API_BASE_URL}/api/upload-chart/`, setIsLoading, setFeedback, setPaneOpen)}
+                onRefresh={handleRefresh}
             />
         </div>
     );
